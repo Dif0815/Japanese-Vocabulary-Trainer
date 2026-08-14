@@ -1,16 +1,16 @@
-japanese,reading,english,type,verb_group,adjective_group,source,additional_info,verb_stem,verb_masu,verb_te_form,verb_short_negative,verb_short_past,adjective_negative,adjective_past,adjective_te_form
-食べる,たべる,to eat,verb,ru,,Starter,,食べ,食べます,食べて,食べない,食べた,,,
-飲む,のむ,to drink,verb,u,,Starter,,飲み,飲みます,飲んで,飲まない,飲んだ,,,
-見る,みる,to see / watch,verb,ru,,Starter,,見,見ます,見て,見ない,見た,,,
-聞く,きく,to hear / listen / ask,verb,u,,Starter,,聞き,聞きます,聞いて,聞かない,聞いた,,,
-行く,いく,to go,verb,u,,Starter,,行き,行きます,行って,行かない,行った,,,
-来る,くる,to come,verb,irr,,Starter,,来,来ます,来て,来ない,来た,,,
-帰る,かえる,to return / go home,verb,u,,Starter,,帰り,帰ります,帰って,帰らない,帰った,,,
-買う,かう,to buy,verb,u,,Starter,,買い,買います,買って,買わない,買った,,,
-読む,よむ,to read,verb,u,,Starter,,読み,読みます,読んで,読まない,読んだ,,,
-書く,かく,to write,verb,u,,Starter,,書き,書きます,書いて,書かない,書いた,,,
-話す,はなす,to speak,verb,u,,Starter,,話し,話します,話して,話さない,話した,,,
-会う,あう,to meet,verb,u,,Starter,,会い,会います,会って,会わない,会った,,,
+﻿japanese,reading,english,type,verb_group,adjective_group,source,additional_info,verb_stem,verb_masu,verb_te_form,verb_short_negative,verb_short_past,adjective_negative,adjective_past,adjective_te_form
+食べる,たべる,to eat,verb,ru,,Starter,,たべ,たべます,たべて,たべない,たべた,,,
+飲む,のむ,to drink,verb,u,,Starter,,のみ,のみます,のんで,のまない,のんだ,,,
+見る,みる,to see / watch,verb,ru,,Starter,,み,みます,みて,みない,みた,,,
+聞く,きく,to hear / listen / ask,verb,u,,Starter,,きき,ききます,きいて,きかない,きいた,,,
+行く,いく,to go,verb,u,,Starter,,いき,いきます,いって,いかない,いった,,,
+来る,くる,to come,verb,irr,,Starter,,き,きます,きて,こない,きた,,,
+帰る,かえる,to return / go home,verb,u,,Starter,,かえり,かえります,かえって,かえらない,かえった,,,
+買う,かう,to buy,verb,u,,Starter,,かい,かいます,かって,かわない,かった,,,
+読む,よむ,to read,verb,u,,Starter,,よみ,よみます,よんで,よまない,よんだ,,,
+書く,かく,to write,verb,u,,Starter,,かき,かきます,かいて,かかない,かいた,,,
+話す,はなす,to speak,verb,u,,Starter,,はなし,はなします,はなして,はなさない,はなした,,,
+会う,あう,to meet,verb,u,,Starter,,あい,あいます,あって,あわない,あった,,,
 友達,ともだち,friend,noun,,,Starter,,,,,,,,,
 先生,せんせい,teacher,noun,,,Starter,,,,,,,,,
 学生,がくせい,student,noun,,,Starter,,,,,,,,,
@@ -23,14 +23,14 @@ japanese,reading,english,type,verb_group,adjective_group,source,additional_info,
 今日,きょう,today,noun,,,Starter,,,,,,,,,
 明日,あした,tomorrow,noun,,,Starter,,,,,,,,,
 昨日,きのう,yesterday,noun,,,Starter,,,,,,,,,
-大きい,おおきい,big,adjective,,i,Starter,,,,,,,大きくない,大きかった,大きくて
-小さい,ちいさい,small,adjective,,i,Starter,,,,,,,小さくない,小さかった,小さくて
-新しい,あたらしい,new,adjective,,i,Starter,,,,,,,新しくない,新しかった,新しくて
-古い,ふるい,old,adjective,,i,Starter,,,,,,,古くない,古かった,古くて
-高い,たかい,high / expensive,adjective,,i,Starter,,,,,,,高くない,高かった,高くて
-安い,やすい,cheap,adjective,,i,Starter,,,,,,,安くない,安かった,安くて
+大きい,おおきい,big,adjective,,i,Starter,,,,,,,おおきくない,おおきかった,おおきくて
+小さい,ちいさい,small,adjective,,i,Starter,,,,,,,ちいさくない,ちいさかった,ちいさくて
+新しい,あたらしい,new,adjective,,i,Starter,,,,,,,あたらしくない,あたらしかった,あたらしくて
+古い,ふるい,old,adjective,,i,Starter,,,,,,,ふるくない,ふるかった,ふるくて
+高い,たかい,high / expensive,adjective,,i,Starter,,,,,,,たかくない,たかかった,たかくて
+安い,やすい,cheap,adjective,,i,Starter,,,,,,,やすくない,やすかった,やすくて
 おいしい,おいしい,delicious,adjective,,i,Starter; Adjectives list,,,,,,,おいしくない,おいしかった,おいしくて
-楽しい,たのしい,fun / enjoyable,adjective,,i,Starter,,,,,,,楽しくない,楽しかった,楽しくて
+楽しい,たのしい,fun / enjoyable,adjective,,i,Starter,,,,,,,たのしくない,たのしかった,たのしくて
 水,みず,water,noun,,,Starter,,,,,,,,,
 ご飯,ごはん,meal / rice,noun,,,Starter,,,,,,,,,
 お金,おかね,money,noun,,,Starter,,,,,,,,,
@@ -174,14 +174,14 @@ japanese,reading,english,type,verb_group,adjective_group,source,additional_info,
 あぶない,あぶない,dangerous / risky,adjective,,i,Adjectives list,,,,,,,あぶなくない,あぶなかった,あぶなくて
 うるさい,うるさい,noisy / annoying,adjective,,i,Adjectives list,,,,,,,うるさくない,うるさかった,うるさくて
 すごい,すごい,amazing / great,adjective,,i,Adjectives list,,,,,,,すごくない,すごかった,すごくて
-かっこいい,かっこいい,cool (looking good),adjective,,i,Adjectives list,,,,,,,かっこいくない,かっこいかった,かっこいくて
+かっこいい,かっこいい,cool (looking good),adjective,,i,Adjectives list,,,,,,,かっこよくない,かっこよかった,かっこよくて
 いそがしい,いそがしい,busy,adjective,,i,Adjectives list,,,,,,,いそがしくない,いそがしかった,いそがしくて
 ねむい,ねむい,sleepy,adjective,,i,Adjectives list,,,,,,,ねむくない,ねむかった,ねむくて
 きたない,きたない,dirty,adjective,,i,Adjectives list,,,,,,,きたなくない,きたなかった,きたなくて
 こうきしんがつよい,こうきしんがつよい,curious,phrase,,,Adjectives list,,,,,,,,,
 あたまがいい,あたまがいい,smart,phrase,,,Adjectives list,,,,,,,,,
 きれい,きれい,beautiful / clean,adjective,,na,Adjectives list,,,,,,,きれいじゃない,きれいだった,きれいで
-ゆうめい,ゆうめい,famous,adjective,,i,Adjectives list,,,,,,,ゆうめくない,ゆうめかった,ゆうめくて
+ゆうめい,ゆうめい,famous,adjective,,na,Adjectives list,,,,,,,ゆうめいじゃない,ゆうめいだった,ゆうめいで
 べんり,べんり,convenient,adjective,,na,Adjectives list,,,,,,,べんりじゃない,べんりだった,べんりで
 きけん,きけん,dangerous,adjective,,na,Adjectives list,,,,,,,きけんじゃない,きけんだった,きけんで
 あんぜん,あんぜん,safe,adjective,,na,Adjectives list,,,,,,,あんぜんじゃない,あんぜんだった,あんぜんで
@@ -191,8 +191,8 @@ japanese,reading,english,type,verb_group,adjective_group,source,additional_info,
 げんき,げんき,healthy / energetic,adjective,,na,Adjectives list,,,,,,,げんきじゃない,げんきだった,げんきで
 しんせつ,しんせつ,kind,adjective,,na,Adjectives list,,,,,,,しんせつじゃない,しんせつだった,しんせつで
 すき,すき,like (だい = love),adjective,,na,Adjectives list,,,,,,,すきじゃない,すきだった,すきで
-きらい,きらい,dislike (だい = hate),adjective,,i,Adjectives list,,,,,,,きらくない,きらかった,きらくて
-とくい,とくい,good at,adjective,,i,Adjectives list,,,,,,,とくくない,とくかった,とくくて
+きらい,きらい,dislike (だい = hate),adjective,,na,Adjectives list,,,,,,,きらいじゃない,きらいだった,きらいで
+とくい,とくい,good at,adjective,,na,Adjectives list,,,,,,,とくいじゃない,とくいだった,とくいで
 にがて,にがて,bad at,adjective,,na,Adjectives list,,,,,,,にがてじゃない,にがてだった,にがてで
 にんき,にんき,popular,adjective,,na,Adjectives list,,,,,,,にんきじゃない,にんきだった,にんきで
 はれ,はれ,sunny,adjective,,na,Adjectives list,,,,,,,はれじゃない,はれだった,はれで
