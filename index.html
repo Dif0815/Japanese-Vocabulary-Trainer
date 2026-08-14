@@ -20,7 +20,7 @@ nav{display:flex;gap:8px;overflow:auto;padding:8px 0 14px}nav button,.smallbtn{b
 .prompt{font-size:36px;line-height:1.35;min-height:125px;display:flex;align-items:center;justify-content:center;text-align:center}
 ruby{ruby-position:over}rt{font-size:.42em;font-weight:500}
 .answer{width:100%;font-size:20px;padding:15px;border:1px solid #d1d1d6;border-radius:14px;text-align:center;outline:none}
-.answer:focus{border-color:#555}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.answer:focus{border-color:#555}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.actions .hidden{display:none}
 .actions button{border:0;border-radius:14px;padding:15px;font-size:16px;font-weight:700}.primary{background:#222;color:#fff}.secondary{background:#e5e5ea;color:#222}
 .feedback{min-height:28px;margin-top:15px;text-align:center;font-weight:700}.correct{color:#167c3b}.wrong{color:#b42318}
 .reveal{text-align:center;margin-top:6px;color:#555;font-size:16px;line-height:1.8}.stats{margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#f1f1f4;border-radius:14px;padding:10px;text-align:center}.stat b{display:block;font-size:18px}.stat span{font-size:11px;color:#666}
@@ -46,18 +46,16 @@ input,select,textarea{width:100%;padding:12px;border:1px solid #d1d1d6;border-ra
 <div id="direction" class="direction">Loading…</div>
 <div id="prompt" class="prompt">Loading…</div>
 <input id="answer" class="answer" autocomplete="off" autocapitalize="none" spellcheck="false">
-<div class="actions">
+<div class="actions" id="actionRow">
+<button id="skip" class="secondary">Skip</button>
 <button id="check" class="primary">Check</button>
-<button id="next" class="secondary hidden">Next →</button>
-</div>
-<div class="actions" style="margin-top:8px">
-<button id="skip" class="secondary">Skip</button><span></span>
+<button id="next" class="primary hidden">Next →</button>
 </div>
 <div id="feedback" class="feedback"></div>
 <div id="reveal" class="reveal"></div>
 <div class="stats"><div class="stat"><b id="asked">0</b><span>asked</span></div><div class="stat"><b id="correct">0</b><span>correct</span></div><div class="stat"><b id="accuracy">0%</b><span>accuracy</span></div></div>
 </div>
-<p class="note">Correct answers advance automatically. Wrong answers stay visible until you tap Next. Skip does not count as wrong.</p>
+<p class="note">Correct answers advance automatically. Wrong answers stay visible until you tap Next. Skip does not count as wrong. iOS does not allow webpages to force-switch the active keyboard language.</p>
 </section>
 
 <section id="add" class="tab hidden"><div class="panel">
@@ -98,27 +96,38 @@ function weight(w,d){let a=d==="ja"?w.ja_asked:w.en_asked,c=d==="ja"?w.ja_correc
 function pool(){let p=words.filter(w=>($("quizMode").value==="verbtype"?w.type==="verb":true));let f=$("levelFilter").value;if(f!=="all")p=p.filter(w=>w.level===f);return p.length?p:words;}
 function weightedPick(p,d){let total=p.reduce((s,w)=>s+weight(w,d),0),r=Math.random()*total;for(const w of p){r-=weight(w,d);if(r<=0)return w}return p[p.length-1];}
 function focusAnswer(){setTimeout(()=>{$("answer").focus()},50);}
+function setKeyboard(lang){
+  // iOS Safari does not expose an API that can force the user's active
+  // hardware/software keyboard language. We can provide the strongest
+  // browser hints available: language, autocomplete and input mode.
+  const a=$("answer");
+  a.lang=lang==="ja"?"ja":"en";
+  a.setAttribute("lang",a.lang);
+  a.setAttribute("autocorrect",lang==="ja"?"off":"off");
+  a.setAttribute("spellcheck","false");
+  a.setAttribute("inputmode","text");
+}
 function pick(){
   clearTimeout(transitionTimer);answered=false;
   const mode=$("quizMode").value,p=pool();
   current=weightedPick(p,mode==="verbtype"?"ja":(Math.random()<.5?"ja":"en"));
   if(mode==="verbtype"){
-    direction="verbtype";$("direction").textContent="Verb group";$("prompt").innerHTML=ruby(current.ja,current.reading);$("answer").placeholder="ru, u, or irr";$("answer").setAttribute("inputmode","latin");
+    direction="verbtype";$("direction").textContent="Verb group";$("prompt").innerHTML=ruby(current.ja,current.reading);$("answer").placeholder="ru, u, or irr";setKeyboard("en");
   }else{
     direction=Math.random()<.5?"ja":"en";$("direction").textContent=direction==="ja"?"Japanese → English":"English → Japanese";
     $("prompt").innerHTML=direction==="ja"?ruby(current.ja,current.reading):esc(current.en);
-    $("answer").placeholder=direction==="ja"?"English":"Japanese (kana is fine)";$("answer").setAttribute("inputmode",direction==="ja"?"latin":"kana");
+    $("answer").placeholder=direction==="ja"?"English":"Japanese (kana is fine)";setKeyboard(direction==="ja"?"en":"ja");
   }
   $("answer").value="";$("feedback").textContent="";$("feedback").className="feedback";$("reveal").textContent="";
-  $("check").classList.remove("hidden");$("next").classList.add("hidden");updateStats();focusAnswer();
+  $("check").classList.remove("hidden");$("next").classList.add("hidden");$("skip").classList.remove("hidden");updateStats();focusAnswer();
 }
 function verbLabel(g){return g==="ru"?"ru-verb":g==="u"?"u-verb":"irregular";}
 function finish(ok){
   answered=true;
   $("feedback").textContent=ok?"✓ Correct":"✗ Not quite";$("feedback").className="feedback "+(ok?"correct":"wrong");
   $("check").classList.add("hidden");
-  if(ok){$("next").classList.add("hidden");transitionTimer=setTimeout(pick,1200)}
-  else $("next").classList.remove("hidden");
+  if(ok){$("next").classList.add("hidden");$("skip").classList.add("hidden");transitionTimer=setTimeout(pick,1200)}
+  else {$("next").classList.remove("hidden");$("skip").classList.remove("hidden");}
 }
 function check(){
   if(answered)return;const val=norm($("answer").value);if(!val)return;
