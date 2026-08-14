@@ -1,8 +1,11 @@
-Japanese Vocabulary Trainer v2
+Japanese Vocabulary Trainer v3 — GitHub Pages ready
 
-GitHub Pages-ready PWA.
-Upload all files to the root of a GitHub repository and enable Pages from main/root.
-Then open the published URL in Safari and use Share -> Add to Home Screen.
+New in v3:
+- Correct vocabulary answers advance automatically.
+- Wrong answers remain visible and require Next.
+- Verb group (ru/u/irr) is shown after a correct Japanese -> English verb answer.
+- Separate Verb type practice mode.
+- Verb group is stored in vocabulary.txt.
+- Old 11-column vocabulary.txt files can still be imported.
 
-The app stores current vocabulary/statistics in browser local storage.
-Use Data -> Export .txt to save the current vocabulary/statistics.
+Upload all files to the repository root and use GitHub Pages from main/root.

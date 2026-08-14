@@ -1,7 +1,14 @@
-# Japanese Vocabulary Trainer v2
-# japanese|reading|english|level|type|ja_asked|ja_correct|ja_wrong|en_asked|en_correct|en_wrong
-食べる|たべる|to eat|N5|verb|0|0|0|0|0|0
-飲む|のむ|to drink|N5|verb|0|0|0|0|0|0
-見る|みる|to see; watch|N5|verb|0|0|0|0|0|0
-友達|ともだち|friend|N5|word|0|0|0|0|0|0
-電車|でんしゃ|train|N5|word|0|0|0|0|0|0
+# Format:
+# japanese|reading|english|level|type|verb_group|ja_asked|ja_correct|ja_wrong|en_asked|en_correct|en_wrong
+食べる|たべる|to eat|N5|verb|ru|0|0|0|0|0|0
+飲む|のむ|to drink|N5|verb|u|0|0|0|0|0|0
+見る|みる|to see; watch|N5|verb|ru|0|0|0|0|0|0
+聞く|きく|to hear; listen; ask|N5|verb|u|0|0|0|0|0|0
+行く|いく|to go|N5|verb|u|0|0|0|0|0|0
+来る|くる|to come|N5|verb|irr|0|0|0|0|0|0
+帰る|かえる|to return; go home|N5|verb|u|0|0|0|0|0|0
+買う|かう|to buy|N5|verb|u|0|0|0|0|0|0
+読む|よむ|to read|N5|verb|u|0|0|0|0|0|0
+書く|かく|to write|N5|verb|u|0|0|0|0|0|0
+話す|はなす|to speak|N5|verb|u|0|0|0|0|0|0
+会う|あう|to meet|N5|verb|u|0|0|0|0|0|0

@@ -51,12 +51,23 @@ input,select,textarea{width:100%;padding:12px;border:1px solid #d1d1d6;border-ra
 
 <section id="quiz" class="tab">
 <div class="card">
+<div class="row" style="margin-bottom:14px">
+<select id="quizMode" aria-label="Quiz mode">
+<option value="vocab">Vocabulary</option>
+<option value="verbtype">Verb type (ru / u / irr)</option>
+</select>
+<select id="levelFilter" aria-label="Vocabulary filter">
+<option value="all">All words</option>
+<option value="N5">N5 only</option>
+<option value="Custom">Custom only</option>
+</select>
+</div>
 <div id="direction" class="direction"></div>
 <div id="prompt" class="prompt" aria-live="polite">Loading…</div>
 <input id="answer" class="answer" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Your answer">
 <div class="actions">
 <button id="check" class="primary">Check</button>
-<button id="skip" class="secondary">Skip</button>
+<button id="next" class="secondary hidden">Next →</button>
 </div>
 <div id="feedback" class="feedback"></div>
 <div id="reveal" class="reveal"></div>
@@ -66,7 +77,7 @@ input,select,textarea{width:100%;padding:12px;border:1px solid #d1d1d6;border-ra
 <div class="stat"><b id="accuracy">0%</b><span>accuracy</span></div>
 </div>
 </div>
-<p class="note">Direction-specific statistics are tracked separately. Words you miss are weighted more heavily.</p>
+<p class="note">Direction-specific statistics are tracked separately. Words you miss are weighted more heavily. Correct answers advance automatically; wrong answers stay visible until you tap Next.</p>
 </section>
 
 <section id="add" class="tab hidden">
@@ -76,6 +87,7 @@ input,select,textarea{width:100%;padding:12px;border:1px solid #d1d1d6;border-ra
 <label>Reading (hiragana / katakana)</label><input id="newReading" placeholder="例：りょこう">
 <label>English</label><input id="newEn" placeholder="e.g. travel">
 <div class="row">
+<div><label>Verb group (verbs only)</label><select id="newVerbGroup"><option value="">—</option><option value="ru">ru</option><option value="u">u</option><option value="irr">irr</option></select></div>
 <div><label>Level</label><select id="newLevel"><option>N5</option><option>N4</option><option>N3</option><option>N2</option><option>N1</option><option>Custom</option></select></div>
 <div><label>Type</label><select id="newType"><option>word</option><option>verb</option><option>adjective</option><option>phrase</option></select></div>
 </div>
@@ -91,26 +103,26 @@ input,select,textarea{width:100%;padding:12px;border:1px solid #d1d1d6;border-ra
 <section id="data" class="tab hidden">
 <div class="panel">
 <h2>Plain-text vocabulary</h2>
-<p class="note">The app uses this exact text format. On iPhone/iPad, Safari cannot silently overwrite an arbitrary .txt file, so v1 stores your current data locally and lets you export the updated text file whenever you want.</p>
+<p class="note">The app uses this exact text format. Verb group is ru, u, or irr for verbs. On iPhone/iPad, Safari cannot silently overwrite an arbitrary .txt file, so v1 stores your current data locally and lets you export the updated text file whenever you want.</p>
 <textarea id="dataText" rows="12" spellcheck="false"></textarea>
 <div class="toolbar">
 <button id="loadText" class="secondary">Load edited text</button>
 <button id="exportText" class="primary">Export .txt</button>
 <button id="reset" class="secondary">Reset to starter N5</button>
 </div>
-<p class="note">Format: japanese|reading|english|level|type|ja_asked|ja_correct|ja_wrong|en_asked|en_correct|en_wrong</p>
+<p class="note">Format: japanese|reading|english|level|type|verb_group|ja_asked|ja_correct|ja_wrong|en_asked|en_correct|en_wrong</p>
 </div>
 </section>
 </div>
 
 <script>
 const STARTER = [
-["食べる","たべる","to eat","N5","verb"],["飲む","のむ","to drink","N5","verb"],
-["見る","みる","to see; watch","N5","verb"],["聞く","きく","to hear; listen; ask","N5","verb"],
-["行く","いく","to go","N5","verb"],["来る","くる","to come","N5","verb"],
-["帰る","かえる","to return; go home","N5","verb"],["買う","かう","to buy","N5","verb"],
-["読む","よむ","to read","N5","verb"],["書く","かく","to write","N5","verb"],
-["話す","はなす","to speak","N5","verb"],["会う","あう","to meet","N5","verb"],
+["食べる","たべる","to eat","N5","verb","ru"],["飲む","のむ","to drink","N5","verb","u"],
+["見る","みる","to see; watch","N5","verb","ru"],["聞く","きく","to hear; listen; ask","N5","verb","u"],
+["行く","いく","to go","N5","verb","u"],["来る","くる","to come","N5","verb","irr"],
+["帰る","かえる","to return; go home","N5","verb","u"],["買う","かう","to buy","N5","verb","u"],
+["読む","よむ","to read","N5","verb","u"],["書く","かく","to write","N5","verb","u"],
+["話す","はなす","to speak","N5","verb","u"],["会う","あう","to meet","N5","verb","u"],
 ["友達","ともだち","friend","N5","word"],["先生","せんせい","teacher","N5","word"],
 ["学生","がくせい","student","N5","word"],["学校","がっこう","school","N5","word"],
 ["電車","でんしゃ","train","N5","word"],["駅","えき","station","N5","word"],
@@ -130,7 +142,7 @@ const STARTER = [
 let words = [];
 let current = null, direction = null, answered = false;
 
-function fresh(w){return {id:crypto.randomUUID(),ja:w[0],reading:w[1],en:w[2],level:w[3],type:w[4],
+function fresh(w){return {id:crypto.randomUUID(),ja:w[0],reading:w[1],en:w[2],level:w[3],type:w[4],verb_group:w[5]||"",
 ja_asked:0,ja_correct:0,ja_wrong:0,en_asked:0,en_correct:0,en_wrong:0};}
 function load(){
   const saved=localStorage.getItem("jvocab-v1");
@@ -148,43 +160,95 @@ function weight(w,d){
   const a=d==="ja"?w.ja_asked:w.en_asked, c=d==="ja"?w.ja_correct:w.en_correct;
   return 1 + Math.max(0,a-c)*2 + (a?Math.max(0,1-c/a)*5:2);
 }
+function poolForMode(){
+  const mode=document.getElementById("quizMode").value;
+  const filter=document.getElementById("levelFilter").value;
+  let pool=words.filter(w=>mode==="verbtype" ? w.type==="verb" : true);
+  if(filter!=="all") pool=pool.filter(w=>w.level===filter);
+  return pool.length?pool:words;
+}
 function pick(){
-  let pool=words.filter(w=>w.level==="N5" || w.level==="Custom");
-  if(!pool.length) pool=words;
-  direction=Math.random()<.5?"ja":"en";
-  const total=pool.reduce((s,w)=>s+weight(w,direction),0); let r=Math.random()*total;
-  for(const w of pool){r-=weight(w,direction);if(r<=0){current=w;break;}}
-  answered=false;
-  document.getElementById("direction").textContent=direction==="ja"?"Japanese → English":"English → Japanese";
-  document.getElementById("prompt").innerHTML=direction==="ja"?ruby(current.ja,current.reading):esc(current.en);
-  document.getElementById("answer").value="";
-  document.getElementById("answer").placeholder=direction==="ja"?"English":"Japanese (kana is fine)";
+  const mode=document.getElementById("quizMode").value;
+  const pool=poolForMode();
+  if(mode==="verbtype"){
+    direction="verbtype";
+    const total=pool.reduce((s,w)=>s+weight(w,"ja"),0); let r=Math.random()*total;
+    for(const w of pool){r-=weight(w,"ja");if(r<=0){current=w;break;}}
+    answered=false;
+    document.getElementById("direction").textContent="Verb group";
+    document.getElementById("prompt").innerHTML=ruby(current.ja,current.reading);
+    document.getElementById("answer").value="";
+    document.getElementById("answer").placeholder="ru, u, or irr";
+  } else {
+    direction=Math.random()<.5?"ja":"en";
+    const total=pool.reduce((s,w)=>s+weight(w,direction),0); let r=Math.random()*total;
+    for(const w of pool){r-=weight(w,direction);if(r<=0){current=w;break;}}
+    answered=false;
+    document.getElementById("direction").textContent=direction==="ja"?"Japanese → English":"English → Japanese";
+    document.getElementById("prompt").innerHTML=direction==="ja"?ruby(current.ja,current.reading):esc(current.en);
+    document.getElementById("answer").value="";
+    document.getElementById("answer").placeholder=direction==="ja"?"English":"Japanese (kana is fine)";
+  }
+  document.getElementById("check").classList.remove("hidden");
+  document.getElementById("next").classList.add("hidden");
   document.getElementById("feedback").textContent="";
   document.getElementById("feedback").className="feedback";
   document.getElementById("reveal").textContent="";
   updateStats();
   setTimeout(()=>document.getElementById("answer").focus(),50);
 }
-function norm(s){return s.toLowerCase().trim().replace(/[、。！？!?.,]/g,"");}
+function norm(s){return s.toLowerCase().trim().replace(/[、。！？!?.,]/g,"").replace(/\s+/g," ");}
 function check(){
   if(answered)return;
   const val=norm(document.getElementById("answer").value);
   if(!val)return;
+  let ok=false;
+  if(direction==="verbtype"){
+    ok=val==="ru" || val==="u" || val==="irr";
+    // Accept common full labels too.
+    if(val==="r"||val==="ru verb"||val==="ru-verb") ok= current.verb_group==="ru";
+    else if(val==="u verb"||val==="u-verb") ok= current.verb_group==="u";
+    else if(val==="irregular"||val==="irregular verb"||val==="irregular-verb") ok= current.verb_group==="irr";
+    else ok=val===current.verb_group;
+    answered=true;
+    const f=document.getElementById("feedback");
+    f.textContent=ok?"✓ Correct":"✗ Not quite";
+    f.className="feedback "+(ok?"correct":"wrong");
+    document.getElementById("reveal").innerHTML=
+      `${ruby(current.ja,current.reading)} — ${esc(current.en)}<br><b>${current.verb_group==="ru"?"ru-verb":current.verb_group==="u"?"u-verb":"irregular"}</b>`;
+    if(ok) setTimeout(pick,900);
+    else {
+      document.getElementById("check").classList.add("hidden");
+      document.getElementById("next").classList.remove("hidden");
+    }
+    return;
+  }
   const accepted=direction==="ja"?current.en.split(";").map(norm):[norm(current.reading),norm(current.ja)];
-  const ok=accepted.some(x=>x===val);
+  ok=accepted.some(x=>x===val);
   if(direction==="ja"){current.ja_asked++;ok?current.ja_correct++:current.ja_wrong++}
   else {current.en_asked++;ok?current.en_correct++:current.en_wrong++}
   save();answered=true;
   const f=document.getElementById("feedback");
   f.textContent=ok?"✓ Correct":"✗ Not quite";
   f.className="feedback "+(ok?"correct":"wrong");
-  document.getElementById("reveal").innerHTML=direction==="ja"
-    ? `${ruby(current.ja,current.reading)} — ${esc(current.en)}`
-    : `${ruby(current.ja,current.reading)} — ${esc(current.en)}`;
+  const typeInfo=(direction==="ja" && current.type==="verb" && ok && current.verb_group)
+    ? `<br><b>${current.verb_group==="ru"?"ru-verb":current.verb_group==="u"?"u-verb":"irregular"}</b>` : "";
+  document.getElementById("reveal").innerHTML=`${ruby(current.ja,current.reading)} — ${esc(current.en)}${typeInfo}`;
   updateStats();renderList();
+  if(ok) setTimeout(pick,900);
+  else {
+    document.getElementById("check").classList.add("hidden");
+    document.getElementById("next").classList.remove("hidden");
+  }
 }
 function updateStats(){
   if(!current)return;
+  if(direction==="verbtype"){
+    document.getElementById("asked").textContent="—";
+    document.getElementById("correct").textContent="—";
+    document.getElementById("accuracy").textContent="verb";
+    return;
+  }
   const a=direction==="ja"?current.ja_asked:current.en_asked,c=direction==="ja"?current.ja_correct:current.en_correct;
   document.getElementById("asked").textContent=a;
   document.getElementById("correct").textContent=c;
@@ -198,14 +262,17 @@ function renderList(){
   <div class="counts">JP ${w.ja_correct}/${w.ja_asked}<br>EN ${w.en_correct}/${w.en_asked}</div></div>`).join("");
 }
 function toText(){
-  return words.map(w=>[w.ja,w.reading,w.en,w.level,w.type,w.ja_asked,w.ja_correct,w.ja_wrong,w.en_asked,w.en_correct,w.en_wrong].join("|")).join("\n");
+  return words.map(w=>[w.ja,w.reading,w.en,w.level,w.type,w.verb_group||"",w.ja_asked,w.ja_correct,w.ja_wrong,w.en_asked,w.en_correct,w.en_wrong].join("|")).join("\n");
 }
 function fromText(t){
   const out=[];
   for(const line of t.split(/\r?\n/)){if(!line.trim()||line.trim().startsWith("#"))continue;
     const p=line.split("|"); if(p.length<11)continue;
+    const hasGroup=p.length>=12;
     out.push({id:crypto.randomUUID(),ja:p[0],reading:p[1],en:p[2],level:p[3]||"Custom",type:p[4]||"word",
-      ja_asked:+p[5]||0,ja_correct:+p[6]||0,ja_wrong:+p[7]||0,en_asked:+p[8]||0,en_correct:+p[9]||0,en_wrong:+p[10]||0});
+      verb_group:hasGroup?(p[5]||""):"",
+      ja_asked:+(hasGroup?p[6]:p[5])||0,ja_correct:+(hasGroup?p[7]:p[6])||0,ja_wrong:+(hasGroup?p[8]:p[7])||0,
+      en_asked:+(hasGroup?p[9]:p[8])||0,en_correct:+(hasGroup?p[10]:p[9])||0,en_wrong:+(hasGroup?p[11]:p[10])||0});
   } return out;
 }
 function refreshText(){document.getElementById("dataText").value=toText();}
@@ -221,13 +288,15 @@ document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
   if(b.dataset.tab==="words")renderList(); if(b.dataset.tab==="data")refreshText();
 });
 document.getElementById("check").onclick=check;
-document.getElementById("skip").onclick=pick;
+document.getElementById("next").onclick=pick;
 document.getElementById("answer").addEventListener("keydown",e=>{if(e.key==="Enter")check()});
 document.getElementById("search").oninput=renderList;
+document.getElementById("quizMode").onchange=pick;
+document.getElementById("levelFilter").onchange=pick;
 document.getElementById("addWord").onclick=()=>{
   const ja=document.getElementById("newJa").value.trim(),rd=document.getElementById("newReading").value.trim(),en=document.getElementById("newEn").value.trim();
   if(!ja||!rd||!en){document.getElementById("addMsg").textContent="Please fill in Japanese, reading and English.";return}
-  words.push(fresh([ja,rd,en,document.getElementById("newLevel").value,document.getElementById("newType").value]));save();
+  words.push(fresh([ja,rd,en,document.getElementById("newLevel").value,document.getElementById("newType").value,document.getElementById("newVerbGroup").value]));save();
   ["newJa","newReading","newEn"].forEach(id=>document.getElementById(id).value="");
   document.getElementById("addMsg").textContent="✓ Word added.";renderList();
 };
