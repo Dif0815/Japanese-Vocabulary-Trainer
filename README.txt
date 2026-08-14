@@ -1,11 +1,10 @@
-Japanese Vocabulary Trainer v4 — GitHub Pages ready
+Japanese Vocabulary Trainer v5
+Upload index.html, manifest.json, icon.svg and vocabulary.txt to the root of your GitHub Pages repository.
 
-Changes:
-- Correct answer: result remains visible for about 1.2 seconds, then next question loads automatically.
-- Wrong answer: correction remains visible and Next button is required.
-- Verb group (ru/u/irr) is shown after every normal vocabulary verb result, correct or wrong.
-- Verb Type mode tests ru/u/irr separately.
-- Answer keyboard hint switches automatically: English/Latin for Japanese->English and verb type; Japanese kana for English->Japanese.
-- Service worker removed during development so GitHub Pages does not keep an old cached version.
-
-Upload index.html, manifest.json, icon.svg and vocabulary.txt to the repository root.
+Quiz behavior:
+- Correct: show result (including verb group) for 1.2 seconds, then automatically next.
+- Wrong: show result and require Next.
+- Next and Skip are separate: Next appears after wrong; Skip is always available before answering and never counts as wrong.
+- Keyboard inputmode hints switch between Latin and Japanese kana.
+- Verb Type mode tests ru/u/irr.
+- No service worker is included, so updates are not cached by the app.

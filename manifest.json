@@ -1,9 +1,1 @@
-{
-  "name": "Japanese Vocabulary Trainer",
-  "short_name": "日本語 Vocab",
-  "start_url": ".",
-  "display": "standalone",
-  "background_color": "#f5f5f7",
-  "theme_color": "#f5f5f7",
-  "lang": "en"
-}
+{"name":"Japanese Vocabulary Trainer","short_name":"日本語 Vocab","start_url":".","display":"standalone","background_color":"#f5f5f7","theme_color":"#f5f5f7","lang":"en"}
