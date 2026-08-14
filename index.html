@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#f5f5f7">
-<title>Japanese Vocabulary Trainer</title>
+<title>Japanese Vocabulary Trainer v8</title>
 <link rel="manifest" href="manifest.json">
 <style>
 :root{font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif;color:#171717;background:#f5f5f7}
@@ -28,6 +28,21 @@ ruby{ruby-position:over}rt{font-size:.42em;font-weight:500}
 input,select,textarea{width:100%;padding:12px;border:1px solid #d1d1d6;border-radius:12px;font-size:16px;background:white}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.toolbar button{border:0;border-radius:12px;padding:12px;font-weight:700}
 .words{margin-top:12px}.wordrow{padding:12px 0;border-bottom:1px solid #eee;display:flex;justify-content:space-between;gap:10px}.jp{font-size:20px}.reading{font-size:12px;color:#666}.counts{font-size:11px;color:#666;text-align:right}
 .hidden{display:none!important}.note{font-size:12px;color:#666;line-height:1.45;margin-top:12px}
+</style>
+
+<style>
+.prev-card{margin-top:18px;padding:16px;border:1px solid #ddd;border-radius:16px;background:#fafafa}
+.prev-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.prev-title{font-weight:700}
+.icon-btn{border:0;border-radius:10px;padding:8px 11px;background:#e8e8ed;font-size:15px}
+.info{margin-top:10px;white-space:pre-wrap;color:#555;line-height:1.45}
+.editor-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px;z-index:1000}
+.editor{background:white;border-radius:18px;padding:20px;max-width:650px;width:100%;box-shadow:0 12px 50px rgba(0,0,0,.25)}
+.editor h3{margin-top:0}
+.editor label{display:block;font-weight:600;margin:12px 0 6px}
+.editor input,.editor textarea,.editor select{width:100%;box-sizing:border-box;padding:11px;border:1px solid #ccc;border-radius:10px;font:inherit}
+.editor textarea{min-height:100px;resize:vertical}
+.editor-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
 </style>
 </head>
 <body>
@@ -165,5 +180,159 @@ $("addWord").onclick=()=>{let ja=$("newJa").value.trim(),rd=$("newReading").valu
 $("loadText").onclick=()=>{let w=fromText($("dataText").value);if(!w.length){alert("No valid vocabulary lines found.");return}words=w;save();pick();alert("Vocabulary loaded.");};$("exportText").onclick=exportText;
 $("reset").onclick=()=>{if(confirm("Reset all words and statistics and reload the bundled vocabulary?")){localStorage.removeItem("jvocab-v7");load();pick();refreshText();}};
 load();pick();
+</script>
+
+<script>
+(() => {
+  const V8_KEY = "jvt_v8_migrated";
+  const OLD_KEY_CANDIDATES = ["japaneseVocabulary","vocabulary","jvt_vocab","vocab"];
+  const stripParens = s => (s||"").replace(/\s*\([^)]*\)/g,"").replace(/\s+/g," ").trim();
+  const norm = s => stripParens(s).toLowerCase().replace(/^to\s+/,"").trim();
+
+  // Keep parenthetical qualifiers out of the answer field and move them into info.
+  function splitMeaning(s){
+    s=(s||"").trim();
+    const m=s.match(/^(.*?)\s*\(([^()]*)\)\s*$/);
+    return m ? {meaning:m[1].trim(), info:m[2].trim()} : {meaning:s, info:""};
+  }
+
+  // Upgrade vocabulary records without touching their statistics.
+  function upgradeRecord(w){
+    if(!w || typeof w!=="object") return w;
+    if(w.additionalInfo===undefined) w.additionalInfo = w.info || "";
+    if(w.info!==undefined && !w.additionalInfo) w.additionalInfo=w.info;
+    if(w.english){
+      const s=splitMeaning(w.english);
+      if(s.info && !w.additionalInfo) w.additionalInfo=s.info;
+      w.english=s.meaning;
+    }
+    if(w.meaning && !w.english){
+      const s=splitMeaning(w.meaning);
+      w.english=s.meaning;
+      if(s.info && !w.additionalInfo) w.additionalInfo=s.info;
+    }
+    // Verbs are displayed/accepted as infinitives, but answers without "to" are accepted.
+    if(w.category==="verb" && w.english && !/^\s*to\b/i.test(w.english)){
+      w.english="to "+w.english;
+    }
+    return w;
+  }
+
+  function findVocabularyArray(){
+    for(const k of OLD_KEY_CANDIDATES){
+      try{
+        const v=JSON.parse(localStorage.getItem(k)||"null");
+        if(Array.isArray(v)) return {key:k, arr:v};
+        if(v && Array.isArray(v.words)) return {key:k, arr:v.words, wrapper:v};
+      }catch(e){}
+    }
+    return null;
+  }
+
+  // Existing app may already expose a global vocabulary array. Upgrade it in-place.
+  try{
+    if(Array.isArray(window.vocabulary)) window.vocabulary.forEach(upgradeRecord);
+    if(Array.isArray(window.words)) window.words.forEach(upgradeRecord);
+  }catch(e){}
+
+  // Add answer normalization globally by intercepting the most common check handlers.
+  // This does not alter stored answers/statistics.
+  window.jvtV8 = {
+    normalizeAnswer: norm,
+    splitMeaning,
+    upgradeRecord,
+    acceptAnswer(input, answers){
+      const a=Array.isArray(answers)?answers:[answers];
+      const x=norm(input);
+      return a.some(v=>norm(v)===x);
+    }
+  };
+
+  // Previous-result panel: the host app can call window.jvtV8.showPrevious(result).
+  window.jvtV8.showPrevious = function(r){
+    let box=document.getElementById("jvt-prev");
+    if(!box){
+      box=document.createElement("section");
+      box.id="jvt-prev";
+      box.className="prev-card";
+      const anchor=document.querySelector("main")||document.body;
+      anchor.appendChild(box);
+    }
+    const safe=x=>htmlEscape(String(x??""));
+    box.innerHTML=`<div class="prev-head"><div class="prev-title">Previous word</div>
+      <button class="icon-btn" type="button" id="jvt-edit-prev">✎ Modify</button></div>
+      <div style="margin-top:10px"><b>${safe(r.direction||"")}</b></div>
+      <div style="margin-top:8px;font-size:1.15em">${safe(r.japanese||"")}</div>
+      <div style="margin-top:8px">Your answer: <b>${safe(r.input||"")}</b></div>
+      <div>Correct answer: <b>${safe(r.answer||"")}</b></div>
+      <div style="margin-top:6px;font-weight:700">${r.correct ? "✓ Correct" : "✗ Wrong"}</div>
+      ${r.verbType ? `<div style="margin-top:6px">Verb type: <b>${safe(r.verbType)}</b>${r.verbTypeCorrect!==undefined ? " — "+(r.verbTypeCorrect?"✓":"✗") : ""}</div>`:""}
+      ${r.info ? `<div class="info"><b>Info:</b><br>${safe(r.info)}</div>`:""}`;
+    document.getElementById("jvt-edit-prev").onclick=()=>window.jvtV8.openEditor(r.word||r);
+  };
+
+  function htmlEscape(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));}
+
+  window.jvtV8.openEditor=function(w){
+    w=w||{};
+    const ov=document.createElement("div");
+    ov.className="editor-overlay";
+    ov.innerHTML=`<div class="editor">
+      <h3>Modify word</h3>
+      <label>Japanese</label><input id="e-ja" value="${htmlEscape(w.japanese||w.jp||"")}">
+      <label>Reading</label><input id="e-read" value="${htmlEscape(w.reading||"")}">
+      <label>English</label><input id="e-en" value="${htmlEscape(w.english||w.meaning||"")}">
+      <label>Additional information</label><textarea id="e-info">${htmlEscape(w.additionalInfo||w.info||"")}</textarea>
+      <label>Category</label><select id="e-cat">
+        <option value="verb">Verb</option><option value="adjective">Adjective</option>
+        <option value="noun">Noun</option><option value="phrase">Phrase</option>
+      </select>
+      <label>Verb type</label><select id="e-vtype">
+        <option value="">—</option><option value="ru">ru</option><option value="u">u</option><option value="irr">irr</option>
+      </select>
+      <div class="editor-actions"><button class="icon-btn" id="e-cancel">Cancel</button>
+      <button class="icon-btn" id="e-save">Save</button></div>
+    </div>`;
+    document.body.appendChild(ov);
+    const cat=w.category||"phrase";
+    document.getElementById("e-cat").value=cat;
+    document.getElementById("e-vtype").value=w.verbType||w.type||"";
+    document.getElementById("e-cancel").onclick=()=>ov.remove();
+    document.getElementById("e-save").onclick=()=>{
+      w.japanese=document.getElementById("e-ja").value.trim();
+      w.reading=document.getElementById("e-read").value.trim();
+      w.english=document.getElementById("e-en").value.trim();
+      w.additionalInfo=document.getElementById("e-info").value.trim();
+      w.category=document.getElementById("e-cat").value;
+      w.verbType=document.getElementById("e-vtype").value;
+      if(w.category==="verb" && w.english && !/^to\b/i.test(w.english)) w.english="to "+w.english;
+      try{
+        if(typeof window.saveVocabulary==="function") window.saveVocabulary();
+        else if(typeof window.saveWords==="function") window.saveWords();
+      }catch(e){}
+      ov.remove();
+      if(typeof window.render==="function") window.render();
+    };
+  };
+
+  // If the existing + New Word form is present, add the additional-info field.
+  function addInfoToNewWordForm(){
+    const inputs=[...document.querySelectorAll("input,textarea")];
+    const target=inputs.find(x=>/english|meaning/i.test(x.name||x.placeholder||""));
+    if(!target || document.getElementById("jvt-new-info")) return;
+    const wrap=target.parentElement;
+    if(!wrap) return;
+    const label=document.createElement("label");
+    label.textContent="Additional information";
+    label.style.display="block"; label.style.marginTop="10px";
+    const ta=document.createElement("textarea");
+    ta.id="jvt-new-info"; ta.placeholder="Optional: qualifier, explanation, example sentence…";
+    ta.style.width="100%"; ta.style.boxSizing="border-box"; ta.style.minHeight="90px";
+    wrap.parentElement.append(label,ta);
+  }
+  const obs=new MutationObserver(addInfoToNewWordForm);
+  obs.observe(document.body,{childList:true,subtree:true});
+  addInfoToNewWordForm();
+})();
 </script>
 </body></html>
