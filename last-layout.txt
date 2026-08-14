@@ -15,11 +15,15 @@
 # Empty values are ignored. If db is empty, its label is ignored too.
 #
 # Database fields come from the first row of vocabulary.csv.
-# You can add columns there (for example stem, masu, te, nai, past).
-# New columns automatically become available here; no HTML change is needed.
+# Add new columns to vocabulary.csv and they automatically become available here.
 #
 # Virtual fields for the Last result:
 # question, correct_answer, answer_given, result
+#
+# Example with three fields on one line and values underneath:
+# line=1; label=Question; db=question; under=true; gap=28
+# line=1; label=Correct; db=correct_answer; under=true; gap=28
+# line=1; label=Given; db=answer_given; under=true; gap=28
 #
 line=1; label=Question word; db=question; under=true; gap=28
 line=1; label=Correct answer; db=correct_answer; under=true; gap=28
