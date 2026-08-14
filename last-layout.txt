@@ -1,0 +1,31 @@
+# Japanese Vocabulary Trainer — Last frame layout
+#
+# One config entry = one item in a display line.
+# Multiple items can share the same line number.
+#
+# Syntax:
+# line=1; label=Question word; db=question; under=true; gap=28
+#
+# line       = visual line number
+# label      = text shown above/beside the database value
+# db         = database field name OR virtual field
+# under      = true: value below label / false: label and value side-by-side
+# gap        = horizontal space after this item, in pixels
+#
+# Empty values are ignored. If db is empty, its label is ignored too.
+#
+# Database fields come from the first row of vocabulary.csv.
+# You can add columns there (for example stem, masu, te, nai, past).
+# New columns automatically become available here; no HTML change is needed.
+#
+# Virtual fields for the Last result:
+# question, correct_answer, answer_given, result
+#
+line=1; label=Question word; db=question; under=true; gap=28
+line=1; label=Correct answer; db=correct_answer; under=true; gap=28
+line=1; label=Answer given; db=answer_given; under=true; gap=28
+line=2; label=Word type; db=type; under=true; gap=28
+line=2; label=Verb type; db=verb_group; under=true; gap=28
+line=2; label=Adjective type; db=adjective_group; under=true; gap=28
+line=3; label=Additional information; db=additional_info; under=true; gap=28
+line=4; label=Result; db=result; under=true; gap=28

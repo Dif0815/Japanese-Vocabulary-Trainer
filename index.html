@@ -1,338 +1,46 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#f5f5f7">
-<title>Japanese Vocabulary Trainer v8</title>
-<link rel="manifest" href="manifest.json">
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="theme-color" content="#f5f5f7"><title>Japanese Vocabulary Trainer v9</title><link rel="manifest" href="manifest.json">
 <style>
-:root{font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif;color:#171717;background:#f5f5f7}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;background:#f5f5f7}
-.app{max-width:720px;margin:auto;padding:env(safe-area-inset-top) 16px 30px}
-header{padding:18px 2px 10px}h1{font-size:24px;margin:0}.sub{color:#666;font-size:13px;margin-top:3px}
-nav{display:flex;gap:8px;overflow:auto;padding:8px 0 14px}nav button,.smallbtn{border:0;border-radius:12px;padding:10px 13px;background:#e5e5ea;color:#222;font-weight:600;white-space:nowrap}nav button.active{background:#222;color:white}
-.card,.panel{background:white;border-radius:24px;padding:20px;box-shadow:0 8px 30px #0000000d}
-.controls{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}.controls select{font-size:14px;padding:10px}
-.direction{text-align:center;font-size:13px;color:#777;margin-bottom:14px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
-.prompt{font-size:36px;line-height:1.35;min-height:125px;display:flex;align-items:center;justify-content:center;text-align:center}
-ruby{ruby-position:over}rt{font-size:.42em;font-weight:500}
-.answer{width:100%;font-size:20px;padding:15px;border:1px solid #d1d1d6;border-radius:14px;text-align:center;outline:none}
-.answer:focus{border-color:#555}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.actions .hidden{display:none}
-.actions button{border:0;border-radius:14px;padding:15px;font-size:16px;font-weight:700}.primary{background:#222;color:#fff}.secondary{background:#e5e5ea;color:#222}
-.feedback{min-height:28px;margin-top:15px;text-align:center;font-weight:700}.correct{color:#167c3b}.wrong{color:#b42318}
-.reveal{text-align:center;margin-top:6px;color:#555;font-size:16px;line-height:1.8}.stats{margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#f1f1f4;border-radius:14px;padding:10px;text-align:center}.stat b{display:block;font-size:18px}.stat span{font-size:11px;color:#666}
-.panel{border-radius:20px}.panel h2{margin:0 0 14px;font-size:19px}label{display:block;font-size:13px;font-weight:700;margin:12px 0 6px}
-input,select,textarea{width:100%;padding:12px;border:1px solid #d1d1d6;border-radius:12px;font-size:16px;background:white}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.toolbar button{border:0;border-radius:12px;padding:12px;font-weight:700}
-.words{margin-top:12px}.wordrow{padding:12px 0;border-bottom:1px solid #eee;display:flex;justify-content:space-between;gap:10px}.jp{font-size:20px}.reading{font-size:12px;color:#666}.counts{font-size:11px;color:#666;text-align:right}
-.hidden{display:none!important}.note{font-size:12px;color:#666;line-height:1.45;margin-top:12px}
-</style>
-
-<style>
-.prev-card{margin-top:18px;padding:16px;border:1px solid #ddd;border-radius:16px;background:#fafafa}
-.prev-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
-.prev-title{font-weight:700}
-.icon-btn{border:0;border-radius:10px;padding:8px 11px;background:#e8e8ed;font-size:15px}
-.info{margin-top:10px;white-space:pre-wrap;color:#555;line-height:1.45}
-.editor-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;padding:20px;z-index:1000}
-.editor{background:white;border-radius:18px;padding:20px;max-width:650px;width:100%;box-shadow:0 12px 50px rgba(0,0,0,.25)}
-.editor h3{margin-top:0}
-.editor label{display:block;font-weight:600;margin:12px 0 6px}
-.editor input,.editor textarea,.editor select{width:100%;box-sizing:border-box;padding:11px;border:1px solid #ccc;border-radius:10px;font:inherit}
-.editor textarea{min-height:100px;resize:vertical}
-.editor-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
-</style>
-</head>
-<body>
-<div class="app">
-<header><h1>日本語 Vocabulary</h1><div class="sub">Your vocabulary</div></header>
-<nav>
-<button class="active" data-tab="quiz">Quiz</button><button data-tab="add">＋ New Word</button><button data-tab="words">Words</button><button data-tab="data">Data</button>
-</nav>
-
-<section id="quiz" class="tab">
-<div class="card">
-<div class="controls">
-<select id="quizMode"><option value="normal">Vocabulary</option><option value="verbtype">Ask verb type after verbs</option></select>
-<select id="categoryFilter"><option value="all">All</option><option value="verb">Verbs</option><option value="adjective">Adjectives</option><option value="noun">Nouns</option><option value="phrase">Phrases</option></select>
-</div>
-<div id="direction" class="direction">Loading…</div>
-<div id="prompt" class="prompt">Loading…</div>
-<input id="answer" class="answer" autocomplete="off" autocapitalize="none" spellcheck="false">
-<div class="actions" id="actionRow">
-<button id="skip" class="secondary">Skip</button>
-<button id="check" class="primary">Check</button>
-<button id="next" class="primary hidden">Next →</button>
-</div>
-<div id="feedback" class="feedback"></div>
-<div id="reveal" class="reveal"></div>
-<div class="stats"><div class="stat"><b id="asked">0</b><span>asked</span></div><div class="stat"><b id="correct">0</b><span>correct</span></div><div class="stat"><b id="accuracy">0%</b><span>accuracy</span></div></div>
-</div>
-<p class="note">Correct answers advance automatically. Wrong answers stay visible until you tap Next. Skip does not count as wrong. iOS does not allow webpages to force-switch the active keyboard language.</p>
-</section>
-
-<section id="add" class="tab hidden"><div class="panel">
-<h2>Add a word</h2>
-<label>Japanese / Kanji</label><input id="newJa" placeholder="例：旅行">
-<label>Reading (hiragana / katakana)</label><input id="newReading" placeholder="例：りょこう">
-<label>English</label><input id="newEn" placeholder="e.g. travel">
-<div class="row"><div><label>Type</label><select id="newType"><option>noun</option><option>verb</option><option>adjective</option><option>phrase</option></select></div></div>
-<label>Verb group (verbs only)</label><select id="newVerbGroup"><option value="">—</option><option value="ru">ru</option><option value="u">u</option><option value="irr">irr</option></select>
-<div class="toolbar"><button id="addWord" class="primary">Add word</button></div><div id="addMsg" class="feedback"></div>
-</div></section>
-
-<section id="words" class="tab hidden"><div class="panel"><h2>Vocabulary</h2><input id="search" placeholder="Search..."><div id="wordList" class="words"></div></div></section>
-
-<section id="data" class="tab hidden"><div class="panel">
-<h2>Plain-text vocabulary</h2><p class="note">Format: japanese|reading|english|type|verb_group|source|ja_asked|ja_correct|ja_wrong|en_asked|en_correct|en_wrong</p>
-<textarea id="dataText" rows="12" spellcheck="false"></textarea><div class="toolbar"><button id="loadText" class="secondary">Load edited text</button><button id="exportText" class="primary">Export .txt</button><button id="reset" class="secondary">Reset starter data</button></div>
-</div></section>
-</div>
-
+:root{font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif;color:#171717;background:#f5f5f7}*{box-sizing:border-box}body{margin:0;background:#f5f5f7}.app{max-width:720px;margin:auto;padding:env(safe-area-inset-top) 16px 30px}header{padding:18px 2px 10px}h1{font-size:24px;margin:0}nav{display:flex;gap:8px;overflow:auto;padding:8px 0 14px}nav button,.btn{border:0;border-radius:12px;padding:10px 15px;background:#e5e5ea;color:#222;font-weight:600;white-space:nowrap}nav button.active,.on,.primary{background:#222!important;color:#fff!important}.frame,.card,.panel{background:#fff;border-radius:24px;padding:20px;box-shadow:0 8px 30px #0000000d}.frame{margin-bottom:16px}.frame h2{font-size:18px;margin:0 0 14px}.options{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}.option label{display:block;font-size:12px;font-weight:700;color:#666;margin-bottom:6px}.toggle{width:100%;border:0;border-radius:12px;padding:12px;font-size:15px;font-weight:700;background:#e5e5ea;color:#222}select,input,textarea{width:100%;padding:12px;border:1px solid #d1d1d6;border-radius:12px;font-size:16px;background:#fff}.direction{text-align:center;font-size:13px;color:#777;margin-bottom:14px;font-weight:700;text-transform:uppercase;letter-spacing:.05em}.prompt{font-size:36px;line-height:1.35;min-height:125px;display:flex;align-items:center;justify-content:center;text-align:center}ruby{ruby-position:over}rt{font-size:.42em;font-weight:500}.answer{text-align:center;font-size:20px;outline:0}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.actions button{border:0;border-radius:14px;padding:15px;font-size:16px;font-weight:700}.secondary{background:#e5e5ea;color:#222}.hidden{display:none!important}.feedback{min-height:28px;margin-top:15px;text-align:center;font-weight:700}.correct{color:#167c3b}.wrong{color:#b42318}.reveal{text-align:center;margin-top:6px;color:#555;font-size:16px;line-height:1.8}.stats{margin-top:16px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#f1f1f4;border-radius:14px;padding:10px;text-align:center}.stat b{display:block;font-size:18px}.stat span{font-size:11px;color:#666}.last-head{display:flex;justify-content:space-between;align-items:center}.last-head h2{margin:0}.icon{border:0;border-radius:10px;padding:8px 11px;background:#e8e8ed}.last-lines{display:flex;flex-direction:column;gap:16px;margin-top:14px}.last-line{display:flex;flex-wrap:wrap;gap:18px 28px}.last-item.under{display:flex;flex-direction:column;gap:4px}.last-item.inline{display:grid;grid-template-columns:auto auto;gap:8px;align-items:baseline}.last-label{font-size:12px;font-weight:700;color:#777}.last-value{font-size:16px;white-space:pre-wrap;overflow-wrap:anywhere}.last-result{font-weight:700}.words{margin-top:12px}.wordrow{padding:12px 0;border-bottom:1px solid #eee;display:flex;justify-content:space-between;gap:10px}.jp{font-size:20px}.reading{font-size:12px;color:#666}.counts{font-size:11px;color:#666;text-align:right}.note,.schema-note{font-size:12px;color:#666;line-height:1.45;margin-top:12px}.overlay{position:fixed;inset:0;background:#0007;display:flex;align-items:center;justify-content:center;padding:20px;z-index:1000}.editor{background:#fff;border-radius:18px;padding:20px;max-width:650px;width:100%;max-height:90vh;overflow:auto}.editor h3{margin:0 0 14px}.editor-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px}@media(max-width:560px){.options{grid-template-columns:1fr}.last-line{gap:14px 20px}}
+</style></head><body><div class="app">
+<header><h1>日本語 Vocabulary</h1></header><nav><button class="active" data-tab="quiz">Quiz</button><button data-tab="words">Words</button></nav>
+<section id="quiz" class="tab"><div class="frame"><h2>Options</h2><div class="options"><div class="option"><label>Ask Type</label><button id="askType" class="toggle on">ON</button></div><div class="option"><label>Direction</label><select id="directionSelect"><option value="ja">Japanese → English</option><option value="en">English → Japanese</option><option value="mixed" selected>Mixed</option></select></div><div class="option"><label>Vocabulary</label><select id="categoryFilter"><option value="all">All</option><option value="verb">Verbs</option><option value="adjective">Adjectives</option><option value="noun">Nouns</option><option value="phrase">Phrases</option></select></div></div></div>
+<div class="card"><div id="direction" class="direction">Loading…</div><div id="prompt" class="prompt">Loading…</div><input id="answer" class="answer" autocomplete="off" autocapitalize="none" spellcheck="false"><div class="actions"><button id="skip" class="secondary">Skip</button><button id="check" class="primary">Check</button><button id="next" class="primary hidden">Next →</button></div><div id="feedback" class="feedback"></div><div id="reveal" class="reveal"></div><div class="stats"><div class="stat"><b id="asked">0</b><span>asked</span></div><div class="stat"><b id="correct">0</b><span>correct</span></div><div class="stat"><b id="accuracy">0%</b><span>accuracy</span></div></div></div>
+<div class="frame" style="margin-top:16px"><div class="last-head"><h2>Last</h2><button id="editLast" class="icon hidden">✎</button></div><div id="lastContent" class="note">No word checked or skipped yet.</div></div><p class="note">Correct answers advance automatically. Wrong answers stay visible until you tap Next. Skip does not count as wrong. iOS does not allow webpages to force-switch the active keyboard language.</p></section>
+<section id="words" class="tab hidden"><div class="panel"><h2>Vocabulary</h2><input id="search" placeholder="Search..."><div id="wordList" class="words"></div></div></section></div>
+<div id="overlay" class="overlay hidden"><div class="editor"><h3>Modify word</h3><div id="editFields"></div><p class="schema-note">Changes apply to this browser session. To keep them permanently, update vocabulary.csv and upload it to GitHub Pages.</p><div class="editor-actions"><button id="cancel" class="btn">Cancel</button><button id="apply" class="btn primary">Apply</button></div></div></div>
 <script>
-const STARTER=[["食べる", "たべる", "to eat", "verb", "ru"], ["飲む", "のむ", "to drink", "verb", "u"], ["見る", "みる", "to see; watch", "verb", "ru"], ["聞く", "きく", "to hear; listen; ask", "verb", "u"], ["行く", "いく", "to go", "verb", "u"], ["来る", "くる", "to come", "verb", "irr"], ["帰る", "かえる", "to return; go home", "verb", "u"], ["買う", "かう", "to buy", "verb", "u"], ["読む", "よむ", "to read", "verb", "u"], ["書く", "かく", "to write", "verb", "u"], ["話す", "はなす", "to speak", "verb", "u"], ["会う", "あう", "to meet", "verb", "u"], ["友達", "ともだち", "friend", "noun", ""], ["先生", "せんせい", "teacher", "noun", ""], ["学生", "がくせい", "student", "noun", ""], ["学校", "がっこう", "school", "noun", ""], ["電車", "でんしゃ", "train", "noun", ""], ["駅", "えき", "station", "noun", ""], ["家", "いえ", "house; home", "noun", ""], ["会社", "かいしゃ", "company", "noun", ""], ["時間", "じかん", "time; hour", "noun", ""], ["今日", "きょう", "today", "noun", ""], ["明日", "あした", "tomorrow", "noun", ""], ["昨日", "きのう", "yesterday", "noun", ""], ["大きい", "おおきい", "big", "adjective", ""], ["小さい", "ちいさい", "small", "adjective", ""], ["新しい", "あたらしい", "new", "adjective", ""], ["古い", "ふるい", "old", "adjective", ""], ["高い", "たかい", "high; expensive", "adjective", ""], ["安い", "やすい", "cheap", "adjective", ""], ["おいしい", "おいしい", "delicious", "adjective", ""], ["楽しい", "たのしい", "fun; enjoyable", "adjective", ""], ["水", "みず", "water", "noun", ""], ["ご飯", "ごはん", "meal; rice", "noun", ""], ["お金", "おかね", "money", "noun", ""], ["店", "みせ", "shop; store", "noun", ""], ["猫", "ねこ", "cat", "noun", ""], ["犬", "いぬ", "dog", "noun", ""], ["日本", "にほん", "Japan", "noun", ""]];
-const BUNDLED_SOURCES=[["おきる", "おきる", "get up", "verb", "ru", "Verbs list"], ["みる", "みる", "see", "verb", "ru", "Verbs list"], ["たべる", "たべる", "eat", "verb", "ru", "Verbs list"], ["ねる", "ねる", "sleep", "verb", "ru", "Verbs list"], ["でる", "でる", "exit", "verb", "ru", "Verbs list"], ["はじめる", "はじめる", "start", "verb", "ru", "Verbs list"], ["かえる", "かえる", "return", "verb", "u", "Verbs list"], ["かえす", "かえす", "return (a thing)", "verb", "u", "Verbs list"], ["おしえる", "おしえる", "teach", "verb", "ru", "Verbs list"], ["はいる", "はいる", "enter", "verb", "u", "Verbs list"], ["おわる", "おわる", "end", "verb", "u", "Verbs list"], ["はなす", "はなす", "speak / talk", "verb", "u", "Verbs list"], ["きく", "きく", "listen", "verb", "u", "Verbs list"], ["いく", "いく", "go", "verb", "u", "Verbs list"], ["でかける", "でかける", "go out", "verb", "ru", "Verbs list"], ["よむ", "よむ", "read", "verb", "u", "Verbs list"], ["のむ", "のむ", "drink", "verb", "u", "Verbs list"], ["かう", "かう", "buy", "verb", "u", "Verbs list"], ["かく", "かく", "write", "verb", "u", "Verbs list"], ["とる", "とる", "take", "verb", "u", "Verbs list"], ["あう", "あう", "meet (に)", "verb", "u", "Verbs list"], ["もつ", "もつ", "hold / carry / have", "verb", "u", "Verbs list"], ["あそぶ", "あそぶ", "play", "verb", "u", "Verbs list"], ["まつ", "まつ", "wait", "verb", "u", "Verbs list"], ["ある", "ある", "exist / have (things)", "verb", "u", "Verbs list"], ["いる", "いる", "exist / have (living things)", "verb", "ru", "Verbs list"], ["しぬ", "しぬ", "die", "verb", "u", "Verbs list"], ["ころす", "ころす", "kill", "verb", "u", "Verbs list"], ["およぐ", "およぐ", "swim", "verb", "u", "Verbs list"], ["つくる", "つくる", "make", "verb", "u", "Verbs list"], ["くる", "くる", "come", "verb", "irr", "Verbs list"], ["する", "する", "do", "verb", "irr", "Verbs list"], ["そうじする", "そうじする", "clean", "verb", "irr", "Verbs list"], ["りょこうする", "りょこうする", "travel", "verb", "irr", "Verbs list"], ["かいものする", "かいものする", "go shopping", "verb", "irr", "Verbs list"], ["せんたくする", "せんたくする", "do laundry", "verb", "irr", "Verbs list"], ["でんわする", "でんわする", "call (phone)", "verb", "irr", "Verbs list"], ["べんきょうする", "べんきょうする", "study", "verb", "irr", "Verbs list"], ["うんどうする", "うんどうする", "exercise", "verb", "irr", "Verbs list"], ["きつえんする", "きつえんする", "smoke (formal)", "verb", "irr", "Verbs list"], ["けっこんする", "けっこんする", "marry / get married", "verb", "irr", "Verbs list"], ["さんぽする", "さんぽする", "take a walk", "verb", "irr", "Verbs list"], ["かける", "かける", "call (phone: でんわを〜); wear (glasses)", "verb", "ru", "Verbs list"], ["あびる", "あびる", "take a shower", "verb", "ru", "Verbs list"], ["ふる", "ふる", "fall (rain/snow)", "verb", "u", "Verbs list"], ["みつける", "みつける", "find", "verb", "ru", "Verbs list"], ["こたえる", "こたえる", "answer", "verb", "ru", "Verbs list"], ["あける", "あける", "open", "verb", "ru", "Verbs list"], ["しめる", "しめる", "close", "verb", "ru", "Verbs list"], ["わすれる", "わすれる", "forget", "verb", "ru", "Verbs list"], ["おぼえる", "おぼえる", "memorize / remember", "verb", "ru", "Verbs list"], ["おりる", "おりる", "get off", "verb", "ru", "Verbs list"], ["かりる", "かりる", "borrow", "verb", "ru", "Verbs list"], ["つける", "つける", "turn on", "verb", "ru", "Verbs list"], ["けす", "けす", "turn off", "verb", "u", "Verbs list"], ["すてる", "すてる", "throw away", "verb", "ru", "Verbs list"], ["すう", "すう", "smoke (inhale)", "verb", "u", "Verbs list"], ["つかう", "つかう", "use", "verb", "u", "Verbs list"], ["てつだう", "てつだう", "help (tasks)", "verb", "u", "Verbs list"], ["たすける", "たすける", "help / save (rescue)", "verb", "ru", "Verbs list"], ["いそぐ", "いそぐ", "hurry", "verb", "u", "Verbs list"], ["たつ", "たつ", "stand up", "verb", "u", "Verbs list"], ["すわる", "すわる", "sit down", "verb", "u", "Verbs list"], ["やすむ", "やすむ", "be absent / rest", "verb", "u", "Verbs list"], ["わかる", "わかる", "understand", "verb", "u", "Verbs list"], ["しる", "しる", "know (a fact)", "verb", "u", "Verbs list"], ["おもう", "おもう", "think (と)", "verb", "u", "Verbs list"], ["のる", "のる", "ride / get on (vehicle)", "verb", "u", "Verbs list"], ["やる", "やる", "do (casual) / give (animal)", "verb", "u", "Verbs list"], ["いう", "いう", "say", "verb", "u", "Verbs list"], ["みせる", "みせる", "show", "verb", "ru", "Verbs list"], ["おくれる", "おくれる", "be late", "verb", "ru", "Verbs list"], ["みがく", "みがく", "brush (teeth)", "verb", "u", "Verbs list"], ["きる", "きる", "wear (upper body)", "verb", "ru", "Verbs list"], ["かぶる", "かぶる", "wear (hat)", "verb", "u", "Verbs list"], ["はく", "はく", "wear (lower body)", "verb", "u", "Verbs list"], ["うたう", "うたう", "sing", "verb", "u", "Verbs list"], ["おどる", "おどる", "dance", "verb", "u", "Verbs list"], ["すむ", "すむ", "live / reside", "verb", "u", "Verbs list"], ["あるく", "あるく", "walk", "verb", "u", "Verbs list"], ["はたらく", "はたらく", "work", "verb", "u", "Verbs list"], ["やせる", "やせる", "be thin (て+いる)", "verb", "ru", "Verbs list"], ["ふとる", "ふとる", "be fat (て+いる)", "verb", "u", "Verbs list"], ["つかれる", "つかれる", "become tired", "verb", "ru", "Verbs list"], ["あげる", "あげる", "give (to someone)", "verb", "ru", "Verbs list"], ["くれる", "くれる", "give (to me / my group)", "verb", "ru", "Verbs list"], ["もらう", "もらう", "receive / get", "verb", "u", "Verbs list"], ["つれてくる", "つれてくる", "bring (a person)", "verb", "irr", "Verbs list"], ["もってくる", "もってくる", "bring (a thing)", "verb", "irr", "Verbs list"], ["おおきい", "おおきい", "big", "adjective", "", "Adjectives list"], ["ちいさい", "ちいさい", "small", "adjective", "", "Adjectives list"], ["ながい", "ながい", "long", "adjective", "", "Adjectives list"], ["みじかい", "みじかい", "short", "adjective", "", "Adjectives list"], ["ひろい", "ひろい", "wide / spacious", "adjective", "", "Adjectives list"], ["せまい", "せまい", "narrow", "adjective", "", "Adjectives list"], ["あたらしい", "あたらしい", "new", "adjective", "", "Adjectives list"], ["ふるい", "ふるい", "old (thing)", "adjective", "", "Adjectives list"], ["いい", "いい", "good", "adjective", "", "Adjectives list"], ["わるい", "わるい", "bad", "adjective", "", "Adjectives list"], ["たかい", "たかい", "expensive", "adjective", "", "Adjectives list"], ["やすい", "やすい", "cheap", "adjective", "", "Adjectives list"], ["はやい", "はやい", "fast / early", "adjective", "", "Adjectives list"], ["おそい", "おそい", "slow / late", "adjective", "", "Adjectives list"], ["つよい", "つよい", "strong", "adjective", "", "Adjectives list"], ["よわい", "よわい", "weak", "adjective", "", "Adjectives list"], ["おおい", "おおい", "many", "adjective", "", "Adjectives list"], ["すくない", "すくない", "few", "adjective", "", "Adjectives list"], ["むずかしい", "むずかしい", "difficult", "adjective", "", "Adjectives list"], ["おもしろい", "おもしろい", "interesting", "adjective", "", "Adjectives list"], ["おいしい", "おいしい", "delicious", "adjective", "", "Adjectives list"], ["まずい", "まずい", "bad tasting", "adjective", "", "Adjectives list"], ["からい", "からい", "spicy", "adjective", "", "Adjectives list"], ["あまい", "あまい", "sweet", "adjective", "", "Adjectives list"], ["すっぱい", "すっぱい", "sour", "adjective", "", "Adjectives list"], ["にがい", "にがい", "bitter", "adjective", "", "Adjectives list"], ["あつい", "あつい", "hot (weather)", "adjective", "", "Adjectives list"], ["さむい", "さむい", "cold (weather)", "adjective", "", "Adjectives list"], ["つめたい", "つめたい", "cold (object / drink)", "adjective", "", "Adjectives list"], ["あたたかい", "あたたかい", "warm", "adjective", "", "Adjectives list"], ["すずしい", "すずしい", "cool (weather)", "adjective", "", "Adjectives list"], ["ちかい", "ちかい", "near / close", "adjective", "", "Adjectives list"], ["とおい", "とおい", "far", "adjective", "", "Adjectives list"], ["おもい", "おもい", "heavy", "adjective", "", "Adjectives list"], ["かるい", "かるい", "light", "adjective", "", "Adjectives list"], ["ひくい", "ひくい", "low", "adjective", "", "Adjectives list"], ["あかるい", "あかるい", "bright", "adjective", "", "Adjectives list"], ["くらい", "くらい", "dark", "adjective", "", "Adjectives list"], ["こわい", "こわい", "scary", "adjective", "", "Adjectives list"], ["うれしい", "うれしい", "happy / glad", "adjective", "", "Adjectives list"], ["かなしい", "かなしい", "sad", "adjective", "", "Adjectives list"], ["さびしい", "さびしい", "lonely", "adjective", "", "Adjectives list"], ["はずかしい", "はずかしい", "embarrassed / shy", "adjective", "", "Adjectives list"], ["やさしい", "やさしい", "kind / gentle", "adjective", "", "Adjectives list"], ["いたい", "いたい", "painful", "adjective", "", "Adjectives list"], ["あぶない", "あぶない", "dangerous / risky", "adjective", "", "Adjectives list"], ["うるさい", "うるさい", "noisy / annoying", "adjective", "", "Adjectives list"], ["すごい", "すごい", "amazing / great", "adjective", "", "Adjectives list"], ["かっこいい", "かっこいい", "cool (looking good)", "adjective", "", "Adjectives list"], ["いそがしい", "いそがしい", "busy", "adjective", "", "Adjectives list"], ["ねむい", "ねむい", "sleepy", "adjective", "", "Adjectives list"], ["きたない", "きたない", "dirty", "adjective", "", "Adjectives list"], ["こうきしんがつよい", "こうきしんがつよい", "curious", "phrase", "", "Adjectives list"], ["あたまがいい", "あたまがいい", "smart", "phrase", "", "Adjectives list"], ["きれい", "きれい", "beautiful / clean", "adjective", "", "Adjectives list"], ["ゆうめい", "ゆうめい", "famous", "adjective", "", "Adjectives list"], ["べんり", "べんり", "convenient", "adjective", "", "Adjectives list"], ["きけん", "きけん", "dangerous", "adjective", "", "Adjectives list"], ["あんぜん", "あんぜん", "safe", "adjective", "", "Adjectives list"], ["しずか", "しずか", "quiet", "adjective", "", "Adjectives list"], ["にぎやか", "にぎやか", "lively", "adjective", "", "Adjectives list"], ["かんたん", "かんたん", "easy", "adjective", "", "Adjectives list"], ["げんき", "げんき", "healthy / energetic", "adjective", "", "Adjectives list"], ["しんせつ", "しんせつ", "kind", "adjective", "", "Adjectives list"], ["すき", "すき", "like (だい = love)", "adjective", "", "Adjectives list"], ["きらい", "きらい", "dislike (だい = hate)", "adjective", "", "Adjectives list"], ["とくい", "とくい", "good at", "adjective", "", "Adjectives list"], ["にがて", "にがて", "bad at", "adjective", "", "Adjectives list"], ["にんき", "にんき", "popular", "adjective", "", "Adjectives list"], ["はれ", "はれ", "sunny", "adjective", "", "Adjectives list"], ["くもり", "くもり", "cloudy", "adjective", "", "Adjectives list"], ["ゆき", "ゆき", "snow / snowy", "adjective", "", "Adjectives list"], ["とまる", "とまる", "to stay", "verb", "u", "Verbs list"], ["しんぱいする", "しんぱいする", "to worry", "verb", "irr", "Verbs list"], ["はらう", "はらう", "to pay", "verb", "u", "Verbs list"], ["きょうみがある", "きょうみがある", "to be interested in", "phrase", "", "Verbs list"], ["いびきをかく", "いびきをかく", "to snore", "verb", "u", "Verbs list"], ["ぬすむ", "ぬすむ", "to steal", "verb", "u", "Verbs list"], ["かんがえる", "かんがえる", "to think / consider", "verb", "ru", "Verbs list"]];
-let words=[],current=null,direction=null,answered=false,transitionTimer=null,verbStage=false;
-const $=id=>document.getElementById(id);
-function fresh(w,sourceOverride){return{id:crypto.randomUUID(),ja:w[0],reading:w[1],en:w[2],type:w[3]||"noun",verb_group:w[4]||"",source:sourceOverride||w[5]||"Starter",ja_asked:0,ja_correct:0,ja_wrong:0,en_asked:0,en_correct:0,en_wrong:0,type_asked:0,type_correct:0,type_wrong:0};}
-function normalizeWord(w){
- if(!w.source)w.source="Starter";if(w.type==="word"||w.type==="word?")w.type="noun";if(!w.type)w.type="noun";
- if(!("type_asked"in w))w.type_asked=0;if(!("type_correct"in w))w.type_correct=0;if(!("type_wrong"in w))w.type_wrong=0;
- for(const k of ["ja_asked","ja_correct","ja_wrong","en_asked","en_correct","en_wrong","type_asked","type_correct","type_wrong"])w[k]=+w[k]||0;
- return w;
-}
-function mergeSource(a,b){let x=(a||"").split(";").map(s=>s.trim()).filter(Boolean);if(b&&!x.includes(b))x.push(b);return x.join("; ");}
-function addOrMerge(item){
- let w=words.find(x=>x.ja===item[0]);
- if(!w){words.push(fresh(item));return;}
- w.source=mergeSource(w.source,item[5]);
- if(item[2]&&!w.en.split("; ").includes(item[2]))w.en=w.en+"; "+item[2];
- if(!w.reading)w.reading=item[1];
- if(!w.verb_group&&item[4])w.verb_group=item[4];
- if(w.type==="noun"&&item[3]!=="noun")w.type=item[3];
-}
-function load(){
- let old=null;try{old=JSON.parse(localStorage.getItem("jvocab-v7")||localStorage.getItem("jvocab-v5")||"null")}catch(e){}
- words=(Array.isArray(old)?old:STARTER.map(x=>fresh(x,"Starter"))).map(normalizeWord);
- for(const item of BUNDLED_SOURCES)addOrMerge(item);
- save();
-}
-function save(){localStorage.setItem("jvocab-v7",JSON.stringify(words));}
-function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
-function ruby(ja,reading){return(!reading||ja===reading)?esc(ja):`<ruby>${esc(ja)}<rt>${esc(reading)}</rt></ruby>`;}
-function norm(s){return String(s).toLowerCase().trim().replace(/[、。！？!?.,]/g,"").replace(/\s+/g," ");}
-function weight(w,d){let a=d==="ja"?w.ja_asked:w.en_asked,c=d==="ja"?w.ja_correct:w.en_correct;return 1+Math.max(0,a-c)*2+(a?Math.max(0,1-c/a)*5:2);}
-function pool(){let c=$("categoryFilter").value;return words.filter(w=>c==="all"||w.type===c);}
-function weightedPick(p,d){let total=p.reduce((s,w)=>s+weight(w,d),0),r=Math.random()*total;for(const w of p){r-=weight(w,d);if(r<=0)return w}return p[p.length-1];}
-function focusAnswer(){setTimeout(()=>$("answer").focus(),50);}
-function setKeyboard(lang){const a=$("answer");a.lang=lang==="ja"?"ja":"en";a.setAttribute("lang",a.lang);a.setAttribute("autocorrect","off");a.setAttribute("spellcheck","false");a.setAttribute("inputmode","text");}
-function resetButtons(){$("check").classList.remove("hidden");$("next").classList.add("hidden");$("skip").classList.remove("hidden");}
-function pick(){
- clearTimeout(transitionTimer);answered=false;verbStage=false;let p=pool();if(!p.length)return;
- current=weightedPick(p,Math.random()<.5?"ja":"en");direction=Math.random()<.5?"ja":"en";
- $("direction").textContent=direction==="ja"?"Japanese → English":"English → Japanese";
- $("prompt").innerHTML=direction==="ja"?ruby(current.ja,current.reading):esc(current.en);
- $("answer").placeholder=direction==="ja"?"English":"Japanese (kana is fine)";setKeyboard(direction==="ja"?"en":"ja");
- $("answer").value="";$("feedback").textContent="";$("feedback").className="feedback";$("reveal").textContent="";
- resetButtons();updateStats();focusAnswer();
-}
-function verbLabel(g){return g==="ru"?"ru-verb":g==="u"?"u-verb":"irregular";}
-function showTranslationResult(ok){$("feedback").textContent=ok?"✓ Correct":"✗ Not quite";$("feedback").className="feedback "+(ok?"correct":"wrong");$("reveal").innerHTML=`${ruby(current.ja,current.reading)} — ${esc(current.en)}${current.type==="verb"&&current.verb_group?`<br><b>${verbLabel(current.verb_group)}</b>`:""}`;}
-function startVerbTypeQuestion(){
- verbStage=true;answered=false;$("direction").textContent="Verb type";$("prompt").innerHTML=ruby(current.ja,current.reading);$("answer").value="";$("answer").placeholder="ru, u, or irr";setKeyboard("en");
- $("feedback").textContent="Translation correct — now identify the verb type.";$("feedback").className="feedback correct";$("reveal").innerHTML=`${ruby(current.ja,current.reading)} — ${esc(current.en)}`;
- $("check").classList.remove("hidden");$("next").classList.add("hidden");$("skip").classList.add("hidden");focusAnswer();
-}
-function finishTranslation(ok){
- answered=true;showTranslationResult(ok);
- if(ok&&$("quizMode").value==="verbtype"&&current.type==="verb"&&current.verb_group){startVerbTypeQuestion();return;}
- $("check").classList.add("hidden");
- if(ok){$("skip").classList.add("hidden");transitionTimer=setTimeout(pick,1200)}else $("next").classList.remove("hidden");
-}
-function finishVerbType(ok){
- answered=true;current.type_asked++;if(ok)current.type_correct++;else current.type_wrong++;save();
- $("feedback").textContent=ok?"✓ Correct":"✗ Not quite";$("feedback").className="feedback "+(ok?"correct":"wrong");
- $("reveal").innerHTML=`${ruby(current.ja,current.reading)} — ${esc(current.en)}<br><b>${verbLabel(current.verb_group)}</b>`;
- $("check").classList.add("hidden");$("skip").classList.add("hidden");transitionTimer=setTimeout(pick,1200);
-}
-function check(){
- if(answered)return;let val=norm($("answer").value);if(!val)return;
- if(verbStage){
-  let ok=val===current.verb_group||(current.verb_group==="ru"&&(val==="ru verb"||val==="ru-verb"))||(current.verb_group==="u"&&(val==="u verb"||val==="u-verb"))||(current.verb_group==="irr"&&(val==="irregular"||val==="irregular verb"||val==="irregular-verb"));
-  finishVerbType(ok);return;
- }
- let accepted=direction==="ja"?current.en.split(";").map(norm):[norm(current.reading),norm(current.ja)],ok=accepted.includes(val);
- if(direction==="ja"){current.ja_asked++;ok?current.ja_correct++:current.ja_wrong++;}else{current.en_asked++;ok?current.en_correct++:current.en_wrong++;}
- save();updateStats();renderList();finishTranslation(ok);
-}
-function skip(){if(answered)return;pick();}
-function updateStats(){if(!current)return;if(verbStage){$("asked").textContent=current.type_asked;$("correct").textContent=current.type_correct;$("accuracy").textContent=current.type_asked?Math.round(current.type_correct/current.type_asked*100)+"%":"0%";return}let a=direction==="ja"?current.ja_asked:current.en_asked,c=direction==="ja"?current.ja_correct:current.en_correct;$("asked").textContent=a;$("correct").textContent=c;$("accuracy").textContent=a?Math.round(c/a*100)+"%":"0%";}
-function renderList(){let q=norm($("search").value||"");$("wordList").innerHTML=words.filter(w=>(w.ja+" "+w.reading+" "+w.en).toLowerCase().includes(q)).map(w=>`<div class="wordrow"><div><div class="jp">${ruby(w.ja,w.reading)}</div><div class="reading">${esc(w.en)} · ${esc(w.type)}${w.type==="verb"&&w.verb_group?" · "+verbLabel(w.verb_group):""}<br><span style="font-size:11px;color:#888">${esc(w.source||"")}</span></div></div><div class="counts">JP ${w.ja_correct}/${w.ja_asked}<br>EN ${w.en_correct}/${w.en_asked}<br>TYPE ${w.type_correct}/${w.type_asked}</div></div>`).join("");}
-function toText(){return words.map(w=>[w.ja,w.reading,w.en,w.type,w.verb_group||"",w.source||"",w.ja_asked,w.ja_correct,w.ja_wrong,w.en_asked,w.en_correct,w.en_wrong].join("|")).join("\n");}
-function fromText(t){let out=[];for(const line of t.split(/\r?\n/)){if(!line.trim()||line.trim().startsWith("#"))continue;let p=line.split("|");if(p.length<12)continue;out.push(normalizeWord({id:crypto.randomUUID(),ja:p[0],reading:p[1],en:p[2],type:p[3]||"noun",verb_group:p[4]||"",source:p[5]||"Imported",ja_asked:+p[6]||0,ja_correct:+p[7]||0,ja_wrong:+p[8]||0,en_asked:+p[9]||0,en_correct:+p[10]||0,en_wrong:+p[11]||0}));}return out;}
-function refreshText(){$("dataText").value=toText();}
-function exportText(){let b=new Blob([toText()+"\n"],{type:"text/plain;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="vocabulary.txt";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
-document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("nav button").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".tab").forEach(x=>x.classList.add("hidden"));$(b.dataset.tab).classList.remove("hidden");if(b.dataset.tab==="words")renderList();if(b.dataset.tab==="data")refreshText();});
-$("check").onclick=check;$("next").onclick=pick;$("skip").onclick=skip;$("answer").addEventListener("keydown",e=>{if(e.key==="Enter")check()});$("search").oninput=renderList;$("quizMode").onchange=pick;$("categoryFilter").onchange=pick;
-$("addWord").onclick=()=>{let ja=$("newJa").value.trim(),rd=$("newReading").value.trim(),en=$("newEn").value.trim();if(!ja||!rd||!en){$("addMsg").textContent="Please fill in Japanese, reading and English.";return}let type=$("newType").value;addOrMerge([ja,rd,en,type,$("newVerbGroup").value,"Custom"]);save();["newJa","newReading","newEn"].forEach(id=>$(id).value="");$("addMsg").textContent="✓ Word added.";};
-$("loadText").onclick=()=>{let w=fromText($("dataText").value);if(!w.length){alert("No valid vocabulary lines found.");return}words=w;save();pick();alert("Vocabulary loaded.");};$("exportText").onclick=exportText;
-$("reset").onclick=()=>{if(confirm("Reset all words and statistics and reload the bundled vocabulary?")){localStorage.removeItem("jvocab-v7");load();pick();refreshText();}};
-load();pick();
-</script>
-
-<script>
-(() => {
-  const V8_KEY = "jvt_v8_migrated";
-  const OLD_KEY_CANDIDATES = ["japaneseVocabulary","vocabulary","jvt_vocab","vocab"];
-  const stripParens = s => (s||"").replace(/\s*\([^)]*\)/g,"").replace(/\s+/g," ").trim();
-  const norm = s => stripParens(s).toLowerCase().replace(/^to\s+/,"").trim();
-
-  // Keep parenthetical qualifiers out of the answer field and move them into info.
-  function splitMeaning(s){
-    s=(s||"").trim();
-    const m=s.match(/^(.*?)\s*\(([^()]*)\)\s*$/);
-    return m ? {meaning:m[1].trim(), info:m[2].trim()} : {meaning:s, info:""};
-  }
-
-  // Upgrade vocabulary records without touching their statistics.
-  function upgradeRecord(w){
-    if(!w || typeof w!=="object") return w;
-    if(w.additionalInfo===undefined) w.additionalInfo = w.info || "";
-    if(w.info!==undefined && !w.additionalInfo) w.additionalInfo=w.info;
-    if(w.english){
-      const s=splitMeaning(w.english);
-      if(s.info && !w.additionalInfo) w.additionalInfo=s.info;
-      w.english=s.meaning;
-    }
-    if(w.meaning && !w.english){
-      const s=splitMeaning(w.meaning);
-      w.english=s.meaning;
-      if(s.info && !w.additionalInfo) w.additionalInfo=s.info;
-    }
-    // Verbs are displayed/accepted as infinitives, but answers without "to" are accepted.
-    if(w.category==="verb" && w.english && !/^\s*to\b/i.test(w.english)){
-      w.english="to "+w.english;
-    }
-    return w;
-  }
-
-  function findVocabularyArray(){
-    for(const k of OLD_KEY_CANDIDATES){
-      try{
-        const v=JSON.parse(localStorage.getItem(k)||"null");
-        if(Array.isArray(v)) return {key:k, arr:v};
-        if(v && Array.isArray(v.words)) return {key:k, arr:v.words, wrapper:v};
-      }catch(e){}
-    }
-    return null;
-  }
-
-  // Existing app may already expose a global vocabulary array. Upgrade it in-place.
-  try{
-    if(Array.isArray(window.vocabulary)) window.vocabulary.forEach(upgradeRecord);
-    if(Array.isArray(window.words)) window.words.forEach(upgradeRecord);
-  }catch(e){}
-
-  // Add answer normalization globally by intercepting the most common check handlers.
-  // This does not alter stored answers/statistics.
-  window.jvtV8 = {
-    normalizeAnswer: norm,
-    splitMeaning,
-    upgradeRecord,
-    acceptAnswer(input, answers){
-      const a=Array.isArray(answers)?answers:[answers];
-      const x=norm(input);
-      return a.some(v=>norm(v)===x);
-    }
-  };
-
-  // Previous-result panel: the host app can call window.jvtV8.showPrevious(result).
-  window.jvtV8.showPrevious = function(r){
-    let box=document.getElementById("jvt-prev");
-    if(!box){
-      box=document.createElement("section");
-      box.id="jvt-prev";
-      box.className="prev-card";
-      const anchor=document.querySelector("main")||document.body;
-      anchor.appendChild(box);
-    }
-    const safe=x=>htmlEscape(String(x??""));
-    box.innerHTML=`<div class="prev-head"><div class="prev-title">Previous word</div>
-      <button class="icon-btn" type="button" id="jvt-edit-prev">✎ Modify</button></div>
-      <div style="margin-top:10px"><b>${safe(r.direction||"")}</b></div>
-      <div style="margin-top:8px;font-size:1.15em">${safe(r.japanese||"")}</div>
-      <div style="margin-top:8px">Your answer: <b>${safe(r.input||"")}</b></div>
-      <div>Correct answer: <b>${safe(r.answer||"")}</b></div>
-      <div style="margin-top:6px;font-weight:700">${r.correct ? "✓ Correct" : "✗ Wrong"}</div>
-      ${r.verbType ? `<div style="margin-top:6px">Verb type: <b>${safe(r.verbType)}</b>${r.verbTypeCorrect!==undefined ? " — "+(r.verbTypeCorrect?"✓":"✗") : ""}</div>`:""}
-      ${r.info ? `<div class="info"><b>Info:</b><br>${safe(r.info)}</div>`:""}`;
-    document.getElementById("jvt-edit-prev").onclick=()=>window.jvtV8.openEditor(r.word||r);
-  };
-
-  function htmlEscape(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));}
-
-  window.jvtV8.openEditor=function(w){
-    w=w||{};
-    const ov=document.createElement("div");
-    ov.className="editor-overlay";
-    ov.innerHTML=`<div class="editor">
-      <h3>Modify word</h3>
-      <label>Japanese</label><input id="e-ja" value="${htmlEscape(w.japanese||w.jp||"")}">
-      <label>Reading</label><input id="e-read" value="${htmlEscape(w.reading||"")}">
-      <label>English</label><input id="e-en" value="${htmlEscape(w.english||w.meaning||"")}">
-      <label>Additional information</label><textarea id="e-info">${htmlEscape(w.additionalInfo||w.info||"")}</textarea>
-      <label>Category</label><select id="e-cat">
-        <option value="verb">Verb</option><option value="adjective">Adjective</option>
-        <option value="noun">Noun</option><option value="phrase">Phrase</option>
-      </select>
-      <label>Verb type</label><select id="e-vtype">
-        <option value="">—</option><option value="ru">ru</option><option value="u">u</option><option value="irr">irr</option>
-      </select>
-      <div class="editor-actions"><button class="icon-btn" id="e-cancel">Cancel</button>
-      <button class="icon-btn" id="e-save">Save</button></div>
-    </div>`;
-    document.body.appendChild(ov);
-    const cat=w.category||"phrase";
-    document.getElementById("e-cat").value=cat;
-    document.getElementById("e-vtype").value=w.verbType||w.type||"";
-    document.getElementById("e-cancel").onclick=()=>ov.remove();
-    document.getElementById("e-save").onclick=()=>{
-      w.japanese=document.getElementById("e-ja").value.trim();
-      w.reading=document.getElementById("e-read").value.trim();
-      w.english=document.getElementById("e-en").value.trim();
-      w.additionalInfo=document.getElementById("e-info").value.trim();
-      w.category=document.getElementById("e-cat").value;
-      w.verbType=document.getElementById("e-vtype").value;
-      if(w.category==="verb" && w.english && !/^to\b/i.test(w.english)) w.english="to "+w.english;
-      try{
-        if(typeof window.saveVocabulary==="function") window.saveVocabulary();
-        else if(typeof window.saveWords==="function") window.saveWords();
-      }catch(e){}
-      ov.remove();
-      if(typeof window.render==="function") window.render();
-    };
-  };
-
-  // If the existing + New Word form is present, add the additional-info field.
-  function addInfoToNewWordForm(){
-    const inputs=[...document.querySelectorAll("input,textarea")];
-    const target=inputs.find(x=>/english|meaning/i.test(x.name||x.placeholder||""));
-    if(!target || document.getElementById("jvt-new-info")) return;
-    const wrap=target.parentElement;
-    if(!wrap) return;
-    const label=document.createElement("label");
-    label.textContent="Additional information";
-    label.style.display="block"; label.style.marginTop="10px";
-    const ta=document.createElement("textarea");
-    ta.id="jvt-new-info"; ta.placeholder="Optional: qualifier, explanation, example sentence…";
-    ta.style.width="100%"; ta.style.boxSizing="border-box"; ta.style.minHeight="90px";
-    wrap.parentElement.append(label,ta);
-  }
-  const obs=new MutationObserver(addInfoToNewWordForm);
-  obs.observe(document.body,{childList:true,subtree:true});
-  addInfoToNewWordForm();
-})();
-</script>
-</body></html>
+const statsFields=['ja_asked','ja_correct','ja_wrong','en_asked','en_correct','en_wrong','type_asked','type_correct','type_wrong'];
+let fields=[],words=[],current=null,direction='ja',answered=false,typingType=false,askType=true,last=null,lastLayout=[];const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+const norm=s=>String(s??'').toLowerCase().trim().replace(/[、。！？!?.,]/g,'').replace(/\s+/g,' ');const key=s=>String(s||'').trim().toLowerCase().replace(/\s+/g,'_');
+const ruby=(j,r)=>(!r||j===r)?esc(j):`<ruby>${esc(j)}<rt>${esc(r)}</rt></ruby>`;
+function parseCSVLine(line){let out=[],cur='',quoted=false;for(let i=0;i<line.length;i++){let ch=line[i];if(ch==='\"'){if(quoted&&line[i+1]==='\"'){cur+='\"';i++;}else quoted=!quoted;}else if(ch===','&&!quoted){out.push(cur);cur='';}else cur+=ch}out.push(cur);return out}
+function parseDB(t){let lines=t.replace(/^\uFEFF/,'').split(/\r?\n/).filter(x=>x.trim()!==''),header=null,rows=[];for(const raw of lines){if(raw.trim().startsWith('#'))continue;header=parseCSVLine(raw).map(key);break}if(!header)throw Error('Missing CSV header');for(let i=1;i<lines.length;i++)rows.push(parseCSVLine(lines[i]));fields=header;return rows.map(v=>{let w={id:crypto.randomUUID()};fields.forEach((f,i)=>w[f]=v[i]??'');return normalize(w)})}
+function normalize(w){w.japanese=w.japanese||w.ja||'';w.reading=w.reading||w.japanese;w.english=w.english||w.en||'';w.type=w.type||'noun';w.verb_group=w.verb_group||'';w.additional_info=w.additional_info||w.info||'';for(const f of statsFields)w[f]=+w[f]||0;return w}
+function stable(w){return norm(w.japanese)+'|'+norm(w.reading)}
+function oldStats(){for(const k of ['jvt_v9_stats','jvocab-v8','jvocab-v7','japaneseVocabulary','vocabulary','jvt_vocab','vocab'])try{let x=JSON.parse(localStorage.getItem(k)||'null'),a=Array.isArray(x)?x:x?.words;if(a)return new Map(a.map(w=>[norm(w.japanese||w.ja||'')+'|'+norm(w.reading||''),w]))}catch(e){}return new Map()}
+function applyStats(){const m=oldStats();words.forEach(w=>{const s=m.get(stable(w));if(s)statsFields.forEach(f=>w[f]=+s[f]||0)})}
+function saveStats(){localStorage.setItem('jvt_v9_stats',JSON.stringify(words.map(w=>({key:stable(w),...Object.fromEntries(statsFields.map(f=>[f,w[f]]))}))));}
+function pool(){const c=$('categoryFilter').value;return words.filter(w=>c==='all'||w.type===c)}function weight(w,d){let a=d==='ja'?w.ja_asked:w.en_asked,c=d==='ja'?w.ja_correct:w.en_correct;return 1+Math.max(0,a-c)*2+(a?Math.max(0,1-c/a)*5:2)}function pickWeighted(p,d){let n=p.reduce((s,w)=>s+weight(w,d),0),r=Math.random()*n;for(const w of p){r-=weight(w,d);if(r<=0)return w}return p[p.length-1]}
+function setKeyboard(l){let a=$('answer');a.lang=l;a.setAttribute('lang',l);a.autocorrect='off';a.spellcheck=false;a.inputMode='text'}function focus(){setTimeout(()=>$('answer').focus(),50)}
+function resetButtons(){$('check').classList.remove('hidden');$('next').classList.add('hidden');$('skip').classList.remove('hidden')}
+function pick(){answered=false;typingType=false;let p=pool();if(!p.length){$('prompt').textContent='No words in this filter.';return}let d=$('directionSelect').value;direction=d==='mixed'?(Math.random()<.5?'ja':'en'):d;current=pickWeighted(p,direction);$('direction').textContent=direction==='ja'?'Japanese → English':'English → Japanese';$('prompt').innerHTML=direction==='ja'?ruby(current.japanese,current.reading):esc(current.english);$('answer').placeholder=direction==='ja'?'English':'Japanese (kana is fine)';setKeyboard(direction==='ja'?'en':'ja');$('answer').value='';$('feedback').textContent='';$('feedback').className='feedback';$('reveal').textContent='';resetButtons();updateStats();focus()}
+function typeExpected(){return current.type==='verb'?current.verb_group:(current.adjective_group||current.adjective_type||'')}function typeLabel(x){return x==='ru'?'ru-verb':x==='u'?'u-verb':x==='irr'?'irregular':x}
+function typeOK(v){let x=norm(v),e=norm(typeExpected());if(!e)return false;return x===e||e==='ru'&&['ru verb','ru-verb'].includes(x)||e==='u'&&['u verb','u-verb'].includes(x)||e==='irr'&&['irregular','irregular verb','irregular-verb'].includes(x)||e==='i'&&['i adjective','i-adjective'].includes(x)||e==='na'&&['na adjective','na-adjective'].includes(x)}
+function makeLast(result,given){let r={...current,question:direction==='ja'?current.japanese:current.english,correct_answer:direction==='ja'?current.english:current.japanese,answer_given:given,result};if(typingType)r.correct_answer=typeExpected();return r}
+function showLast(r){last=r;let groups={};for(const x of lastLayout)(groups[x.line]??=[]).push(x);let html='';for(const ln of Object.keys(groups).sort((a,b)=>a-b)){let parts='';for(const x of groups[ln]){let v=r[x.db]??'';if(!v)continue;let val=x.db==='question'&&direction==='ja'?ruby(r.japanese,r.reading):esc(v).replace(/\n/g,'<br>');let cls=x.db==='result'?'last-result '+(v==='Correct'?'correct':v==='Wrong'?'wrong':''):'';parts+=`<div class="last-item ${x.under?'under':'inline'}" style="margin-right:${+x.gap||0}px"><div class="last-label">${esc(x.label)}</div><div class="last-value ${cls}">${val}</div></div>`}if(parts)html+=`<div class="last-line">${parts}</div>`}$('lastContent').innerHTML=html||'<div class="note">No displayable values.</div>';$('editLast').classList.remove('hidden')}
+function defaultLayout(){return[{line:1,label:'Question word',db:'question',under:true,gap:28},{line:1,label:'Correct answer',db:'correct_answer',under:true,gap:28},{line:1,label:'Answer given',db:'answer_given',under:true,gap:28},{line:2,label:'Word type',db:'type',under:true,gap:28},{line:2,label:'Verb type',db:'verb_group',under:true,gap:28},{line:2,label:'Adjective type',db:'adjective_group',under:true,gap:28},{line:3,label:'Additional information',db:'additional_info',under:true,gap:28},{line:4,label:'Result',db:'result',under:true,gap:28}]}
+function parseLayout(t){let a=[];for(const raw of t.split(/\r?\n/)){let s=raw.trim();if(!s||s.startsWith('#'))continue;let o={line:1,label:'',db:'',under:true,gap:20};for(const p of s.split(';')){let q=p.split('='),k=q.shift()?.trim(),v=q.join('=').trim();if(k==='line')o.line=+v||1;else if(k==='label')o.label=v;else if(k==='db')o.db=key(v);else if(k==='under')o.under=v!=='false';else if(k==='gap')o.gap=+v||0}if(o.label&&o.db)a.push(o)}return a.length?a:defaultLayout()}
+function updateStats(){if(!current)return;let a=typingType?current.type_asked:(direction==='ja'?current.ja_asked:current.en_asked),c=typingType?current.type_correct:(direction==='ja'?current.ja_correct:current.en_correct);$('asked').textContent=a;$('correct').textContent=c;$('accuracy').textContent=a?Math.round(c/a*100)+'%':'0%'}
+function finishTranslation(ok,given){answered=true;let r=makeLast(ok?'Correct':'Wrong',given);showLast(r);$('feedback').textContent=ok?'✓ Correct':'✗ Not quite';$('feedback').className='feedback '+(ok?'correct':'wrong');$('reveal').innerHTML=`${ruby(current.japanese,current.reading)} — ${esc(current.english)}${current.verb_group?`<br><b>${esc(typeLabel(current.verb_group))}</b>`:''}${current.adjective_group?`<br><b>${esc(current.adjective_group)}</b>`:''}${current.additional_info?`<br>${esc(current.additional_info)}`:''}`;$('check').classList.add('hidden');if(ok&&askType&&(current.type==='verb'||current.type==='adjective')&&typeExpected()){typingType=true;answered=false;$('direction').textContent=current.type==='verb'?'Verb type':'Adjective type';$('prompt').innerHTML=ruby(current.japanese,current.reading);$('answer').value='';$('answer').placeholder=current.type==='verb'?'ru, u, or irr':'i or na';setKeyboard('en');$('feedback').textContent='Translation correct — now identify the type.';$('feedback').className='feedback correct';$('skip').classList.add('hidden');$('next').classList.add('hidden');$('check').classList.remove('hidden');focus();return}if(ok){$('skip').classList.add('hidden');setTimeout(pick,1200)}else $('next').classList.remove('hidden')}
+function finishType(ok,given){answered=true;current.type_asked++;ok?current.type_correct++:current.type_wrong++;saveStats();let r=makeLast(ok?'Correct':'Wrong',given);r.question=current.japanese;r.correct_answer=typeExpected();showLast(r);$('feedback').textContent=ok?'✓ Correct':'✗ Not quite';$('feedback').className='feedback '+(ok?'correct':'wrong');$('reveal').innerHTML=`${ruby(current.japanese,current.reading)} — ${esc(current.english)}<br><b>${esc(typeExpected())}</b>`;$('check').classList.add('hidden');$('skip').classList.add('hidden');setTimeout(pick,1200)}
+function check(){if(answered)return;let v=$('answer').value.trim();if(!v)return;if(typingType){finishType(typeOK(v),v);return}let ok=(direction==='ja'?current.english.split(';').map(norm):[norm(current.reading),norm(current.japanese)]).includes(norm(v));if(direction==='ja'){current.ja_asked++;ok?current.ja_correct++:current.ja_wrong++}else{current.en_asked++;ok?current.en_correct++:current.en_wrong++}saveStats();updateStats();finishTranslation(ok,v)}
+function skip(){if(answered)return;showLast(makeLast('Skipped',''));pick()}
+function renderList(){let q=norm($('search').value);$('wordList').innerHTML=words.filter(w=>(w.japanese+' '+w.reading+' '+w.english+' '+(w.additional_info||'')).toLowerCase().includes(q)).map(w=>`<div class="wordrow"><div><div class="jp">${ruby(w.japanese,w.reading)}</div><div class="reading">${esc(w.english)} · ${esc(w.type)}${w.verb_group?' · '+esc(typeLabel(w.verb_group)):''}${w.adjective_group?' · '+esc(w.adjective_group):''}<br><span style="font-size:11px;color:#888">${esc(w.source||'')}</span></div></div><div class="counts">JP ${w.ja_correct}/${w.ja_asked}<br>EN ${w.en_correct}/${w.en_asked}</div></div>`).join('')}
+function editLast(){if(!current)return;$('editFields').innerHTML=fields.filter(f=>!statsFields.includes(f)).map(f=>`<label style="display:block;font-size:13px;font-weight:700;margin:10px 0 5px">${esc(f)}</label><textarea data-field="${esc(f)}" rows="2">${esc(current[f]||'')}</textarea>`).join('');$('overlay').classList.remove('hidden')}
+function applyEdit(){document.querySelectorAll('[data-field]').forEach(x=>current[x.dataset.field]=x.value);$('overlay').classList.add('hidden');showLast(makeLast(last?.result||'',''));saveStats()}
+async function init(){try{let [db,lay]=await Promise.all([fetch('vocabulary.csv',{cache:'no-store'}).then(r=>r.text()),fetch('last-layout.txt',{cache:'no-store'}).then(r=>r.text())]);words=parseDB(db);applyStats();lastLayout=parseLayout(lay)}catch(e){$('prompt').textContent='Could not load vocabulary.csv';console.error(e);return}
+$('askType').onclick=()=>{askType=!askType;$('askType').classList.toggle('on',askType);$('askType').textContent=askType?'ON':'OFF';pick()};$('directionSelect').onchange=pick;$('categoryFilter').onchange=pick;$('check').onclick=check;$('next').onclick=pick;$('skip').onclick=skip;$('answer').onkeydown=e=>{if(e.key==='Enter')check()};$('search').oninput=renderList;$('editLast').onclick=editLast;$('cancel').onclick=()=>$('overlay').classList.add('hidden');$('apply').onclick=applyEdit;document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.tab').forEach(x=>x.classList.add('hidden'));$(b.dataset.tab).classList.remove('hidden');if(b.dataset.tab==='words')renderList()});pick()}
+init();
+</script></body></html>
