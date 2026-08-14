@@ -1,0 +1,13 @@
+# Japanese Vocabulary Trainer — default options
+# These values are used when the app starts/reloads.
+# Changing options during a session does not modify this file.
+
+[quiz]
+ask_type=on
+direction=mixed
+vocabulary=all
+
+[training]
+direction=mixed
+vocabulary=all
+reveal_all=off

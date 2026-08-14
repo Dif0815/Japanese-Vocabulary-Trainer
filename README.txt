@@ -1,14 +1,14 @@
-Japanese Vocabulary Trainer v13
+Japanese Vocabulary Trainer v15
 
 GITHUB PAGES
 ------------
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=13
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=15
 
 Normal link:
 https://dif0815.github.io/Japanese-Vocabulary-Trainer/
 
-The ?v=13 ending is a cache-busting version marker. Increase it when uploading a
+The ?v=15 ending is a cache-busting version marker. Increase it when uploading a
 new version so the browser is forced to request the new files.
 
 FILES
@@ -18,9 +18,11 @@ Upload these files to the root of the GitHub Pages repository:
 - vocabulary.csv
 - last-layout.txt
 - training-layout.txt
+- options-defaults.txt
 Keep your existing manifest.json and icon.svg.
 
 The version number is shown on the main page and in the HTML title.
+The options-defaults.txt file controls startup defaults for Quiz and Training.
 
 VOCABULARY DATABASE
 -------------------
@@ -57,6 +59,7 @@ In the English field:
 - (...) is an optional qualifier. It is shown as part of the vocabulary information,
   but the parenthetical qualifier is ignored when checking the answer.
   Example: to have (living things) can be answered with "to have" or "have".
+- Verb English meanings are stored without the leading "to". Quiz and Training display "to " automatically for verbs.
 - For verbs, "to" is optional when checking. For example, both "to do" and "do" are accepted.
 - Japanese -> English checks the English meanings using the rules above.
 - English -> Japanese accepts the stored reading or Japanese field.
@@ -93,7 +96,7 @@ Options:
 - Vocabulary: All / Verbs / Adjectives / Nouns / Phrases
 
 Changing Ask Type does NOT advance or replace the current question. It only changes the
-setting used for the current/next quiz flow.
+setting used for the current/next quiz flow. The Options frame is placed below the main Quiz content.
 
 The Next button remains on the right side after an answer is checked.
 
@@ -148,7 +151,7 @@ The question word is selected using the same direction/vocabulary/question selec
 the Quiz, but Training does not record an asked/correct/wrong result.
 
 Changing the Training Reveal All setting does NOT advance, skip, clear, or replace the current
-training word. It only changes what the next button does.
+training word. It only changes what the next button does. Training labels remain visible while values are hidden. The Options frame is placed below the Training content.
 
 Training reveal layouts are stored in training-layout.txt and are edited manually.
 Mixed mode does NOT need a separate layout: the actual direction of each mixed question
@@ -211,3 +214,33 @@ VOICE INPUT
 -----------
 Voice input is intentionally NOT part of this version. It was tested separately and is
 being postponed for a future version.
+
+
+Version 15 data correction
+---------------------------
+All verb and adjective conjugation columns have been checked and regenerated from the reading column.
+Conjugation fields are kana-only. Special forms such as いい, かっこいい, くる, する, ある, and いく were checked separately.
+The existing clear adjective-group corrections for ゆうめい, きらい, and とくい were also applied because they affect their conjugations.
+No other vocabulary content was intentionally changed.
+
+
+OPTIONS DEFAULTS
+----------------
+options-defaults.txt controls startup defaults:
+[quiz]
+ask_type=on
+direction=mixed
+vocabulary=all
+
+[training]
+direction=mixed
+vocabulary=all
+reveal_all=off
+
+Changing an Ask Type or Reveal All toggle never advances the current question/word.
+
+VERSION 15 CHANGES
+------------------
+Verb English values in vocabulary.csv were cleaned to remove leading "to". Quiz and Training
+add "to " automatically when displaying a verb, while answer checking accepts both forms.
+The words はれ, くもり, and ゆき are classified as nouns and no longer have adjective conjugations.
