@@ -1,0 +1,62 @@
+# Japanese Vocabulary Trainer — Training reveal layout
+#
+# One config entry = one reveal item.
+# Multiple items can share the same visual line number.
+#
+# The reveal order is the order of the entries in this file.
+# In Reveal All = OFF mode, one item is added per Next click.
+# In Reveal All = ON mode, all non-empty items are shown at once.
+#
+# Syntax:
+# type=verb; direction=ja-en; line=1; label=Dictionary form; db=japanese; under=true; gap=28
+#
+# type       = vocabulary type: verb / adjective / noun / phrase / all
+# direction  = ja-en or en-ja
+# line       = visual line number
+# label      = text shown above/beside the database value
+# db         = database/CSV field name (or virtual field: question, correct_answer, direction)
+# under      = true: value below label / false: label and value side-by-side
+# gap        = horizontal space after the item in pixels
+#
+# Empty database values are ignored, including their labels.
+# Database fields come from the first row of vocabulary.csv.
+# Add new columns to vocabulary.csv and they automatically become available here.
+#
+# Mixed mode does NOT need a separate configuration. The actual question direction
+# selects ja-en or en-ja automatically.
+
+# ---------------- VERBS — Japanese → English ----------------
+type=verb; direction=ja-en; line=1; label=Dictionary form; db=japanese; under=true; gap=28
+type=verb; direction=ja-en; line=1; label=Stem; db=verb_stem; under=true; gap=28
+type=verb; direction=ja-en; line=1; label=Masu form; db=verb_masu; under=true; gap=28
+type=verb; direction=ja-en; line=2; label=Te-form; db=verb_te_form; under=true; gap=28
+type=verb; direction=ja-en; line=2; label=Short-negative; db=verb_short_negative; under=true; gap=28
+type=verb; direction=ja-en; line=2; label=Short-past; db=verb_short_past; under=true; gap=28
+
+# ---------------- VERBS — English → Japanese ----------------
+type=verb; direction=en-ja; line=1; label=English; db=english; under=true; gap=28
+type=verb; direction=en-ja; line=2; label=Dictionary form; db=japanese; under=true; gap=28
+type=verb; direction=en-ja; line=2; label=Stem; db=verb_stem; under=true; gap=28
+type=verb; direction=en-ja; line=2; label=Masu form; db=verb_masu; under=true; gap=28
+type=verb; direction=en-ja; line=3; label=Te-form; db=verb_te_form; under=true; gap=28
+type=verb; direction=en-ja; line=3; label=Short-negative; db=verb_short_negative; under=true; gap=28
+type=verb; direction=en-ja; line=3; label=Short-past; db=verb_short_past; under=true; gap=28
+
+# ---------------- ADJECTIVES — Japanese → English ----------------
+type=adjective; direction=ja-en; line=1; label=Dictionary form; db=japanese; under=true; gap=28
+type=adjective; direction=ja-en; line=1; label=Negative; db=adjective_negative; under=true; gap=28
+type=adjective; direction=ja-en; line=1; label=Past; db=adjective_past; under=true; gap=28
+type=adjective; direction=ja-en; line=2; label=Te-form; db=adjective_te_form; under=true; gap=28
+
+# ---------------- ADJECTIVES — English → Japanese ----------------
+type=adjective; direction=en-ja; line=1; label=English; db=english; under=true; gap=28
+type=adjective; direction=en-ja; line=2; label=Dictionary form; db=japanese; under=true; gap=28
+type=adjective; direction=en-ja; line=2; label=Negative; db=adjective_negative; under=true; gap=28
+type=adjective; direction=en-ja; line=2; label=Past; db=adjective_past; under=true; gap=28
+type=adjective; direction=en-ja; line=3; label=Te-form; db=adjective_te_form; under=true; gap=28
+
+# ---------------- FALLBACK — all other vocabulary ----------------
+type=all; direction=ja-en; line=1; label=Dictionary form; db=japanese; under=true; gap=28
+type=all; direction=ja-en; line=1; label=English; db=english; under=true; gap=28
+type=all; direction=en-ja; line=1; label=English; db=english; under=true; gap=28
+type=all; direction=en-ja; line=1; label=Dictionary form; db=japanese; under=true; gap=28
