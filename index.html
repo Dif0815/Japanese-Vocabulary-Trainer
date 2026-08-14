@@ -179,6 +179,7 @@ function pick(){
     document.getElementById("prompt").innerHTML=ruby(current.ja,current.reading);
     document.getElementById("answer").value="";
     document.getElementById("answer").placeholder="ru, u, or irr";
+    document.getElementById("answer").setAttribute("inputmode","latin");
   } else {
     direction=Math.random()<.5?"ja":"en";
     const total=pool.reduce((s,w)=>s+weight(w,direction),0); let r=Math.random()*total;
@@ -188,6 +189,7 @@ function pick(){
     document.getElementById("prompt").innerHTML=direction==="ja"?ruby(current.ja,current.reading):esc(current.en);
     document.getElementById("answer").value="";
     document.getElementById("answer").placeholder=direction==="ja"?"English":"Japanese (kana is fine)";
+    document.getElementById("answer").setAttribute("inputmode", direction==="ja" ? "latin" : "kana");
   }
   document.getElementById("check").classList.remove("hidden");
   document.getElementById("next").classList.add("hidden");
@@ -216,7 +218,7 @@ function check(){
     f.className="feedback "+(ok?"correct":"wrong");
     document.getElementById("reveal").innerHTML=
       `${ruby(current.ja,current.reading)} — ${esc(current.en)}<br><b>${current.verb_group==="ru"?"ru-verb":current.verb_group==="u"?"u-verb":"irregular"}</b>`;
-    if(ok) setTimeout(pick,900);
+    if(ok) { document.getElementById("answer").blur(); setTimeout(pick,1200); }
     else {
       document.getElementById("check").classList.add("hidden");
       document.getElementById("next").classList.remove("hidden");
@@ -231,11 +233,11 @@ function check(){
   const f=document.getElementById("feedback");
   f.textContent=ok?"✓ Correct":"✗ Not quite";
   f.className="feedback "+(ok?"correct":"wrong");
-  const typeInfo=(direction==="ja" && current.type==="verb" && ok && current.verb_group)
+  const typeInfo=(current.type==="verb" && current.verb_group)
     ? `<br><b>${current.verb_group==="ru"?"ru-verb":current.verb_group==="u"?"u-verb":"irregular"}</b>` : "";
   document.getElementById("reveal").innerHTML=`${ruby(current.ja,current.reading)} — ${esc(current.en)}${typeInfo}`;
   updateStats();renderList();
-  if(ok) setTimeout(pick,900);
+  if(ok) { document.getElementById("answer").blur(); setTimeout(pick,1200); }
   else {
     document.getElementById("check").classList.add("hidden");
     document.getElementById("next").classList.remove("hidden");
@@ -310,6 +312,6 @@ document.getElementById("reset").onclick=()=>{
   if(confirm("Reset all words and statistics to the starter N5 set?")){words=STARTER.map(fresh);save();pick();refreshText();renderList();}
 };
 load(); requestAnimationFrame(pick);
-if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(()=>{});}
+
 </script>
 </body></html>
