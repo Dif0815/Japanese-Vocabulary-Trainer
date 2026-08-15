@@ -1,14 +1,14 @@
-Japanese Vocabulary Trainer v15
+Japanese Vocabulary Trainer v16
 
 GITHUB PAGES
 ------------
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=15
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=16
 
 Normal link:
 https://dif0815.github.io/Japanese-Vocabulary-Trainer/
 
-The ?v=15 ending is a cache-busting version marker. Increase it when uploading a
+The ?v=16 ending is a cache-busting version marker. Increase it when uploading a
 new version so the browser is forced to request the new files.
 
 FILES
@@ -37,7 +37,7 @@ The first CSV row is the database header. Current columns include:
 - type
 - verb_group
 - adjective_group
-- source
+- group
 - additional_info
 - verb_stem
 - verb_masu
@@ -50,6 +50,28 @@ The first CSV row is the database header. Current columns include:
 
 Conjugation fields are stored separately for verbs and adjectives. adjective_group is i or na.
 Any new CSV column automatically becomes available to the configurable Last and Training layouts.
+
+FILTERS
+-------
+The type column is an open-ended word classification field. The app does not hard-code the available
+word types. It reads all unique non-empty values from the CSV and creates the filter choices dynamically.
+This means new types such as adverb, pronoun, question_word, or other categories can be added without
+changing the HTML/JavaScript.
+
+The group column is an optional topic/grouping field. It replaces the old source column. Examples:
+- body parts
+- directions
+- food
+
+A word may belong to multiple groups by separating them with /. For example:
+    food/restaurant
+
+The Group filter treats each slash-separated value as an independent group. The same dynamic Group filter
+is available in Quiz, Training, and Words. Statistics will use the same filters when the Statistics section
+is implemented.
+
+Type and Group filters do not change the vocabulary database. They only change the currently displayed/selected
+vocabulary pool.
 
 ANSWER SYNTAX
 -------------
@@ -93,7 +115,8 @@ QUIZ
 Options:
 - Ask Type: ON/OFF
 - Direction: Japanese -> English / English -> Japanese / Mixed
-- Vocabulary: All / Verbs / Adjectives / Nouns / Phrases
+- Vocabulary: dynamically generated from the unique values in the CSV type column
+- Group: dynamically generated from the unique group values in the CSV group column
 
 Changing Ask Type does NOT advance or replace the current question. It only changes the
 setting used for the current/next quiz flow. The Options frame is placed below the main Quiz content.
@@ -144,7 +167,8 @@ TRAINING
 Training is separate from Quiz and NEVER changes learning statistics.
 It has:
 - Direction: Japanese -> English / English -> Japanese / Mixed
-- Vocabulary: All / Verbs / Adjectives / Nouns / Phrases
+- Vocabulary: dynamically generated from CSV type values
+- Group: dynamically generated from CSV group values
 - Reveal All: ON/OFF
 
 The question word is selected using the same direction/vocabulary/question selection logic as
@@ -216,7 +240,7 @@ Voice input is intentionally NOT part of this version. It was tested separately 
 being postponed for a future version.
 
 
-Version 15 data correction
+Version 16 data correction
 ---------------------------
 All verb and adjective conjugation columns have been checked and regenerated from the reading column.
 Conjugation fields are kana-only. Special forms such as いい, かっこいい, くる, する, ある, and いく were checked separately.
@@ -231,16 +255,25 @@ options-defaults.txt controls startup defaults:
 ask_type=on
 direction=mixed
 vocabulary=all
+group=all
 
 [training]
 direction=mixed
 vocabulary=all
+group=all
 reveal_all=off
 
 Changing an Ask Type or Reveal All toggle never advances the current question/word.
 
-VERSION 15 CHANGES
+VERSION 16 CHANGES
 ------------------
-Verb English values in vocabulary.csv were cleaned to remove leading "to". Quiz and Training
-add "to " automatically when displaying a verb, while answer checking accepts both forms.
-The words はれ, くもり, and ゆき are classified as nouns and no longer have adjective conjugations.
+The former source column is now named group and is intended as an optional topic/grouping field.
+Group values may contain multiple slash-separated groups.
+
+Type and Group filters are now generated dynamically from the CSV and are available in Quiz, Training,
+and Words. New type or group values therefore appear automatically without an app code change.
+
+The existing Quiz/Training verb display logic remains: verb English meanings are stored without leading
+to and the app displays to automatically.
+
+The weather words はれ, くもり, and ゆき remain classified as nouns.

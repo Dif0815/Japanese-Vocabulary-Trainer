@@ -1,4 +1,4 @@
-﻿japanese,reading,english,type,verb_group,adjective_group,source,additional_info,verb_stem,verb_masu,verb_te_form,verb_short_negative,verb_short_past,adjective_negative,adjective_past,adjective_te_form
+japanese,reading,english,type,verb_group,adjective_group,group,additional_info,verb_stem,verb_masu,verb_te_form,verb_short_negative,verb_short_past,adjective_negative,adjective_past,adjective_te_form
 食べる,たべる,eat,verb,ru,,Starter,,たべ,たべます,たべて,たべない,たべた,,,
 飲む,のむ,drink,verb,u,,Starter,,のみ,のみます,のんで,のまない,のんだ,,,
 見る,みる,see / watch,verb,ru,,Starter,,み,みます,みて,みない,みた,,,
@@ -29,7 +29,7 @@
 古い,ふるい,old,adjective,,i,Starter,,,,,,,ふるくない,ふるかった,ふるくて
 高い,たかい,high / expensive,adjective,,i,Starter,,,,,,,たかくない,たかかった,たかくて
 安い,やすい,cheap,adjective,,i,Starter,,,,,,,やすくない,やすかった,やすくて
-おいしい,おいしい,delicious,adjective,,i,Starter; Adjectives list,,,,,,,おいしくない,おいしかった,おいしくて
+おいしい,おいしい,delicious,adjective,,i,Starter/Adjectives list,,,,,,,おいしくない,おいしかった,おいしくて
 楽しい,たのしい,fun / enjoyable,adjective,,i,Starter,,,,,,,たのしくない,たのしかった,たのしくて
 水,みず,water,noun,,,Starter,,,,,,,,,
 ご飯,ごはん,meal / rice,noun,,,Starter,,,,,,,,,
