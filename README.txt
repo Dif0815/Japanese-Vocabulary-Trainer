@@ -1,14 +1,14 @@
-Japanese Vocabulary Trainer v17
+Japanese Vocabulary Trainer v18
 
 GITHUB PAGES
 ------------
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=17
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=18
 
 Normal link:
 https://dif0815.github.io/Japanese-Vocabulary-Trainer/
 
-The ?v=16 ending is a cache-busting version marker. Increase it when uploading a
+The ?v=18 ending is a cache-busting version marker. Increase it when uploading a
 new version so the browser is forced to request the new files.
 
 FILES
@@ -276,15 +276,6 @@ VOICE INPUT
 Voice input is intentionally NOT part of this version. It was tested separately and is
 being postponed for a future version.
 
-
-Version 17 data correction
----------------------------
-All verb and adjective conjugation columns have been checked and regenerated from the reading column.
-Conjugation fields are kana-only. Special forms such as いい, かっこいい, くる, する, ある, and いく were checked separately.
-The existing clear adjective-group corrections for ゆうめい, きらい, and とくい were also applied because they affect their conjugations.
-No other vocabulary content was intentionally changed.
-
-
 OPTIONS DEFAULTS
 ----------------
 options-defaults.txt controls startup defaults. It is intentionally self-documenting.
@@ -342,7 +333,11 @@ Recency is handled separately: a learned word can be marked as needing review wh
 been answered correctly for a defined period. The current working review threshold is 30 days.
 A word does not stop being learned simply because it needs review.
 
-VERSION 17 CHANGES
+VERSION CHANGES
+---------------
+
+Version 17
+----------
 ------------------
 - Added global layout controls to last-layout.txt and training-layout.txt for column spacing, row spacing,
   label font size, and label color.
@@ -355,9 +350,20 @@ VERSION 17 CHANGES
 - The current group values were cleared from vocabulary.csv so useful topic groups can be added deliberately later.
 - Documented the current weighted-random question selection algorithm and the working learned-word criteria.
 
+DATA CORRECTION
+---------------
+
+Version 17
+----------
+---------------------------
+All verb and adjective conjugation columns have been checked and regenerated from the reading column.
+Conjugation fields are kana-only. Special forms such as いい, かっこいい, くる, する, ある, and いく were checked separately.
+The existing clear adjective-group corrections for ゆうめい, きらい, and とくい were also applied because they affect their conjugations.
+No other vocabulary content was intentionally changed.
+
 DEVELOPMENT
+-----------
 -----------
 This application was developed collaboratively by Dif and OpenAI's ChatGPT (AI).
 ChatGPT assisted with application architecture, programming, database design, configuration, and documentation.
 The project requirements, learning concepts, testing, decisions, and customization are defined and directed by Dif.
-
