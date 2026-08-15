@@ -26,6 +26,7 @@
 # selects ja-en or en-ja automatically.
 
 # ---------------- VERBS — Japanese → English ----------------
+type=verb; direction=ja-en; line=1; label=English; db=english; under=true; gap=28
 type=verb; direction=ja-en; line=1; label=Dictionary form; db=japanese; under=true; gap=28
 type=verb; direction=ja-en; line=1; label=Stem; db=verb_stem; under=true; gap=28
 type=verb; direction=ja-en; line=1; label=Masu form; db=verb_masu; under=true; gap=28
@@ -34,7 +35,6 @@ type=verb; direction=ja-en; line=2; label=Short-negative; db=verb_short_negative
 type=verb; direction=ja-en; line=2; label=Short-past; db=verb_short_past; under=true; gap=28
 
 # ---------------- VERBS — English → Japanese ----------------
-type=verb; direction=en-ja; line=1; label=English; db=english; under=true; gap=28
 type=verb; direction=en-ja; line=2; label=Dictionary form; db=japanese; under=true; gap=28
 type=verb; direction=en-ja; line=2; label=Stem; db=verb_stem; under=true; gap=28
 type=verb; direction=en-ja; line=2; label=Masu form; db=verb_masu; under=true; gap=28
