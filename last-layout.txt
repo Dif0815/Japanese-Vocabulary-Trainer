@@ -27,9 +27,9 @@
 #
 line=1; label=Question word; db=question; under=true; gap=28
 line=1; label=Correct answer; db=correct_answer; under=true; gap=28
-line=1; label=Answer given; db=answer_given; under=true; gap=28
 line=2; label=Word type; db=type; under=true; gap=28
 line=2; label=Verb type; db=verb_group; under=true; gap=28
 line=2; label=Adjective type; db=adjective_group; under=true; gap=28
 line=3; label=Additional information; db=additional_info; under=true; gap=28
 line=4; label=Result; db=result; under=true; gap=28
+line=4; label=Answer given; db=answer_given; under=true; gap=28
