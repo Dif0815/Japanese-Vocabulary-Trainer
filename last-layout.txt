@@ -1,16 +1,30 @@
 # Japanese Vocabulary Trainer — Last frame layout
 #
+# Global layout settings:
+# column_gap       = horizontal space between shared columns, in pixels
+# row_gap          = vertical space between visual lines, in pixels
+# label_font_size  = label font size, in pixels
+# label_color      = label text color
+#
+# Color examples:
+# label_color=#777777
+# label_color=#999999
+# label_color=darkslategray
+# label_color=rgb(100,100,100)
+#
+# The column grid is calculated across ALL visual lines together.
+# This means column 1, column 2, etc. stay aligned from one line to the next.
+#
 # One config entry = one item in a display line.
 # Multiple items can share the same line number.
 #
 # Syntax:
-# line=1; label=Question word; db=question; under=true; gap=28
+# line=1; label=Question word; db=question; under=true
 #
 # line       = visual line number
 # label      = text shown above/beside the database value
 # db         = database field name OR virtual field
 # under      = true: value below label / false: label and value side-by-side
-# gap        = horizontal space after this item, in pixels
 #
 # Empty values are ignored. If db is empty, its label is ignored too.
 #
@@ -20,16 +34,16 @@
 # Virtual fields for the Last result:
 # question, correct_answer, answer_given, result
 #
-# Example with three fields on one line and values underneath:
-# line=1; label=Question; db=question; under=true; gap=28
-# line=1; label=Correct; db=correct_answer; under=true; gap=28
-# line=1; label=Given; db=answer_given; under=true; gap=28
-#
-line=1; label=Question word; db=question; under=true; gap=28
-line=1; label=Correct answer; db=correct_answer; under=true; gap=28
-line=2; label=Word type; db=type; under=true; gap=28
-line=2; label=Verb type; db=verb_group; under=true; gap=28
-line=2; label=Adjective type; db=adjective_group; under=true; gap=28
-line=3; label=Additional information; db=additional_info; under=true; gap=28
-line=4; label=Result; db=result; under=true; gap=28
-line=4; label=Answer given; db=answer_given; under=true; gap=28
+column_gap=28
+row_gap=16
+label_font_size=12
+label_color=#777777
+
+line=1; label=Question word; db=question; under=true
+line=1; label=Correct answer; db=correct_answer; under=true
+line=1; label=Answer given; db=answer_given; under=true
+line=2; label=Word type; db=type; under=true
+line=2; label=Verb type; db=verb_group; under=true
+line=2; label=Adjective type; db=adjective_group; under=true
+line=3; label=Additional information; db=additional_info; under=true
+line=4; label=Result; db=result; under=true

@@ -1,9 +1,9 @@
-Japanese Vocabulary Trainer v16
+Japanese Vocabulary Trainer v17
 
 GITHUB PAGES
 ------------
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=16
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=17
 
 Normal link:
 https://dif0815.github.io/Japanese-Vocabulary-Trainer/
@@ -143,15 +143,34 @@ Skip also updates Last but does not count as an answer wrong/correct.
 last-layout.txt controls the Last frame. It is edited manually, not through the browser.
 Multiple fields may share one line.
 
-Syntax example:
-    line=1; label=Question word; db=question; under=true; gap=28
+Global layout settings:
+    column_gap=28
+    row_gap=16
+    label_font_size=12
+    label_color=#777777
+
+- column_gap = horizontal space between columns, in pixels
+- row_gap = vertical space between visual lines, in pixels
+- label_font_size = label font size, in pixels
+- label_color = label text color
+
+Color examples:
+    label_color=#777777
+    label_color=#999999
+    label_color=darkslategray
+    label_color=rgb(100,100,100)
+
+The column grid is calculated across ALL visual lines together. Column 1, column 2, etc.
+therefore stay aligned from one line to the next.
+
+Entry syntax example:
+    line=1; label=Question word; db=question; under=true
 
 - line = visual line number
 - label = displayed label
 - db = CSV/database field or virtual field
 - under=true = value below the label
 - under=false = label and value beside the value
-- gap = horizontal spacing after the item in pixels
 
 If a database value is empty, the complete label/value item is ignored.
 Virtual fields available for Last include:
@@ -184,19 +203,37 @@ selects the ja-en or en-ja configuration automatically.
 TRAINING LAYOUT CONFIGURATION
 -----------------------------
 One config entry = one reveal item. Multiple entries can share the same visual line number.
-The order of entries is the reveal order.
+The order of entries in this file is the reveal order.
 
-Syntax:
-    type=verb; direction=ja-en; line=1; label=Dictionary form; db=japanese; under=true; gap=28
+Global layout settings:
+    column_gap=28
+    row_gap=16
+    label_font_size=12
+    label_color=#777777
+
+- column_gap = horizontal space between columns, in pixels
+- row_gap = vertical space between visual lines, in pixels
+- label_font_size = label font size, in pixels
+- label_color = label text color
+
+Color examples:
+    label_color=#777777
+    label_color=#999999
+    label_color=darkslategray
+    label_color=rgb(100,100,100)
+
+The column grid is calculated across ALL visual lines together. This keeps columns aligned
+when different rows contain different labels or values.
+
+Entry syntax:
+    type=verb; direction=ja-en; line=1; label=Dictionary form; db=japanese; under=true
 
 - type = verb / adjective / noun / phrase / all
 - direction = ja-en or en-ja
 - line = visual line number
 - label = text shown above/beside the database value
 - db = CSV/database field name or virtual field
-- under=true = value below the label
-- under=false = label and value beside the value
-- gap = horizontal spacing after the item in pixels
+- under=true = value below label / under=false = label and value side-by-side
 
 If Reveal All is OFF, one non-empty configured item is added with each Next click.
 If Reveal All is ON, the first Next reveals all non-empty configured items. The following
@@ -209,9 +246,9 @@ Virtual Training fields currently available:
 - correct_answer
 - direction
 
-Any field present in the CSV header can be used directly as db=.
-This means new columns such as additional conjugation forms can be added to vocabulary.csv
-and then referenced in training-layout.txt without changing the HTML.
+Any field present in the CSV header can be used directly as db=. This means new columns such as
+additional conjugation forms can be added to vocabulary.csv and then referenced in
+training-layout.txt without changing the HTML.
 
 BACKUP / RESTORE
 ----------------
@@ -240,7 +277,7 @@ Voice input is intentionally NOT part of this version. It was tested separately 
 being postponed for a future version.
 
 
-Version 16 data correction
+Version 17 data correction
 ---------------------------
 All verb and adjective conjugation columns have been checked and regenerated from the reading column.
 Conjugation fields are kana-only. Special forms such as いい, かっこいい, くる, する, ある, and いく were checked separately.
@@ -250,7 +287,8 @@ No other vocabulary content was intentionally changed.
 
 OPTIONS DEFAULTS
 ----------------
-options-defaults.txt controls startup defaults:
+options-defaults.txt controls startup defaults. It is intentionally self-documenting.
+
 [quiz]
 ask_type=on
 direction=mixed
@@ -263,17 +301,63 @@ vocabulary=all
 group=all
 reveal_all=off
 
-Changing an Ask Type or Reveal All toggle never advances the current question/word.
+Valid direction values are ja, en, and mixed. Vocabulary and Group values are taken from the
+CSV dynamically; use all for no filter. Group values may be slash-separated in the CSV.
+Ask Type and Reveal All are on/off settings. Changing either toggle during a session never
+advances the current question/word.
 
-VERSION 16 CHANGES
+QUESTION SELECTION
 ------------------
-The former source column is now named group and is intended as an optional topic/grouping field.
-Group values may contain multiple slash-separated groups.
+Quiz and Training use the same weighted question-selection logic. The current system is weighted
+random selection, not simple uniform random selection.
 
-Type and Group filters are now generated dynamically from the CSV and are available in Quiz, Training,
-and Words. New type or group values therefore appear automatically without an app code change.
+1. The available pool is created from the selected Vocabulary and Group filters.
+2. In Mixed direction, Japanese -> English or English -> Japanese is chosen randomly for each question.
+3. Each available word receives a base weight and additional priority based on learning history.
+4. Words with more wrong/unmastered answers receive higher priority.
+5. Lower accuracy increases priority.
+6. Words with little or no practice receive additional priority.
+7. The time since the last correct answer increases priority gradually, up to a maximum contribution
+   after roughly 150 days.
+8. A weighted random selection chooses the next word.
 
-The existing Quiz/Training verb display logic remains: verb English meanings are stored without leading
-to and the app displays to automatically.
+This is not a fixed spaced-repetition schedule. A correctly answered word becomes less likely, but it
+can still appear again relatively soon because selection remains weighted random. Difficult, new, or
+long-unreviewed words become more likely.
 
-The weather words はれ, くもり, and ゆき remain classified as nouns.
+Quiz learning history is direction-specific. Japanese -> English and English -> Japanese maintain
+separate asked/correct/wrong counts and separate last-correct timestamps.
+
+LEARNED WORD DEFINITION
+-----------------------
+The Statistics section will use the following working definition of a learned word in a direction:
+- at least 10 attempts
+- at least 90% accuracy
+- at least 5 correct answers
+
+A word is fully learned when it meets the criteria in BOTH directions. A word can therefore be
+partially learned when only one direction meets the criteria.
+
+Recency is handled separately: a learned word can be marked as needing review when it has not
+been answered correctly for a defined period. The current working review threshold is 30 days.
+A word does not stop being learned simply because it needs review.
+
+VERSION 17 CHANGES
+------------------
+- Added global layout controls to last-layout.txt and training-layout.txt for column spacing, row spacing,
+  label font size, and label color.
+- Improved dynamic horizontal spacing: columns are calculated globally across all visual lines so they stay aligned.
+- Added color examples to the layout documentation.
+- Words filters now visibly show the existing Vocabulary and Group labels.
+- Quiz Options are ordered consistently: Direction, Vocabulary, Group on line 1; Ask Type on line 2.
+- Training Options remain unchanged.
+- Expanded options-defaults.txt documentation.
+- The current group values were cleared from vocabulary.csv so useful topic groups can be added deliberately later.
+- Documented the current weighted-random question selection algorithm and the working learned-word criteria.
+
+DEVELOPMENT
+-----------
+This application was developed collaboratively by Dif and OpenAI's ChatGPT (AI).
+ChatGPT assisted with application architecture, programming, database design, configuration, and documentation.
+The project requirements, learning concepts, testing, decisions, and customization are defined and directed by Dif.
+

@@ -1,5 +1,20 @@
 # Japanese Vocabulary Trainer — Training reveal layout
 #
+# Global layout settings:
+# column_gap       = horizontal space between shared columns, in pixels
+# row_gap          = vertical space between visual lines, in pixels
+# label_font_size  = label font size, in pixels
+# label_color      = label text color
+#
+# Color examples:
+# label_color=#777777
+# label_color=#999999
+# label_color=darkslategray
+# label_color=rgb(100,100,100)
+#
+# The column grid is calculated across ALL visual lines together.
+# This means column 1, column 2, etc. stay aligned from one line to the next.
+#
 # One config entry = one reveal item.
 # Multiple items can share the same visual line number.
 #
@@ -8,7 +23,7 @@
 # In Reveal All = ON mode, all non-empty items are shown at once.
 #
 # Syntax:
-# type=verb; direction=ja-en; line=1; label=Dictionary form; db=japanese; under=true; gap=28
+# type=verb; direction=ja-en; line=1; label=Dictionary form; db=japanese; under=true
 #
 # type       = vocabulary type: verb / adjective / noun / phrase / all
 # direction  = ja-en or en-ja
@@ -16,7 +31,6 @@
 # label      = text shown above/beside the database value
 # db         = database/CSV field name (or virtual field: question, correct_answer, direction)
 # under      = true: value below label / false: label and value side-by-side
-# gap        = horizontal space after the item in pixels
 #
 # Empty database values are ignored, including their labels.
 # Database fields come from the first row of vocabulary.csv.
@@ -25,38 +39,43 @@
 # Mixed mode does NOT need a separate configuration. The actual question direction
 # selects ja-en or en-ja automatically.
 
+column_gap=28
+row_gap=16
+label_font_size=12
+label_color=#777777
+
 # ---------------- VERBS — Japanese → English ----------------
-type=verb; direction=ja-en; line=1; label=English; db=english; under=true; gap=28
-type=verb; direction=ja-en; line=1; label=Dictionary form; db=japanese; under=true; gap=28
-type=verb; direction=ja-en; line=1; label=Stem; db=verb_stem; under=true; gap=28
-type=verb; direction=ja-en; line=1; label=Masu form; db=verb_masu; under=true; gap=28
-type=verb; direction=ja-en; line=2; label=Te-form; db=verb_te_form; under=true; gap=28
-type=verb; direction=ja-en; line=2; label=Short-negative; db=verb_short_negative; under=true; gap=28
-type=verb; direction=ja-en; line=2; label=Short-past; db=verb_short_past; under=true; gap=28
+type=verb; direction=ja-en; line=1; label=Dictionary form; db=japanese; under=true
+type=verb; direction=ja-en; line=1; label=Stem; db=verb_stem; under=true
+type=verb; direction=ja-en; line=1; label=Masu form; db=verb_masu; under=true
+type=verb; direction=ja-en; line=2; label=Te-form; db=verb_te_form; under=true
+type=verb; direction=ja-en; line=2; label=Short-negative; db=verb_short_negative; under=true
+type=verb; direction=ja-en; line=2; label=Short-past; db=verb_short_past; under=true
 
 # ---------------- VERBS — English → Japanese ----------------
-type=verb; direction=en-ja; line=2; label=Dictionary form; db=japanese; under=true; gap=28
-type=verb; direction=en-ja; line=2; label=Stem; db=verb_stem; under=true; gap=28
-type=verb; direction=en-ja; line=2; label=Masu form; db=verb_masu; under=true; gap=28
-type=verb; direction=en-ja; line=3; label=Te-form; db=verb_te_form; under=true; gap=28
-type=verb; direction=en-ja; line=3; label=Short-negative; db=verb_short_negative; under=true; gap=28
-type=verb; direction=en-ja; line=3; label=Short-past; db=verb_short_past; under=true; gap=28
+type=verb; direction=en-ja; line=1; label=English; db=english; under=true
+type=verb; direction=en-ja; line=2; label=Dictionary form; db=japanese; under=true
+type=verb; direction=en-ja; line=2; label=Stem; db=verb_stem; under=true
+type=verb; direction=en-ja; line=2; label=Masu form; db=verb_masu; under=true
+type=verb; direction=en-ja; line=3; label=Te-form; db=verb_te_form; under=true
+type=verb; direction=en-ja; line=3; label=Short-negative; db=verb_short_negative; under=true
+type=verb; direction=en-ja; line=3; label=Short-past; db=verb_short_past; under=true
 
 # ---------------- ADJECTIVES — Japanese → English ----------------
-type=adjective; direction=ja-en; line=1; label=Dictionary form; db=japanese; under=true; gap=28
-type=adjective; direction=ja-en; line=1; label=Negative; db=adjective_negative; under=true; gap=28
-type=adjective; direction=ja-en; line=1; label=Past; db=adjective_past; under=true; gap=28
-type=adjective; direction=ja-en; line=2; label=Te-form; db=adjective_te_form; under=true; gap=28
+type=adjective; direction=ja-en; line=1; label=Dictionary form; db=japanese; under=true
+type=adjective; direction=ja-en; line=1; label=Negative; db=adjective_negative; under=true
+type=adjective; direction=ja-en; line=1; label=Past; db=adjective_past; under=true
+type=adjective; direction=ja-en; line=2; label=Te-form; db=adjective_te_form; under=true
 
 # ---------------- ADJECTIVES — English → Japanese ----------------
-type=adjective; direction=en-ja; line=1; label=English; db=english; under=true; gap=28
-type=adjective; direction=en-ja; line=2; label=Dictionary form; db=japanese; under=true; gap=28
-type=adjective; direction=en-ja; line=2; label=Negative; db=adjective_negative; under=true; gap=28
-type=adjective; direction=en-ja; line=2; label=Past; db=adjective_past; under=true; gap=28
-type=adjective; direction=en-ja; line=3; label=Te-form; db=adjective_te_form; under=true; gap=28
+type=adjective; direction=en-ja; line=1; label=English; db=english; under=true
+type=adjective; direction=en-ja; line=2; label=Dictionary form; db=japanese; under=true
+type=adjective; direction=en-ja; line=2; label=Negative; db=adjective_negative; under=true
+type=adjective; direction=en-ja; line=2; label=Past; db=adjective_past; under=true
+type=adjective; direction=en-ja; line=3; label=Te-form; db=adjective_te_form; under=true
 
 # ---------------- FALLBACK — all other vocabulary ----------------
-type=all; direction=ja-en; line=1; label=Dictionary form; db=japanese; under=true; gap=28
-type=all; direction=ja-en; line=1; label=English; db=english; under=true; gap=28
-type=all; direction=en-ja; line=1; label=English; db=english; under=true; gap=28
-type=all; direction=en-ja; line=1; label=Dictionary form; db=japanese; under=true; gap=28
+type=all; direction=ja-en; line=1; label=Dictionary form; db=japanese; under=true
+type=all; direction=ja-en; line=1; label=English; db=english; under=true
+type=all; direction=en-ja; line=1; label=English; db=english; under=true
+type=all; direction=en-ja; line=1; label=Dictionary form; db=japanese; under=true

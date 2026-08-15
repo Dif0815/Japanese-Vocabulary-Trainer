@@ -1,15 +1,55 @@
-# Startup defaults for Quiz and Training.
-# vocabulary must match one of the type values currently present in vocabulary.csv, or use all.
-# group must match one of the slash-separated group values currently present in vocabulary.csv, or use all.
+# ============================================================
+# OPTIONS DEFAULTS
+# ============================================================
 #
-# Quiz:
+# This file defines the settings used when the application starts.
+# It does NOT change vocabulary.csv and it does NOT change statistics.
+#
+# The values for Vocabulary and Group must match values present in vocabulary.csv.
+# Use "all" for no filter.
+#
+# -------------------- DIRECTION -----------------------------
+# ja   = Japanese -> English
+# en   = English -> Japanese
+# mixed = randomly choose Japanese -> English or English -> Japanese
+#
+# -------------------- VOCABULARY ----------------------------
+# "all" = no word-type restriction.
+# Otherwise use an exact value from the CSV type column.
+# Examples: noun, verb, adjective, adverb, pronoun, question_word, phrase
+# The available types are generated dynamically from the CSV.
+#
+# -------------------- GROUP ---------------------------------
+# "all" = no group restriction.
+# Group is optional in vocabulary.csv.
+# A word may belong to multiple groups by using / in the CSV:
+#     food/restaurant
+# The Group filter treats each slash-separated value as a separate group.
+# Group choices are generated dynamically from the CSV.
+#
+# -------------------- ASK TYPE ------------------------------
+# on  = ask the word type after the translation answer
+# off = do not ask the word type
+# Changing this during a quiz does NOT advance the current question.
+#
+# -------------------- REVEAL ALL ----------------------------
+# Training only.
+# on  = reveal all configured answers at once
+# off = reveal configured answers one step at a time
+# Changing this during Training does NOT advance the current word.
+#
+# ============================================================
+# QUIZ DEFAULTS
+# ============================================================
 [quiz]
 ask_type=on
 direction=mixed
 vocabulary=all
 group=all
 
-# Training:
+# ============================================================
+# TRAINING DEFAULTS
+# ============================================================
 [training]
 direction=mixed
 vocabulary=all
