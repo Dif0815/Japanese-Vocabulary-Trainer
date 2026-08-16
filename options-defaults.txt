@@ -75,3 +75,7 @@ reveal_all=off
 direction=mixed
 vocabulary=all
 group=all
+# Status filters are comma-separated and allow multiple selections.
+# learned, not_learned, needs_review, partially_learned
+# Partially learned is only active when Direction=mixed.
+status_filters=learned,not_learned,needs_review,partially_learned

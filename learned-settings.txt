@@ -34,6 +34,8 @@ min_accuracy=90
 min_correct=5
 review_days=30
 wrong_answers_to_review=1
+review_recovery_accuracy=80
+review_recovery_min_answers=5
 
 # ---------------- SETTING REFERENCE ----------------
 # min_attempts
@@ -52,3 +54,12 @@ wrong_answers_to_review=1
 # wrong_answers_to_review
 #   Number of wrong answers since the last correct answer that immediately triggers review.
 #   The default value 1 means one wrong answer is enough.
+#
+# review_recovery_accuracy
+#   Minimum percentage of correct answers required to clear an active Needs Review status.
+#   Recovery is tracked separately for each direction.
+#
+# review_recovery_min_answers
+#   Minimum number of answers that must be given while recovering from Needs Review.
+#   The status is cleared only when BOTH this minimum and the recovery accuracy threshold are met.
+#   Example with 80% and 5 answers: 4/5 correct clears review; 3/5 does not.

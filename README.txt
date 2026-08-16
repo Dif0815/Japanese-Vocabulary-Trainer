@@ -1,9 +1,9 @@
-Japanese Vocabulary Trainer v21
+Japanese Vocabulary Trainer v24
 
 GITHUB PAGES
 ------------
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=21
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=24
 
 Normal link:
 https://dif0815.github.io/Japanese-Vocabulary-Trainer/
@@ -271,43 +271,56 @@ training-layout.txt without changing the HTML.
 
 WORDS
 -----
-The Words section has four filters/options:
+The Words section has four filters/options plus the status legend:
 - Search
 - Direction
 - Vocabulary
 - Group
-
-The labels Vocabulary and Group are intentionally the same as in Quiz and Training.
+- Learning/review status checkboxes in the legend
 
 Direction controls which directional learning/review statuses are displayed:
-- Mixed = show both Japanese -> English and English -> Japanese separately.
+- Mixed = show both Japanese -> English and English -> Japanese separately, plus one overall status column.
 - Japanese -> English = show only that direction.
 - English -> Japanese = show only that direction.
 
-Each direction has two independent status values:
+The status legend is also a multi-select filter. The available filters are:
 - Learned
-- Needs Review
+- Not learned
+- Needs review
+- Partially learned (Mixed mode only)
 
-The Words section displays the status symbols as:
-    Needs Review symbol -> Learned symbol
+Multiple status filters can be selected at the same time. Matching is OR-based: a word is shown when
+it matches at least one selected status. If no status filters are selected, all words are shown.
+Status filter defaults are configured in options-defaults.txt.
+
+Partially learned is intentionally different from the directional statuses. It is an overall word status
+and exists only in Mixed mode:
+- both directions learned = Learned
+- exactly one direction learned = Partially learned
+- neither direction learned = Not learned
+
+In Mixed mode, a dedicated overall-status column shows the Partially learned / Learned / Not learned symbol
+for each word. The directional columns remain separate and continue to show the independent review + learned
+status for Japanese -> English and English -> Japanese.
+
+Partially learned is hidden from the legend and its checkbox is ignored when a directional Words filter is
+selected. Its checkbox selection is retained, so switching back to Mixed activates it again.
+
+Needs Review remains independent from Learned. A direction can therefore be Learned and Needs Review at the
+same time. Needs Review is only visually shown when active; its reserved position remains aligned so the learned
+status icon does not move when review is inactive.
+
+The Words status-symbol order in the legend is:
+    Learned -> Not learned -> Needs review -> Partially learned
 
 The four symbol files are:
-- needs_review.svg
 - learned.svg
-- partially_learned.svg
 - not_learned.svg
+- needs_review.svg
+- partially_learned.svg
 
-The directional display uses learned.svg / not_learned.svg for the directional Learned state
-and needs_review.svg for the independent review state. The partially_learned.svg file is kept
-as an available status asset for derived/extended displays; partially learned itself is a derived
-overall state, not a third directional learning state.
-
-A direction is learned according to learned-settings.txt. Fully learned is derived when BOTH
-directions are learned. Exactly one learned direction means partially learned. Neither means
-not learned.
-
-Needs Review is also directional and is independent from Learned. A direction can therefore be
-learned and still need review.
+The application uses the filenames as the logical symbol names, so the SVG files can be replaced later without
+changing the application code.
 
 Clicking a word opens a popup. The popup is controlled by word-popup-layout.txt.
 
@@ -372,8 +385,8 @@ is shown when the Words section opens.
 
 LEARNED / REVIEW SETTINGS
 -------------------------
-learned-settings.txt contains the simple, configurable thresholds for directional learning status.
-It is self-documenting and includes explanations for every setting.
+learned-settings.txt contains the simple, configurable thresholds for directional learning status and
+Needs Review recovery. It is self-documenting and includes explanations for every setting.
 
 Current settings:
     min_attempts=10
@@ -381,6 +394,8 @@ Current settings:
     min_correct=5
     review_days=30
     wrong_answers_to_review=1
+    review_recovery_accuracy=80
+    review_recovery_min_answers=5
 
 For each direction, all three learned criteria must be met:
 - at least 10 attempts
@@ -399,8 +414,16 @@ A direction needs review when either:
 - the configured review_days have passed since the last correct answer.
 
 The default wrong_answers_to_review=1 means one wrong answer immediately triggers review.
-A correct answer resets the wrong-answer review counter for that direction.
 A word does not stop being learned simply because it needs review.
+
+Once Needs Review is triggered, it does NOT clear after a single correct answer. A separate recovery counter
+is started for that direction. Recovery uses the configured review_recovery_accuracy and
+review_recovery_min_answers settings. The status is cleared only when BOTH conditions are met:
+- at least review_recovery_min_answers recovery answers have been given
+- recovery accuracy is at least review_recovery_accuracy
+
+With the current defaults (80% and 5 answers), 4/5 correct clears review, while 3/5 does not.
+Recovery tracking is direction-specific and resets when the review status is cleared.
 
 QUESTION SELECTION
 ------------------
@@ -479,6 +502,15 @@ being postponed for a future version.
 
 VERSION CHANGES
 ---------------
+
+Version 24
+----------
+------------------
+- Fixed the shared configurable layout calculation so empty fields are removed before visible column positions are assigned. This prevents phantom columns and large gaps in Last and Words popups; Training already applies the same visible-item principle.
+- Added configurable Needs Review recovery: review_recovery_accuracy=80 and review_recovery_min_answers=5. Once review is triggered, it remains active until both recovery conditions are met. Recovery is tracked separately per direction.
+- Turned the Words status legend into multi-select filters. Multiple statuses can be selected; no selected status means show all. Defaults are configured in options-defaults.txt.
+- Partially learned is Mixed-mode-only: it is shown as a new overall-status column per word, appears in the legend only in Mixed mode, and its filter is ignored in directional modes.
+- Kept the Words legend order as Learned -> Not learned -> Needs review -> Partially learned.
 
 Version 23
 ----------
