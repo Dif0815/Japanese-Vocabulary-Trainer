@@ -1,0 +1,15 @@
+# Japanese Vocabulary Trainer — Question selection settings
+#
+# This file controls the minimum spacing between repeated question words.
+#
+# min_different_words_between_repetitions
+#   Number of DIFFERENT words that must be asked before the same word may be selected again.
+#
+# Example with value 5:
+#   A -> B -> C -> D -> E -> F -> A   = allowed
+#   A -> B -> C -> D -> E -> A       = not allowed
+#
+# The rule applies to Quiz and Training because both use the same question-selection logic.
+# The setting controls question-word repetition, not the direction.
+#
+min_different_words_between_repetitions=5

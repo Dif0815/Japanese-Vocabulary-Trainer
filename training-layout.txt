@@ -25,7 +25,8 @@
 # Syntax:
 # type=verb; direction=ja-en; line=1; label=Dictionary form; db=japanese; under=true
 #
-# type       = vocabulary type: verb / adjective / noun / phrase / all
+# type       = vocabulary type. Use any exact CSV type value, plus all as the fallback.
+#              A matching type section overrides the all/fallback section.
 # direction  = ja-en or en-ja
 # line       = visual line number
 # label      = text shown above/beside the database value

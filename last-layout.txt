@@ -41,9 +41,9 @@ label_color=#777777
 
 line=1; label=Question word; db=question; under=true
 line=1; label=Correct answer; db=correct_answer; under=true
+line=1; label=Answer given; db=answer_given; under=true
+line=2; label=Word type; db=type; under=true
 line=2; label=Verb type; db=verb_group; under=true
 line=2; label=Adjective type; db=adjective_group; under=true
-line=2; label=Word type; db=type; under=true
 line=3; label=Additional information; db=additional_info; under=true
 line=4; label=Result; db=result; under=true
-line=4; label=Answer given; db=answer_given; under=true
