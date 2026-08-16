@@ -1,12 +1,12 @@
-Japanese Vocabulary Trainer v27.1
+Japanese Vocabulary Trainer v28
 
 CURRENT VERSION
 ---------------
-Version: 27.1
+Version: 28
 Status: Current test version
 
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=27.1
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=28
 
 The ?v=xx ending is a cache-busting version marker. Increase it when uploading a
 new version so the browser is forced to request the new files.
@@ -17,43 +17,71 @@ https://dif0815.github.io/Japanese-Vocabulary-Trainer/
 VERSION / DATA DOCUMENTATION
 ----------------------------
 Version history is kept separately in:
-    version-changes.txt
+    docs/version-changes.txt
 
 Vocabulary additions, corrections, and other intentional CSV data changes are kept in:
-    data-changes.txt
+    data/data-changes.txt
 
 This README describes the current application only.
 
 FILES
 -----
-Upload these files to the root of the GitHub Pages repository:
-- index.html
-- vocabulary.csv
-- last-layout.txt
-- training-layout.txt
-- options-defaults.txt
-- learned-settings.txt
-- question-settings.txt
-- word-popup-layout.txt
-- type-config.txt
-- version-changes.txt
-- data-changes.txt
-- learned.svg
-- partially_learned.svg
-- not_learned.svg
-- needs_review.svg
+The repository uses the following structure:
 
-Keep your existing manifest.json and icon.svg.
+    index.html
+    manifest.json
+    README.txt
 
-All four status-symbol SVG files are intentionally in the repository root. The application
-uses the filename as the logical symbol name, so the files can be replaced later without
-changing the application code.
+    data/
+        vocabulary.csv
+        data-changes.txt
+
+    config/
+        options-defaults.txt
+        question-settings.txt
+        learned-settings.txt
+        type-config.txt
+        last-layout.txt
+        training-layout.txt
+        word-popup-layout.txt
+
+    icons/
+        icon.svg
+        learned.svg
+        not_learned.svg
+        needs_review.svg
+        partially_learned.svg
+
+    docs/
+        version-changes.txt
+
+The root contains the application entry point, PWA manifest, and current README.
+The data directory contains the vocabulary source and its data-change history.
+The config directory contains application customization/defaults and layout definitions.
+The icons directory contains graphical assets. The docs directory contains version history.
+
+The application loads all data and configuration files using these relative paths. Do not move
+individual files without updating the corresponding application references.
 
 The version number is shown on the main page and in the HTML title.
 
+ARCHITECTURE / SOURCE OF TRUTH
+------------------------------
+The project separates application code, data, configuration, icons, and documentation.
+
+- data/vocabulary.csv is the source of truth for vocabulary and for which word types/groups/subtypes
+  actually exist.
+- config/ contains customization and defaults. In particular, config/type-config.txt defines labels
+  and keyboard aliases for discovered verb/adjective subtypes; it does not define which subtypes exist.
+- icons/ contains visual assets referenced by the application.
+- docs/ contains version history.
+
+The v28 repository restructuring changes file locations only; it does not change the vocabulary data
+model or learning-data matching rules. All application references were updated to the new paths.
+
 VOCABULARY DATABASE
 -------------------
-vocabulary.csv is the authoritative vocabulary database. Edit it manually and upload the
+data/vocabulary.csv is the authoritative vocabulary database. Edit it manually and upload the
 new CSV to GitHub Pages. The browser does not write changes back to the CSV.
 
 The first CSV row is the database header. Current columns include:
@@ -86,12 +114,12 @@ The CSV is the source of truth for vocabulary types and subtype/group values. Th
 discovers these values at runtime instead of keeping a fixed list in the HTML or JavaScript.
 
 The top-level Vocabulary and Group filters are therefore automatically expanded when new values
-are introduced in vocabulary.csv. The same principle is used for Quiz Ask Type: verb and adjective
+are introduced in data/vocabulary.csv. The same principle is used for Quiz Ask Type: verb and adjective
 subtypes are discovered from the corresponding CSV fields (verb_group and adjective_group), and the
 type popup is generated from the values that actually exist in the vocabulary data.
 
 Subtype presentation and keyboard aliases are separated from the vocabulary data in:
-    type-config.txt
+    config/type-config.txt
 
 This file defines, for configured subtypes:
 - the friendly display label
@@ -102,12 +130,12 @@ Keyboard aliases may contain both romaji and kana. For example:
     na-adjective -> n, na, な
 
 The configuration file does NOT define which subtypes exist. A subtype only becomes available when
-it is present in vocabulary.csv. This separation means new CSV subtype values are automatically
+it is present in data/vocabulary.csv. This separation means new CSV subtype values are automatically
 discovered without an application-code change, while presentation and keyboard mappings remain
 explicit and maintainable.
 
-There is intentionally no fallback subtype definition. If a subtype exists in vocabulary.csv but
-is missing from type-config.txt, the raw CSV value remains available as a touch-selectable button and
+There is intentionally no fallback subtype definition. If a subtype exists in data/vocabulary.csv but
+is missing from config/type-config.txt, the raw CSV value remains available as a touch-selectable button and
 the type popup shows a small, soft-grey warning that the subtype is not configured. No invented label
 or keyboard mapping is applied.
 
@@ -165,7 +193,7 @@ discovered dynamically from the current vocabulary data:
 
 Current configured values are u / ru / irr for verbs and i / na for adjectives. The application does not
 require this fixed set; new subtype values introduced in the CSV automatically become available, subject
-to optional presentation/keyboard definitions in type-config.txt.
+to optional presentation/keyboard definitions in config/type-config.txt.
 
 The type popup supports both touch and keyboard input. Typing a configured keyboard alias highlights the
 matching button; prefix matching is supported when it identifies one subtype. Enter confirms the selected
@@ -186,13 +214,13 @@ Enter handling:
 Skip does not count as wrong or correct and immediately starts the next question.
 
 Further question-selection details are documented in:
-    question-settings.txt
+    config/question-settings.txt
 
 LAST
 ----
 The Last frame shows the completed result of the most recently finished or skipped question.
 It is configurable through:
-    last-layout.txt
+    config/last-layout.txt
 
 The layout engine supports an arbitrary number of configured logical lines and items.
 Empty items do not create empty columns, and empty logical lines do not consume vertical space.
@@ -202,7 +230,7 @@ Basic syntax:
     line=1; label=Question word; db=question; under=true
 
 Further layout syntax and settings are documented directly in:
-    last-layout.txt
+    config/last-layout.txt
 
 TRAINING
 --------
@@ -218,7 +246,7 @@ Training uses the same question-selection logic and repetition spacing as Quiz, 
 record an answered result.
 
 Training reveal layouts are configured in:
-    training-layout.txt
+    config/training-layout.txt
 
 The file supports type-specific layouts and a type=all fallback. A new CSV word type can be
 customized simply by adding a matching configuration entry; otherwise the fallback is used.
@@ -267,17 +295,17 @@ mode is selected. Its checkbox selection is retained and becomes active again wh
 is selected.
 
 The four status symbols are stored as root-level files:
-- learned.svg
-- not_learned.svg
-- needs_review.svg
-- partially_learned.svg
+- icons/learned.svg
+- not_icons/learned.svg
+- icons/needs_review.svg
+- partially_icons/learned.svg
 
 Clicking a word opens a configurable popup.
 
 WORDS POPUP
 -----------
 The popup uses one configuration file for all word types:
-    word-popup-layout.txt
+    config/word-popup-layout.txt
 
 The file contains sections such as:
     [verb]
@@ -294,12 +322,12 @@ The popup uses the same dynamic layout engine as Last and Training. Empty fields
 logical lines are automatically removed from the visual layout.
 
 Detailed syntax, virtual fields, fallback behavior, and styling settings are documented in:
-    word-popup-layout.txt
+    config/word-popup-layout.txt
 
 OPTIONS DEFAULTS
 ----------------
 Startup defaults for Quiz, Training, and Words are configured in:
-    options-defaults.txt
+    config/options-defaults.txt
 
 The file is intentionally self-documenting. Detailed option descriptions belong in that file
 rather than being duplicated here.
@@ -318,7 +346,7 @@ LEARNED / NEEDS REVIEW
 Learned and Needs Review are tracked independently for each direction.
 
 Detailed thresholds and recovery settings are configured in:
-    learned-settings.txt
+    config/learned-settings.txt
 
 Current settings:
     min_attempts=10
@@ -342,7 +370,7 @@ Once Needs Review is triggered, it remains active until the configured recovery 
 Recovery is tracked separately per direction. With the current defaults, at least 5 recovery answers
 are required and accuracy must be at least 80%.
 
-See learned-settings.txt for the authoritative detailed documentation.
+See config/learned-settings.txt for the authoritative detailed documentation.
 
 QUESTION SELECTION
 ------------------
@@ -359,7 +387,7 @@ The selector:
 Needs Review is prioritized but is not an exclusive queue.
 
 Repetition spacing is configured in:
-    question-settings.txt
+    config/question-settings.txt
 
 Current setting:
     min_different_words_between_repetitions=5
@@ -378,16 +406,16 @@ Use the Backup tab to:
 The backup contains learning statistics, not vocabulary. Importing matches records by Japanese + reading.
 
 Recommended workflow:
-1. Keep vocabulary.csv as the source of truth for vocabulary data.
+1. Keep data/vocabulary.csv as the source of truth for vocabulary data.
 2. Upload the CSV and application files to GitHub Pages.
 3. Use the trainer normally; learning data remains in the browser.
 4. Periodically export learning statistics.
 5. On a new browser/device, open the deployed trainer and import the learning backup. The current
-   vocabulary.csv is loaded automatically by the application; it does not need to be uploaded manually
+   data/vocabulary.csv is loaded automatically by the application; it does not need to be uploaded manually
    through the Backup tab.
 
 Backup compatibility with vocabulary changes:
-- A backup does not need to contain every word currently present in vocabulary.csv.
+- A backup does not need to contain every word currently present in data/vocabulary.csv.
 - Existing matching words receive their saved learning statistics.
 - New vocabulary that was not present when the backup was created simply starts without learning history.
 - Backup records for words that no longer exist in the current vocabulary are ignored.
