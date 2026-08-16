@@ -1,5 +1,9 @@
 Japanese Vocabulary Trainer — Vocabulary / Data Changes
 
+Version 27
+----------
+No vocabulary.csv changes were intentionally made in this version.
+
 Version 25
 ----------
 No vocabulary.csv changes were intentionally made in this version.

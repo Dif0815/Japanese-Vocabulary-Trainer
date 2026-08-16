@@ -1,12 +1,12 @@
-Japanese Vocabulary Trainer v26
+Japanese Vocabulary Trainer v27
 
 CURRENT VERSION
 ---------------
-Version: 26
+Version: 27
 Status: Current test version
 
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=26
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=27
 
 The ?v=26 ending is a cache-busting version marker. Increase it when uploading a
 new version so the browser is forced to request the new files.
@@ -35,6 +35,7 @@ Upload these files to the root of the GitHub Pages repository:
 - learned-settings.txt
 - question-settings.txt
 - word-popup-layout.txt
+- type-config.txt
 - version-changes.txt
 - data-changes.txt
 - learned.svg
@@ -89,12 +90,26 @@ are introduced in vocabulary.csv. The same principle is used for Quiz Ask Type: 
 subtypes are discovered from the corresponding CSV fields (verb_group and adjective_group), and the
 type popup is generated from the values that actually exist in the vocabulary data.
 
-Known subtype codes use the existing friendly labels (for example ru -> ru-verb, na -> na-adjective).
-Unknown subtype codes remain valid and are displayed using a generic label derived from the CSV value.
-Adding a new subtype therefore does not require an application-code change.
+Subtype presentation and keyboard aliases are separated from the vocabulary data in:
+    type-config.txt
 
-Configuration files are used for presentation, defaults, and layout behavior, not to define which
-vocabulary types or subtypes exist.
+This file defines, for configured subtypes:
+- the friendly display label
+- the keyboard aliases used by the Ask Type popup
+
+Keyboard aliases may contain both romaji and kana. For example:
+    i-adjective -> i, い
+    na-adjective -> n, na, な
+
+The configuration file does NOT define which subtypes exist. A subtype only becomes available when
+it is present in vocabulary.csv. This separation means new CSV subtype values are automatically
+discovered without an application-code change, while presentation and keyboard mappings remain
+explicit and maintainable.
+
+There is intentionally no fallback subtype definition. If a subtype exists in vocabulary.csv but
+is missing from type-config.txt, the raw CSV value remains available as a touch-selectable button and
+the type popup shows a small, soft-grey warning that the subtype is not configured. No invented label
+or keyboard mapping is applied.
 
 The layout engine is also data/configuration-driven. It supports arbitrary numbers of logical lines
 and items/columns. Empty items and empty logical lines are removed from the visual grid, so later
@@ -148,12 +163,16 @@ discovered dynamically from the current vocabulary data:
 - Verbs use the unique values in verb_group.
 - Adjectives use the unique values in adjective_group.
 
-Known current values are ru / u / irr for verbs and i / na for adjectives, but the application does not
-require this fixed set. New subtype values introduced in the CSV automatically become available.
+Current configured values are u / ru / irr for verbs and i / na for adjectives. The application does not
+require this fixed set; new subtype values introduced in the CSV automatically become available, subject
+to optional presentation/keyboard definitions in type-config.txt.
 
-The type popup supports both touch and keyboard input. Typing a subtype code highlights the matching
-button. Prefix matching is supported when it identifies one subtype; Enter confirms the selected subtype.
-Touching a button still confirms the type directly.
+The type popup supports both touch and keyboard input. Typing a configured keyboard alias highlights the
+matching button; prefix matching is supported when it identifies one subtype. Enter confirms the selected
+subtype. Touching a button still confirms the type directly.
+
+Quiz and Training also show the general vocabulary word type as a small, muted hint directly below the
+question. The subtype is not shown there, so Ask Type remains a real subtype question.
 
 If Ask Type is OFF, a correct translation counts as Correct.
 If Ask Type is ON, both translation and type must be correct for the complete question to count as Correct.
@@ -221,7 +240,8 @@ Direction:
 - Japanese -> English = show only that direction
 - English -> Japanese = show only that direction
 
-The status legend is also a multi-select filter. Matching is OR-based: a word is shown when it
+The status legend is also a multi-select filter. The checkboxes are intentionally compact and visually
+subordinate to the status symbols. Matching is OR-based: a word is shown when it
 matches at least one selected status. If no status filters are selected, all words are shown.
 
 Available statuses:

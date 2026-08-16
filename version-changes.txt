@@ -1,5 +1,17 @@
 Japanese Vocabulary Trainer — Version Changes
 
+Version 27
+----------
+- Corrected the Words status-filter checkbox styling so the checkbox square is compact, with the existing checkmark size preserved and no heavy black active fill.
+- Added a dedicated type-config.txt file for verb/adjective subtype labels and keyboard aliases.
+- Kept subtype discovery data-driven: available subtypes still come from vocabulary.csv; type-config.txt only defines presentation and keyboard mappings for known subtypes.
+- Removed the previous hardcoded verb/adjective subtype labels and keyboard mappings from application code.
+- Added configurable romaji/kana keyboard aliases, including i / い for i-adjectives and n / na / な for na-adjectives.
+- Added a subtle grey warning in the Ask Type popup when the current CSV subtype is not defined in type-config.txt. No fallback subtype definition is used; undefined subtypes remain touch-selectable by their raw CSV value.
+- Added a subtle general word-type hint below the question in both Quiz and Training. The hint shows only the general word type, not the verb/adjective subtype.
+- Updated README.txt to document the current v27 architecture, subtype configuration, keyboard aliases, warning behavior, and question-type hints.
+- Added type-config.txt to the application file set.
+
 Version 26
 ----------
 - Refined the Words status controls: the checkbox square is smaller while the checkmark remains visually prominent.

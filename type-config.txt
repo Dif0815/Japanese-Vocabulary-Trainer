@@ -1,0 +1,24 @@
+# Japanese Vocabulary Trainer — Word subtype configuration
+#
+# vocabulary.csv remains the source of truth for which subtype values exist.
+# This file defines how known verb/adjective subtypes are presented and
+# which keyboard inputs select them in the Ask Type popup.
+#
+# A subtype that exists in vocabulary.csv but is not defined here is NOT
+# given a fallback definition. It remains touch-selectable by its raw CSV
+# value and the popup shows a subtle configuration warning.
+#
+# Syntax:
+# [verb] or [adjective]
+# code=CSV subtype; label=display label; keyboard=input1,input2,...
+#
+# Keyboard aliases may contain romaji and/or kana.
+
+[verb]
+code=u; label=u-verb; keyboard=u,う
+code=ru; label=ru-verb; keyboard=r,ru,る
+code=irr; label=irregular; keyboard=i,ir,irr
+
+[adjective]
+code=i; label=i-adjective; keyboard=i,い
+code=na; label=na-adjective; keyboard=n,na,な
