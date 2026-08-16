@@ -1,14 +1,14 @@
-Japanese Vocabulary Trainer v27
+Japanese Vocabulary Trainer v27.1
 
 CURRENT VERSION
 ---------------
-Version: 27
+Version: 27.1
 Status: Current test version
 
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=27
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=27.1
 
-The ?v=26 ending is a cache-busting version marker. Increase it when uploading a
+The ?v=xx ending is a cache-busting version marker. Increase it when uploading a
 new version so the browser is forced to request the new files.
 
 Normal link:

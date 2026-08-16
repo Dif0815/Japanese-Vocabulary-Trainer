@@ -1,5 +1,11 @@
 Japanese Vocabulary Trainer — Version Changes
 
+Version 27.1
+------------
+- Reduced only the checkmark inside the Words status-filter checkbox; the checkbox square remains at the v27 size.
+- Fixed Quiz Ask Type focus after a verb/adjective subtype is selected by touch so focus returns to the main answer field. This allows Enter to continue to Next after an incorrect subtype answer.
+- No vocabulary/data changes in v27.1.
+
 Version 27
 ----------
 - Corrected the Words status-filter checkbox styling so the checkbox square is compact, with the existing checkmark size preserved and no heavy black active fill.
