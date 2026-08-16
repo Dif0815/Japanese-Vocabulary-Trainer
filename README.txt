@@ -1,14 +1,14 @@
-Japanese Vocabulary Trainer v18
+Japanese Vocabulary Trainer v19
 
 GITHUB PAGES
 ------------
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=18
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=19
 
 Normal link:
 https://dif0815.github.io/Japanese-Vocabulary-Trainer/
 
-The ?v=18 ending is a cache-busting version marker. Increase it when uploading a
+The ?v=19 ending is a cache-busting version marker. Increase it when uploading a
 new version so the browser is forced to request the new files.
 
 FILES
@@ -19,10 +19,18 @@ Upload these files to the root of the GitHub Pages repository:
 - last-layout.txt
 - training-layout.txt
 - options-defaults.txt
+- symbols/learned.svg
+- symbols/partially_learned.svg
+- symbols/not_learned.svg
+- symbols/needs_review.svg
 Keep your existing manifest.json and icon.svg.
 
 The version number is shown on the main page and in the HTML title.
 The options-defaults.txt file controls startup defaults for Quiz and Training.
+
+The symbols directory contains the four status symbols used in the Words section. The file name is the
+status identifier used by the application. Replace the contents of a symbol file to change its appearance
+without changing the application code.
 
 VOCABULARY DATABASE
 -------------------
@@ -72,6 +80,24 @@ is implemented.
 
 Type and Group filters do not change the vocabulary database. They only change the currently displayed/selected
 vocabulary pool.
+
+WORDS
+-----
+The Words section provides the filters Search, Direction, Vocabulary, and Group. Direction uses the same
+Japanese -> English / English -> Japanese / Mixed choices as Quiz and Training. Mixed shows the learning
+status for both directions; a single direction shows only that direction.
+
+For each direction, the Words section shows a Needs review symbol when the direction is learned and has
+not been answered correctly for at least 30 days, followed by the learned status symbol. The learned status
+for an individual direction is green when that direction meets the learned criteria and grey when it does not.
+The partially learned symbol is reserved for the overall word status and remains available as a configurable
+symbol asset.
+
+The four status assets are:
+- learned.svg = Learned
+- partially_learned.svg = Partially learned
+- not_learned.svg = Not learned
+- needs_review.svg = Needs review
 
 ANSWER SYNTAX
 -------------
@@ -336,6 +362,16 @@ A word does not stop being learned simply because it needs review.
 VERSION CHANGES
 ---------------
 
+Version 19
+----------
+- Added a Direction filter to the Words section, using the same Direction choices as Quiz and Training.
+- Replaced the Words section JP/EN attempt counters with direction-specific learned and needs-review status symbols.
+- Added four configurable symbol files in symbols/: learned.svg, partially_learned.svg, not_learned.svg, and needs_review.svg.
+- Updated the shared layout renderer so Last and Training Reveal use the same global dynamic column grid.
+- Preserved the current user-customized last-layout.txt.
+- Added the agreed weather and object description groups to the vocabulary CSV for testing.
+- Kept the existing learned-word definition and 30-day review rule unchanged.
+
 Version 17
 ----------
 ------------------
@@ -352,6 +388,13 @@ Version 17
 
 DATA CORRECTION
 ---------------
+
+Version 19
+----------
+- Added group=weather to あつい, さむい, すずしい, はれ, くもり, ゆき, and ふる.
+- Added group=weather/object description to あたたかい.
+- Added group=object description to つめたい.
+- Other existing group values remain unchanged.
 
 Version 17
 ----------

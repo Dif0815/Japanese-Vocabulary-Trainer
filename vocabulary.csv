@@ -82,7 +82,7 @@ japanese,reading,english,type,verb_group,adjective_group,group,additional_info,v
 さんぽする,さんぽする,take a walk,verb,irr,,,,さんぽし,さんぽします,さんぽして,さんぽしない,さんぽした,,,
 かける,かける,call (phone: でんわを〜) / wear (glasses),verb,ru,,,,かけ,かけます,かけて,かけない,かけた,,,
 あびる,あびる,take a shower,verb,ru,,,,あび,あびます,あびて,あびない,あびた,,,
-ふる,ふる,fall (rain / snow),verb,u,,,,ふり,ふります,ふって,ふらない,ふった,,,
+ふる,ふる,fall (rain / snow),verb,u,,weather,,ふり,ふります,ふって,ふらない,ふった,,,
 みつける,みつける,find,verb,ru,,,,みつけ,みつけます,みつけて,みつけない,みつけた,,,
 こたえる,こたえる,answer,verb,ru,,,,こたえ,こたえます,こたえて,こたえない,こたえた,,,
 あける,あける,open,verb,ru,,,,あけ,あけます,あけて,あけない,あけた,,,
@@ -152,11 +152,11 @@ japanese,reading,english,type,verb_group,adjective_group,group,additional_info,v
 あまい,あまい,sweet,adjective,,i,,,,,,,,あまくない,あまかった,あまくて
 すっぱい,すっぱい,sour,adjective,,i,,,,,,,,すっぱくない,すっぱかった,すっぱくて
 にがい,にがい,bitter,adjective,,i,,,,,,,,にがくない,にがかった,にがくて
-あつい,あつい,hot (weather),adjective,,i,,,,,,,,あつくない,あつかった,あつくて
-さむい,さむい,cold (weather),adjective,,i,,,,,,,,さむくない,さむかった,さむくて
-つめたい,つめたい,cold (object / drink),adjective,,i,,,,,,,,つめたくない,つめたかった,つめたくて
-あたたかい,あたたかい,warm,adjective,,i,,,,,,,,あたたかくない,あたたかかった,あたたかくて
-すずしい,すずしい,cool (weather),adjective,,i,,,,,,,,すずしくない,すずしかった,すずしくて
+あつい,あつい,hot (weather),adjective,,i,weather,,,,,,,あつくない,あつかった,あつくて
+さむい,さむい,cold (weather),adjective,,i,weather,,,,,,,さむくない,さむかった,さむくて
+つめたい,つめたい,cold (object / drink),adjective,,i,object description,,,,,,,つめたくない,つめたかった,つめたくて
+あたたかい,あたたかい,warm,adjective,,i,weather/object description,,,,,,,あたたかくない,あたたかかった,あたたかくて
+すずしい,すずしい,cool (weather),adjective,,i,weather,,,,,,,すずしくない,すずしかった,すずしくて
 ちかい,ちかい,near / close,adjective,,i,,,,,,,,ちかくない,ちかかった,ちかくて
 とおい,とおい,far,adjective,,i,,,,,,,,とおくない,とおかった,とおくて
 おもい,おもい,heavy,adjective,,i,,,,,,,,おもくない,おもかった,おもくて
@@ -195,9 +195,9 @@ japanese,reading,english,type,verb_group,adjective_group,group,additional_info,v
 とくい,とくい,good at,adjective,,na,,,,,,,,とくいじゃない,とくいだった,とくいで
 にがて,にがて,bad at,adjective,,na,,,,,,,,にがてじゃない,にがてだった,にがてで
 にんき,にんき,popular,adjective,,na,,,,,,,,にんきじゃない,にんきだった,にんきで
-はれ,はれ,sunny,noun,,,,,,,,,,,,
-くもり,くもり,cloudy,noun,,,,,,,,,,,,
-ゆき,ゆき,snow / snowy,noun,,,,,,,,,,,,
+はれ,はれ,sunny,noun,,,weather,,,,,,,,,
+くもり,くもり,cloudy,noun,,,weather,,,,,,,,,
+ゆき,ゆき,snow / snowy,noun,,,weather,,,,,,,,,
 とまる,とまる,stay,verb,u,,,,とまり,とまります,とまって,とまらない,とまった,,,
 しんぱいする,しんぱいする,worry,verb,irr,,,,しんぱいし,しんぱいします,しんぱいして,しんぱいしない,しんぱいした,,,
 はらう,はらう,pay,verb,u,,,,はらい,はらいます,はらって,はらわない,はらった,,,
