@@ -1,0 +1,50 @@
+Japanese Vocabulary Trainer — Version Changes
+
+Version 25
+----------
+- Refined the Words status checkboxes: smaller, less prominent, and no longer rendered as solid-black active controls.
+- Replaced the combined Words status-filter default with four independent on/off settings in options-defaults.txt.
+- Added a Status header above the overall word-status column in Mixed Words mode so the overall status aligns with JP -> EN and EN -> JP.
+- Improved the shared layout engine so empty logical lines do not consume vertical space. Subsequent populated lines are compacted upward.
+- Applied empty-row compaction consistently to Last, Training Reveal, and Word Popup layouts.
+- Refined README documentation so it describes the current application only.
+- Moved version history into this file.
+- Moved vocabulary/data change history into data-changes.txt.
+
+Version 24
+----------
+- Fixed configurable layout handling so empty fields do not create phantom columns or large gaps.
+- Added configurable Needs Review recovery with review_recovery_accuracy=80 and review_recovery_min_answers=5.
+- Turned the Words status legend into multi-select filters.
+- Made Partially learned Mixed-mode-only and added the overall status column per word.
+- Kept the Words legend order as Learned -> Not learned -> Needs review -> Partially learned.
+
+Version 23
+----------
+- Centralized answer normalization so parenthetical qualifiers are removed before alternative answers are split.
+- Applied the same normalization to English -> Japanese checks.
+- Added Enter handling for Quiz and Training.
+
+Version 22
+----------
+- Added the Words status legend.
+- Made Needs Review visible only when active while preserving alignment.
+
+Version 21
+----------
+- Fixed the Quiz Skip button regression.
+- Kept Ask Type behavior simple: when OFF, translation determines correctness; when ON, translation and type must both be correct.
+- Fixed repetition spacing so min_different_words_between_repetitions=5 means five different words between repetitions.
+- Added maximum-possible fallback when the filtered pool is too small to satisfy the requested spacing.
+- Cleaned up learning-data storage/version bookkeeping.
+
+Version 20
+----------
+- Added Words Direction and Words Direction/Vocabulary/Group defaults.
+- Replaced Words counters with directional Learned and Needs Review status symbols.
+- Added root-level status-symbol SVG files.
+- Added clickable Words entries and customizable word-popup-layout.txt.
+- Added word-type-specific popup sections with a fallback.
+- Added self-documenting learned-settings.txt and question-settings.txt.
+- Added wrong_answers_to_review=1 and review-priority question selection.
+- Moved status symbols to the repository root for direct GitHub upload.

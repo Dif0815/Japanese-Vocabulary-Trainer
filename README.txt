@@ -1,15 +1,28 @@
-Japanese Vocabulary Trainer v24
+Japanese Vocabulary Trainer v25
 
-GITHUB PAGES
-------------
+CURRENT VERSION
+---------------
+Version: 25
+Status: Current test version
+
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=24
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=25
+
+The ?v=25 ending is a cache-busting version marker. Increase it when uploading a
+new version so the browser is forced to request the new files.
 
 Normal link:
 https://dif0815.github.io/Japanese-Vocabulary-Trainer/
 
-The ?v=21 ending is a cache-busting version marker. Increase it when uploading a
-new version so the browser is forced to request the new files.
+VERSION / DATA DOCUMENTATION
+----------------------------
+Version history is kept separately in:
+    version-changes.txt
+
+Vocabulary additions, corrections, and other intentional CSV data changes are kept in:
+    data-changes.txt
+
+This README describes the current application only.
 
 FILES
 -----
@@ -22,23 +35,25 @@ Upload these files to the root of the GitHub Pages repository:
 - learned-settings.txt
 - question-settings.txt
 - word-popup-layout.txt
+- version-changes.txt
+- data-changes.txt
 - learned.svg
 - partially_learned.svg
 - not_learned.svg
 - needs_review.svg
+
 Keep your existing manifest.json and icon.svg.
 
-All four status-symbol SVG files are intentionally in the repository root.
-The application uses the filename as the logical symbol name, so the files can be
-replaced later without changing the application code.
+All four status-symbol SVG files are intentionally in the repository root. The application
+uses the filename as the logical symbol name, so the files can be replaced later without
+changing the application code.
 
 The version number is shown on the main page and in the HTML title.
 
 VOCABULARY DATABASE
 -------------------
-vocabulary.csv is the authoritative vocabulary database. The browser does NOT edit it.
-Edit the CSV manually (Excel, Numbers, LibreOffice, etc.) and upload the new CSV to GitHub.
-You can add/remove/reorder vocabulary rows without changing learning statistics.
+vocabulary.csv is the authoritative vocabulary database. Edit it manually and upload the
+new CSV to GitHub Pages. The browser does not write changes back to the CSV.
 
 The first CSV row is the database header. Current columns include:
 - japanese
@@ -58,335 +73,200 @@ The first CSV row is the database header. Current columns include:
 - adjective_past
 - adjective_te_form
 
-Conjugation fields are stored separately for verbs and adjectives. adjective_group is i or na.
-Any new CSV column automatically becomes available to the configurable Last, Training, and Words popup layouts.
+Any new CSV column automatically becomes available to the configurable Last, Training,
+and Words popup layouts.
+
+Vocabulary and learning statistics are separate. Statistics are stored locally in the
+browser and matched by normalized Japanese + reading, not by CSV row number.
 
 FILTERS
 -------
-The type column is an open-ended word classification field. The app does not hard-code the available
-word types. It reads all unique non-empty values from the CSV and creates the filter choices dynamically.
-This means new types such as adverb, pronoun, question_word, or other categories can be added without
-changing the HTML/JavaScript.
+The type column is open-ended. The app reads all unique non-empty type values from the CSV
+and creates the Vocabulary filter dynamically. New word types therefore do not require HTML
+or JavaScript changes.
 
-The group column is an optional topic/grouping field. It replaces the old source column.
-Examples:
-- body parts
-- directions
-- food
-- weather
-- object description
-
-A word may belong to multiple groups by separating them with /. For example:
+The group column is optional and is also generated dynamically. A word may belong to multiple
+groups by separating them with /, for example:
     weather/object description
 
-The Group filter treats each slash-separated value as an independent group. The same dynamic Group filter
-is available in Quiz, Training, and Words.
+The Group filter treats each slash-separated value as a separate group.
 
-Type and Group filters do not change the vocabulary database. They only change the currently displayed/selected
-vocabulary pool.
+The same dynamic Vocabulary and Group filters are available in Quiz, Training, and Words.
 
-ANSWER SYNTAX
--------------
-In the English field:
-- / separates alternative accepted answers.
-  Example: fun / enjoyable accepts either answer.
-- (...) is an optional qualifier. It is shown as part of the vocabulary information,
-  but the parenthetical qualifier is ignored when checking the answer.
-  Example: to have (living things) can be answered with "to have" or "have". Parenthetical text is removed before alternative answers are split, so a value such as "cold (object / drink)" is checked as "cold".
-- Verb English meanings are stored without the leading "to". Quiz and Training display "to " automatically for verbs.
-- For verbs, "to" is optional when checking. For example, both "to do" and "do" are accepted.
-- Japanese -> English checks the English meanings using the rules above.
-- English -> Japanese accepts the stored reading or Japanese field, using the same parenthetical/alternative normalization rules.
+ANSWER CHECKING
+---------------
+English meanings may contain / or ; separated alternatives. Parenthetical qualifiers are
+shown as vocabulary information but are ignored during answer checking.
 
-LEARNING STATISTICS
--------------------
-Vocabulary and learning history are separate.
+For example:
+    cold (object / drink)
 
-vocabulary.csv = what the word IS.
-Browser learning data = what YOU have done with the word.
+is checked as:
+    cold
 
-Learning data is stored locally in the browser under the existing app storage key so updates
-can retain the current learning history. It contains:
-- ja_asked / ja_correct / ja_wrong
-- en_asked / en_correct / en_wrong
-- last_added
-- last_ja_correct / last_en_correct
-- ja_wrong_since_correct / en_wrong_since_correct
+The qualifier is removed before alternatives are split, so slashes inside parentheses do
+not create additional answers.
 
-Statistics are matched to vocabulary by a stable key:
-    normalized Japanese + "|" + normalized reading
+Verb meanings are stored without the leading "to". Quiz and Training display "to" automatically
+for verbs, and both forms are accepted when checking an answer.
 
-The CSV row number is NOT used. Therefore adding, deleting, or reordering CSV rows does
-not move statistics to another word.
-
-When a word is new, the trainer creates fresh statistics and records last_added.
-Existing statistics are retained when the same Japanese + reading is found again.
+Japanese -> English checks the English meanings. English -> Japanese accepts the stored reading
+or Japanese field using the same normalization rules.
 
 QUIZ
 ----
-Options:
+Quiz options:
 - Direction: Japanese -> English / English -> Japanese / Mixed
-- Vocabulary: dynamically generated from the unique values in the CSV type column
-- Group: dynamically generated from the unique group values in the CSV group column
+- Vocabulary: dynamically generated from CSV type values
+- Group: dynamically generated from CSV group values
 - Ask Type: ON/OFF
 
-Changing Ask Type does NOT advance or replace the current question. It only changes the
-setting used for the current/next quiz flow. The Options frame is placed below the main Quiz content.
-
-The Next button remains on the right side after an answer is checked.
-Enter can be used as a keyboard shortcut: while entering an answer it submits the Quiz answer; after a wrong Quiz result it advances with Next. In Training, Enter advances with Next when the Training section is active.
-
-Ask Type is an optional second step of the SAME quiz question.
+Ask Type is an optional second step of the same quiz question:
 - Verbs: ru-verb / u-verb / irregular
 - Adjectives: i-adjective / na-adjective
 
-The type question uses buttons rather than typed input.
-If Ask Type is OFF, type does not affect the result or statistics.
-If Ask Type is ON, the whole question is correct only when BOTH the translation and type
-are correct. A wrong type therefore makes the whole question wrong.
-There are NO separate type statistics.
+If Ask Type is OFF, a correct translation counts as Correct.
+If Ask Type is ON, both translation and type must be correct for the complete question to count as Correct.
+There are no separate type statistics.
+
+Enter handling:
+- while entering an answer, Enter submits the answer
+- after a wrong Quiz result, Enter activates Next
+
+Skip does not count as wrong or correct and immediately starts the next question.
+
+Further question-selection details are documented in:
+    question-settings.txt
 
 LAST
 ----
-The Last frame is updated only after a question is completely finished, including the type
-question when Ask Type is ON. If the translation is wrong, the type question is not asked
-and the question is finished immediately.
-Skip also updates Last but does not count as an answer wrong/correct.
+The Last frame shows the completed result of the most recently finished or skipped question.
+It is configurable through:
+    last-layout.txt
 
-last-layout.txt controls the Last frame. It is edited manually, not through the browser.
-Multiple fields may share one line.
+The layout engine supports an arbitrary number of configured logical lines and items.
+Empty items do not create empty columns, and empty logical lines do not consume vertical space.
+Subsequent populated lines are automatically compacted upward.
 
-Global layout settings:
-    column_gap=28
-    row_gap=16
-    label_font_size=12
-    label_color=#777777
-
-- column_gap = horizontal space between columns, in pixels
-- row_gap = vertical space between visual lines, in pixels
-- label_font_size = label font size, in pixels
-- label_color = label text color
-
-Color examples:
-    label_color=#777777
-    label_color=#999999
-    label_color=darkslategray
-    label_color=rgb(100,100,100)
-
-The column grid is calculated across ALL visual lines together. Column 1, column 2, etc.
-therefore stay aligned from one line to the next. A row with fewer items simply occupies the
-first available columns; it does not create artificial empty columns.
-
-Entry syntax example:
+Basic syntax:
     line=1; label=Question word; db=question; under=true
 
-- line = visual line number
-- label = displayed label
-- db = CSV/database field or virtual field
-- under=true = value below the label
-- under=false = label and value beside the value
-
-If a database value is empty, the complete label/value item is ignored.
-Virtual fields available for Last include:
-- question
-- correct_answer
-- answer_given
-- result
-
-Any field present in the CSV header can be used as db= without changing the HTML.
+Further layout syntax and settings are documented directly in:
+    last-layout.txt
 
 TRAINING
 --------
-Training is separate from Quiz and NEVER changes learning statistics.
-It has:
+Training is separate from Quiz and does not change learning statistics.
+
+Options:
 - Direction: Japanese -> English / English -> Japanese / Mixed
 - Vocabulary: dynamically generated from CSV type values
 - Group: dynamically generated from CSV group values
 - Reveal All: ON/OFF
 
-The question word is selected using the same direction/vocabulary/question selection logic as
-the Quiz, but Training does not record an asked/correct/wrong result.
+Training uses the same question-selection logic and repetition spacing as Quiz, but does not
+record an answered result.
 
-Changing the Training Reveal All setting does NOT advance, skip, clear, or replace the current
-training word. It only changes what the Next button does. Training labels remain visible while
-values are hidden. The Options frame is placed below the Training content.
+Training reveal layouts are configured in:
+    training-layout.txt
 
-Training reveal layouts are stored in training-layout.txt and are edited manually.
-Mixed mode does NOT need a separate layout: the actual direction of each mixed question
-selects the ja-en or en-ja configuration automatically.
+The file supports type-specific layouts and a type=all fallback. A new CSV word type can be
+customized simply by adding a matching configuration entry; otherwise the fallback is used.
 
-If a specific vocabulary type is defined in training-layout.txt, that definition is used.
-If the type is not defined, the type=all fallback is used. This means new word types can be
-customized by adding a matching type= entry; otherwise they safely use the fallback.
-
-TRAINING LAYOUT CONFIGURATION
------------------------------
-One config entry = one reveal item. Multiple entries can share the same visual line number.
-The order of entries in this file is the reveal order.
-
-Global layout settings:
-    column_gap=28
-    row_gap=16
-    label_font_size=12
-    label_color=#777777
-
-- column_gap = horizontal space between columns, in pixels
-- row_gap = vertical space between visual lines, in pixels
-- label_font_size = label font size, in pixels
-- label_color = label text color
-
-Color examples:
-    label_color=#777777
-    label_color=#999999
-    label_color=darkslategray
-    label_color=rgb(100,100,100)
-
-The column grid is calculated across ALL visual lines together. This keeps columns aligned
-when different rows contain different labels or values.
-
-Entry syntax:
-    type=verb; direction=ja-en; line=1; label=Dictionary form; db=japanese; under=true
-
-- type = exact vocabulary type from the CSV, or all for the fallback
-- direction = ja-en or en-ja
-- line = visual line number
-- label = text shown above/beside the database value
-- db = CSV/database field name or virtual field
-- under=true = value below label / under=false = label and value side-by-side
-
-If Reveal All is OFF, one non-empty configured item is added with each Next click.
-If Reveal All is ON, the first Next reveals all non-empty configured items. The following
-Next starts a new question.
-
-If a database value is empty, that item and its label are ignored.
-
-Virtual Training fields currently available:
-- question
-- correct_answer
-- direction
-
-Any field present in the CSV header can be used directly as db=. This means new columns such as
-additional conjugation forms can be added to vocabulary.csv and then referenced in
-training-layout.txt without changing the HTML.
+The same layout engine handles optional fields and lines, including automatic removal of
+empty columns and empty logical rows.
 
 WORDS
 -----
-The Words section has four filters/options plus the status legend:
+The Words section provides:
 - Search
 - Direction
 - Vocabulary
 - Group
-- Learning/review status checkboxes in the legend
+- Learning/review status filters
 
-Direction controls which directional learning/review statuses are displayed:
-- Mixed = show both Japanese -> English and English -> Japanese separately, plus one overall status column.
-- Japanese -> English = show only that direction.
-- English -> Japanese = show only that direction.
+Direction:
+- Mixed = show Japanese -> English and English -> Japanese separately, plus one overall Status column
+- Japanese -> English = show only that direction
+- English -> Japanese = show only that direction
 
-The status legend is also a multi-select filter. The available filters are:
+The status legend is also a multi-select filter. Matching is OR-based: a word is shown when it
+matches at least one selected status. If no status filters are selected, all words are shown.
+
+Available statuses:
 - Learned
 - Not learned
 - Needs review
 - Partially learned (Mixed mode only)
 
-Multiple status filters can be selected at the same time. Matching is OR-based: a word is shown when
-it matches at least one selected status. If no status filters are selected, all words are shown.
-Status filter defaults are configured in options-defaults.txt.
-
-Partially learned is intentionally different from the directional statuses. It is an overall word status
-and exists only in Mixed mode:
+Partially learned is an overall word status:
 - both directions learned = Learned
 - exactly one direction learned = Partially learned
 - neither direction learned = Not learned
 
-In Mixed mode, a dedicated overall-status column shows the Partially learned / Learned / Not learned symbol
-for each word. The directional columns remain separate and continue to show the independent review + learned
-status for Japanese -> English and English -> Japanese.
+In Mixed mode, the word list has an overall Status column followed by the two directional columns.
+The directional columns independently show learned/not-learned and Needs Review.
 
-Partially learned is hidden from the legend and its checkbox is ignored when a directional Words filter is
-selected. Its checkbox selection is retained, so switching back to Mixed activates it again.
+Needs Review is shown only when active, but its reserved position remains aligned so the learned
+symbol does not move when review is inactive.
 
-Needs Review remains independent from Learned. A direction can therefore be Learned and Needs Review at the
-same time. Needs Review is only visually shown when active; its reserved position remains aligned so the learned
-status icon does not move when review is inactive.
+Partially learned is hidden from the legend and ignored as a filter while a directional Words
+mode is selected. Its checkbox selection is retained and becomes active again when Mixed mode
+is selected.
 
-The Words status-symbol order in the legend is:
-    Learned -> Not learned -> Needs review -> Partially learned
-
-The four symbol files are:
+The four status symbols are stored as root-level files:
 - learned.svg
 - not_learned.svg
 - needs_review.svg
 - partially_learned.svg
 
-The application uses the filenames as the logical symbol names, so the SVG files can be replaced later without
-changing the application code.
+Clicking a word opens a configurable popup.
 
-Clicking a word opens a popup. The popup is controlled by word-popup-layout.txt.
-
-WORDS POPUP CONFIGURATION
--------------------------
-There is ONE popup customization file for all word types:
+WORDS POPUP
+-----------
+The popup uses one configuration file for all word types:
     word-popup-layout.txt
 
-The file uses sections such as:
+The file contains sections such as:
     [verb]
     [adjective]
     [fallback]
 
-When a word is opened:
-1. The app looks for a section matching the exact CSV type.
-2. If that section exists, it is used.
-3. If it does not exist, [fallback] is used.
+When a word is opened, the exact CSV type is matched first. If no matching section exists,
+[fallback] is used.
 
-Therefore a newly introduced word type can be customized by simply adding a new section to the
-same file. The fallback remains available for any type that has not yet been customized.
+Therefore a newly introduced word type can be customized by adding a matching section without
+changing the application code.
 
-The popup file supports the same dynamic column/row spacing concept as Last and Training.
-It also supports label font size and label color.
+The popup uses the same dynamic layout engine as Last and Training. Empty fields and empty
+logical lines are automatically removed from the visual layout.
 
-Popup syntax:
-    line=1; label=English; db=english; under=true
-
-Supported virtual popup fields:
-- question
-- english
-- type_label
-- verb_type
-- adjective_type
-
-Any CSV field can also be used directly as db=.
-The popup configuration file is self-documenting and includes syntax, fallback, field, and color examples.
+Detailed syntax, virtual fields, fallback behavior, and styling settings are documented in:
+    word-popup-layout.txt
 
 OPTIONS DEFAULTS
 ----------------
-options-defaults.txt controls startup defaults and is intentionally self-documenting.
-It contains matching filter names across Quiz, Training, and Words.
+Startup defaults for Quiz, Training, and Words are configured in:
+    options-defaults.txt
 
-[quiz]
-ask_type=on
-direction=mixed
-vocabulary=all
-group=all
+The file is intentionally self-documenting. Detailed option descriptions belong in that file
+rather than being duplicated here.
 
-[training]
-direction=mixed
-vocabulary=all
-group=all
-reveal_all=off
+The Words status filters use individual on/off defaults:
+    status_filter_learned=on
+    status_filter_not_learned=on
+    status_filter_needs_review=on
+    status_filter_partially_learned=on
 
-[words]
-direction=mixed
-vocabulary=all
-group=all
+These values define the initial checkbox state only. They do not lock the filters.
+Partially learned remains Mixed-mode-only.
 
-The Words Direction default controls whether both directional statuses or one directional status
-is shown when the Words section opens.
+LEARNED / NEEDS REVIEW
+----------------------
+Learned and Needs Review are tracked independently for each direction.
 
-LEARNED / REVIEW SETTINGS
--------------------------
-learned-settings.txt contains the simple, configurable thresholds for directional learning status and
-Needs Review recovery. It is self-documenting and includes explanations for every setting.
+Detailed thresholds and recovery settings are configured in:
+    learned-settings.txt
 
 Current settings:
     min_attempts=10
@@ -397,77 +277,45 @@ Current settings:
     review_recovery_accuracy=80
     review_recovery_min_answers=5
 
-For each direction, all three learned criteria must be met:
-- at least 10 attempts
-- at least 90% accuracy
-- at least 5 correct answers
-
-Learned is tracked independently for Japanese -> English and English -> Japanese.
-Fully learned is NOT stored as a separate status. It is derived:
+A direction is Learned only when all three learned criteria are met.
+Fully learned is derived, not stored separately:
 - both directions learned = fully learned
 - exactly one direction learned = partially learned
 - neither direction learned = not learned
 
-Needs Review is also tracked independently per direction and is separate from Learned.
-A direction needs review when either:
-- wrong answers since the last correct answer reach wrong_answers_to_review, or
-- the configured review_days have passed since the last correct answer.
+Needs Review is independent from Learned. A direction can therefore be Learned and still need review.
+One wrong answer immediately triggers review with the current default.
 
-The default wrong_answers_to_review=1 means one wrong answer immediately triggers review.
-A word does not stop being learned simply because it needs review.
+Once Needs Review is triggered, it remains active until the configured recovery conditions are met.
+Recovery is tracked separately per direction. With the current defaults, at least 5 recovery answers
+are required and accuracy must be at least 80%.
 
-Once Needs Review is triggered, it does NOT clear after a single correct answer. A separate recovery counter
-is started for that direction. Recovery uses the configured review_recovery_accuracy and
-review_recovery_min_answers settings. The status is cleared only when BOTH conditions are met:
-- at least review_recovery_min_answers recovery answers have been given
-- recovery accuracy is at least review_recovery_accuracy
-
-With the current defaults (80% and 5 answers), 4/5 correct clears review, while 3/5 does not.
-Recovery tracking is direction-specific and resets when the review status is cleared.
+See learned-settings.txt for the authoritative detailed documentation.
 
 QUESTION SELECTION
 ------------------
-Quiz and Training use the same weighted question-selection logic. The current system is weighted
-random selection, not simple uniform random selection.
+Quiz and Training use the same weighted random question-selection logic.
 
-1. The available pool is created from the selected Vocabulary and Group filters.
-2. In Mixed direction, Japanese -> English or English -> Japanese is chosen randomly for each question.
-3. Each available word receives a base weight and additional priority based on learning history.
-4. Words with more wrong/unmastered answers receive higher priority.
-5. Lower accuracy increases priority.
-6. Words with little or no practice receive additional priority.
-7. The time since the last correct answer increases priority gradually, up to a maximum contribution
-   after roughly 150 days.
-8. Learned directions receive a lower weight because they are already established.
-9. Directions marked Needs Review receive a strong additional priority. Review is prioritized but is
-   NOT an exclusive queue.
-10. A recent-word exclusion is applied before weighted random selection.
+The selector:
+1. applies the selected Vocabulary and Group filters
+2. chooses a direction according to the current Direction setting
+3. weights words according to learning history
+4. gives additional priority to difficult, new, or review-needed words
+5. lowers the weight of learned directions
+6. applies the configured recent-word exclusion before selection
 
-Question repetition spacing is configured in question-settings.txt:
-    min_different_words_between_repetitions=5
+Needs Review is prioritized but is not an exclusive queue.
 
-With the default value 5, at least five different words must be asked before the same word may be
-selected again. This applies to Quiz and Training. The direction can still change when the word
-returns; the spacing rule is about the word itself.
-
-This is not a fixed spaced-repetition schedule. A correctly answered word becomes less likely, but it
-can still appear again after the configured repetition gap because selection remains weighted random.
-Difficult, new, or review-needed words become more likely.
-
-Quiz learning history is direction-specific. Japanese -> English and English -> Japanese maintain
-separate asked/correct/wrong counts and separate last-correct timestamps.
-
-QUESTION SELECTION CONFIGURATION
---------------------------------
-question-settings.txt is intentionally simple and self-documenting.
+Repetition spacing is configured in:
+    question-settings.txt
 
 Current setting:
     min_different_words_between_repetitions=5
 
-The value means the number of DIFFERENT words that must be asked before the same word may be selected again.
-Example:
-    A -> B -> C -> D -> E -> F -> A   = allowed
-    A -> B -> C -> D -> E -> A       = not allowed
+This means five DIFFERENT words must be asked before the same word may be selected again.
+The rule applies to the word itself, regardless of direction.
+If the filtered pool is too small to satisfy the configured distance, the selector uses the
+maximum separation possible.
 
 BACKUP / RESTORE
 ----------------
@@ -475,109 +323,32 @@ Use the Backup tab to:
 - Export statistics -> japanese-vocabulary-learning.json
 - Import statistics -> select a previously exported JSON file
 
-The JSON backup contains learning statistics, not vocabulary. Importing only applies records
-whose Japanese + reading match a word currently present in vocabulary.csv.
+The backup contains learning statistics, not vocabulary. Importing matches records by Japanese + reading.
 
 Recommended workflow:
-1. Edit vocabulary.csv manually.
-2. Upload vocabulary.csv to GitHub Pages.
-3. Play the trainer; learning statistics stay in the browser.
-4. Periodically use Backup -> Export statistics.
-5. On a new browser/device, upload the same vocabulary.csv and then Backup -> Import statistics.
+1. Keep vocabulary.csv as the source of truth for vocabulary data.
+2. Upload the CSV and application files to GitHub Pages.
+3. Use the trainer normally; learning data remains in the browser.
+4. Periodically export learning statistics.
+5. On a new browser/device, upload the same vocabulary.csv and import the learning backup.
 
 LEARNING DATA STORAGE / MIGRATION
 ---------------------------------
-The current learning data is stored under the stable browser key jvt_learning.
-The stored learning-data schema version is 1, and exported JSON uses the same schema version.
+The current browser storage key is:
+    jvt_learning
 
-For compatibility, the app also reads older learning-storage keys, including jvt_v12_learning
-and older legacy keys. Existing learning history is therefore migrated into the current format
-without changing the vocabulary source file. Older type-statistic fields are ignored because the
-current app does not use separate type statistics.
+The current learning-data schema version is 1.
+
+The app also reads older learning-storage keys and migrates matching learning history where possible.
+The stable match key remains Japanese + reading.
 
 VOICE INPUT
 -----------
-Voice input is intentionally NOT part of this version. It was tested separately and is
-being postponed for a future version.
-
-VERSION CHANGES
----------------
-
-Version 24
-----------
-------------------
-- Fixed the shared configurable layout calculation so empty fields are removed before visible column positions are assigned. This prevents phantom columns and large gaps in Last and Words popups; Training already applies the same visible-item principle.
-- Added configurable Needs Review recovery: review_recovery_accuracy=80 and review_recovery_min_answers=5. Once review is triggered, it remains active until both recovery conditions are met. Recovery is tracked separately per direction.
-- Turned the Words status legend into multi-select filters. Multiple statuses can be selected; no selected status means show all. Defaults are configured in options-defaults.txt.
-- Partially learned is Mixed-mode-only: it is shown as a new overall-status column per word, appears in the legend only in Mixed mode, and its filter is ignored in directional modes.
-- Kept the Words legend order as Learned -> Not learned -> Needs review -> Partially learned.
-
-Version 23
-----------
-------------------
-- Fixed answer normalization centrally: parenthetical qualifiers are removed before alternative answers are split, so slashes inside parentheses no longer break answer matching.
-- Applied the same normalized answer handling to English -> Japanese checks as well as Japanese -> English checks.
-- Added Enter keyboard handling: Quiz Enter submits an answer, and after a wrong result Enter activates Next; Training Enter activates Next when the Training section is active.
-
-Version 22
-----------
-------------------
-- Added a compact legend to the Words section explaining Learned, Partially learned, Not learned, and Needs review symbols.
-- Needs Review is now displayed only when the review condition is triggered. When not triggered, its reserved status space remains invisible so all learning-status icons stay aligned.
-- Kept the Words status layout fixed per direction so conditional review indicators never shift the learning-status position.
-
-Version 21
-----------
-------------------
-- Fixed the Quiz Skip button regression: Skip now records a Skipped Last result and immediately selects the next question.
-- Kept Ask Type simple: when Ask Type is OFF, a correct translation counts as Correct; when Ask Type is ON, both translation and type must be correct for the complete question to count as Correct. There are no separate type statistics.
-- Fixed repetition spacing so min_different_words_between_repetitions=5 means exactly five different words between repetitions: A -> B -> C -> D -> E -> F -> A.
-- If the configured repetition distance cannot be fully satisfied because the filtered pool is too small, the selector now chooses the oldest possible word in the current pool, giving the maximum achievable separation.
-- Cleaned up learning-data version bookkeeping: the stable storage key is jvt_learning and the current learning/export schema version is 1, with migration support for older keys.
-
-Version 20
-----------
-------------------
-- Added Direction to the Words section and included Words Direction/Vocabulary/Group in options-defaults.txt.
-- Replaced the old JP/EN counters in Words with directional Learned and Needs Review status symbols.
-- Mixed Words view shows both directions separately; a directional filter shows only that direction.
-- Added root-level configurable status-symbol files: learned.svg, partially_learned.svg, not_learned.svg, needs_review.svg.
-- Added clickable Words entries with a customizable word-popup-layout.txt.
-- Added word-type-specific popup sections with an explicit [fallback]. A new type can be customized by adding a matching section.
-- Added self-documenting learned-settings.txt for minimum attempts, accuracy, correct answers, review days, and wrong-answer review threshold.
-- Added wrong_answers_to_review=1. One wrong answer immediately marks that direction as needing review; a correct answer resets the wrong-answer review counter.
-- Added self-documenting question-settings.txt with min_different_words_between_repetitions=5.
-- The same repetition spacing and review-priority logic is used by Quiz and Training.
-- Needs Review now receives strong priority in weighted question selection without becoming an exclusive queue.
-- Learned directions receive lower selection weight.
-- Parenthetical qualifiers in English answers are ignored by answer checking.
-- Moved status symbols to the repository root so they can be uploaded/replaced directly on GitHub.
-- Preserved the shared dynamic column-grid behavior for Last and Training Reveal and the current user-customized last-layout.txt.
-- Added the agreed weather/object-description groups to vocabulary.csv.
-
-DATA CORRECTION
----------------
-
-Version 20
-----------
-------------------
-- Cleared the existing group column and added the agreed test groups:
-  weather for あつい, さむい, すずしい, はれ, くもり, ゆき, and ふる;
-  weather/object description for あたたかい;
-  object description for つめたい.
-- No other vocabulary grouping values were intentionally added.
-
-Version 17
-----------
----------------------------
-All verb and adjective conjugation columns have been checked and regenerated from the reading column.
-Conjugation fields are kana-only. Special forms such as いい, かっこいい, くる, する, ある, and いく were checked separately.
-The existing clear adjective-group corrections for ゆうめい, きらい, and とくい were also applied because they affect their conjugations.
-No other vocabulary content was intentionally changed.
+Voice input is not part of the current application version.
 
 DEVELOPMENT
 -----------
------------
 This application was developed collaboratively by Dif and OpenAI's ChatGPT (AI).
-ChatGPT assisted with application architecture, programming, database design, configuration, and documentation.
-The project requirements, learning concepts, testing, decisions, and customization are defined and directed by Dif.
+ChatGPT assisted with application architecture, programming, database design, configuration,
+and documentation. The project requirements, learning concepts, testing, decisions, and
+customization are defined and directed by Dif.

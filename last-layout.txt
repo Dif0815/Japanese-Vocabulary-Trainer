@@ -27,6 +27,8 @@
 # under      = true: value below label / false: label and value side-by-side
 #
 # Empty values are ignored. If db is empty, its label is ignored too.
+# If an entire logical line has no visible items, that line consumes no vertical space.
+# Later populated lines are automatically compacted upward.
 #
 # Database fields come from the first row of vocabulary.csv.
 # Add new columns to vocabulary.csv and they automatically become available here.

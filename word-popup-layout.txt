@@ -40,6 +40,8 @@
 #
 # Any field present in the vocabulary.csv header can also be used directly.
 # Empty values are ignored, including their labels.
+# If an entire logical line has no visible items, that line consumes no vertical space.
+# Later populated lines are automatically compacted upward.
 #
 column_gap=28
 row_gap=16

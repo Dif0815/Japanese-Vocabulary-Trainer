@@ -75,7 +75,14 @@ reveal_all=off
 direction=mixed
 vocabulary=all
 group=all
-# Status filters are comma-separated and allow multiple selections.
-# learned, not_learned, needs_review, partially_learned
-# Partially learned is only active when Direction=mixed.
-status_filters=learned,not_learned,needs_review,partially_learned
+# Each status filter has its own startup checkbox state.
+# on  = checkbox starts selected
+# off = checkbox starts unselected
+# Multiple filters may be selected at the same time; matching is OR-based.
+# If all four are off, the Words list shows all words.
+# Partially learned is only active when Direction=mixed. Its selection is retained
+# while a directional mode is active and becomes effective again in Mixed mode.
+status_filter_learned=on
+status_filter_not_learned=on
+status_filter_needs_review=on
+status_filter_partially_learned=on
