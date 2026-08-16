@@ -1,14 +1,14 @@
-Japanese Vocabulary Trainer v20
+Japanese Vocabulary Trainer v21
 
 GITHUB PAGES
 ------------
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=20
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=21
 
 Normal link:
 https://dif0815.github.io/Japanese-Vocabulary-Trainer/
 
-The ?v=20 ending is a cache-busting version marker. Increase it when uploading a
+The ?v=21 ending is a cache-busting version marker. Increase it when uploading a
 new version so the browser is forced to request the new files.
 
 FILES
@@ -461,10 +461,15 @@ Recommended workflow:
 4. Periodically use Backup -> Export statistics.
 5. On a new browser/device, upload the same vocabulary.csv and then Backup -> Import statistics.
 
-OLD STATISTICS MIGRATION
-------------------------
-The app contains migration support for older learning-storage keys so existing history can
-survive the transition to the current architecture. Old type-statistic fields are ignored.
+LEARNING DATA STORAGE / MIGRATION
+---------------------------------
+The current learning data is stored under the stable browser key jvt_learning.
+The stored learning-data schema version is 1, and exported JSON uses the same schema version.
+
+For compatibility, the app also reads older learning-storage keys, including jvt_v12_learning
+and older legacy keys. Existing learning history is therefore migrated into the current format
+without changing the vocabulary source file. Older type-statistic fields are ignored because the
+current app does not use separate type statistics.
 
 VOICE INPUT
 -----------
@@ -473,6 +478,15 @@ being postponed for a future version.
 
 VERSION CHANGES
 ---------------
+
+Version 21
+----------
+------------------
+- Fixed the Quiz Skip button regression: Skip now records a Skipped Last result and immediately selects the next question.
+- Kept Ask Type simple: when Ask Type is OFF, a correct translation counts as Correct; when Ask Type is ON, both translation and type must be correct for the complete question to count as Correct. There are no separate type statistics.
+- Fixed repetition spacing so min_different_words_between_repetitions=5 means exactly five different words between repetitions: A -> B -> C -> D -> E -> F -> A.
+- If the configured repetition distance cannot be fully satisfied because the filtered pool is too small, the selector now chooses the oldest possible word in the current pool, giving the maximum achievable separation.
+- Cleaned up learning-data version bookkeeping: the stable storage key is jvt_learning and the current learning/export schema version is 1, with migration support for older keys.
 
 Version 20
 ----------
