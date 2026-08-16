@@ -92,11 +92,11 @@ In the English field:
   Example: fun / enjoyable accepts either answer.
 - (...) is an optional qualifier. It is shown as part of the vocabulary information,
   but the parenthetical qualifier is ignored when checking the answer.
-  Example: to have (living things) can be answered with "to have" or "have".
+  Example: to have (living things) can be answered with "to have" or "have". Parenthetical text is removed before alternative answers are split, so a value such as "cold (object / drink)" is checked as "cold".
 - Verb English meanings are stored without the leading "to". Quiz and Training display "to " automatically for verbs.
 - For verbs, "to" is optional when checking. For example, both "to do" and "do" are accepted.
 - Japanese -> English checks the English meanings using the rules above.
-- English -> Japanese accepts the stored reading or Japanese field.
+- English -> Japanese accepts the stored reading or Japanese field, using the same parenthetical/alternative normalization rules.
 
 LEARNING STATISTICS
 -------------------
@@ -134,6 +134,7 @@ Changing Ask Type does NOT advance or replace the current question. It only chan
 setting used for the current/next quiz flow. The Options frame is placed below the main Quiz content.
 
 The Next button remains on the right side after an answer is checked.
+Enter can be used as a keyboard shortcut: while entering an answer it submits the Quiz answer; after a wrong Quiz result it advances with Next. In Training, Enter advances with Next when the Training section is active.
 
 Ask Type is an optional second step of the SAME quiz question.
 - Verbs: ru-verb / u-verb / irregular
@@ -478,6 +479,20 @@ being postponed for a future version.
 
 VERSION CHANGES
 ---------------
+
+Version 23
+----------
+------------------
+- Fixed answer normalization centrally: parenthetical qualifiers are removed before alternative answers are split, so slashes inside parentheses no longer break answer matching.
+- Applied the same normalized answer handling to English -> Japanese checks as well as Japanese -> English checks.
+- Added Enter keyboard handling: Quiz Enter submits an answer, and after a wrong result Enter activates Next; Training Enter activates Next when the Training section is active.
+
+Version 22
+----------
+------------------
+- Added a compact legend to the Words section explaining Learned, Partially learned, Not learned, and Needs review symbols.
+- Needs Review is now displayed only when the review condition is triggered. When not triggered, its reserved status space remains invisible so all learning-status icons stay aligned.
+- Kept the Words status layout fixed per direction so conditional review indicators never shift the learning-status position.
 
 Version 21
 ----------
