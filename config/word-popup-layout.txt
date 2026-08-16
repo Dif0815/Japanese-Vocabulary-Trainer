@@ -1,0 +1,76 @@
+# Japanese Vocabulary Trainer — Words popup layout
+#
+# This file controls the popup shown when a word in the Words section is clicked.
+# There is ONE customization file for all word types.
+#
+# A section name must exactly match the value in the CSV type column.
+# If a matching section exists, it is used.
+# If no matching section exists, [fallback] is used.
+# This means a newly introduced word type can be customized simply by adding a new section.
+#
+# Global layout settings:
+# column_gap       = horizontal space between shared columns, in pixels
+# row_gap          = vertical space between visual lines, in pixels
+# label_font_size  = label font size, in pixels
+# label_color      = label text color
+#
+# Color examples:
+# label_color=#777777
+# label_color=#999999
+# label_color=darkslategray
+# label_color=rgb(100,100,100)
+#
+# The column grid is calculated across ALL visual lines together.
+# Column 1, column 2, etc. therefore stay aligned between lines.
+#
+# Syntax:
+# line=1; label=English; db=english; under=true
+#
+# line  = visual line number
+# label = text shown above/beside the value
+# db    = CSV field name or supported virtual field
+# under = true: value below label / false: label and value side-by-side
+#
+# Supported virtual fields:
+# question          = Japanese dictionary form
+# english           = English display (including automatic "to" for verbs)
+# type_label        = CSV word type
+# verb_type         = verb group as a readable label
+# adjective_type    = adjective group as a readable label
+#
+# Any field present in the data/vocabulary.csv header can also be used directly.
+# Empty values are ignored, including their labels.
+# If an entire logical line has no visible items, that line consumes no vertical space.
+# Later populated lines are automatically compacted upward.
+#
+column_gap=28
+row_gap=16
+label_font_size=12
+label_color=#777777
+
+# ---------------- VERB ----------------
+[verb]
+line=1; label=English; db=english; under=true
+line=2; label=Dictionary form; db=japanese; under=true
+line=2; label=Stem; db=verb_stem; under=true
+line=2; label=Masu form; db=verb_masu; under=true
+line=3; label=Te-form; db=verb_te_form; under=true
+line=3; label=Short-negative; db=verb_short_negative; under=true
+line=3; label=Short-past; db=verb_short_past; under=true
+
+# ---------------- ADJECTIVE ----------------
+[adjective]
+line=1; label=English; db=english; under=true
+line=2; label=Dictionary form; db=japanese; under=true
+line=2; label=Type; db=adjective_type; under=true
+line=2; label=Negative; db=adjective_negative; under=true
+line=2; label=Past; db=adjective_past; under=true
+line=3; label=Te-form; db=adjective_te_form; under=true
+
+# ---------------- FALLBACK ----------------
+# Used for any word type without its own section.
+[fallback]
+line=1; label=English; db=english; under=true
+line=2; label=Dictionary form; db=japanese; under=true
+line=2; label=Word type; db=type_label; under=true
+line=3; label=Additional information; db=additional_info; under=true

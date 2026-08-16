@@ -1,0 +1,88 @@
+# ============================================================
+# OPTIONS DEFAULTS
+# ============================================================
+#
+# This file defines the settings used when the application starts.
+# It does NOT change data/vocabulary.csv and it does NOT change statistics.
+#
+# The three main sections use the same filter names:
+# Direction / Vocabulary / Group.
+#
+# The values for Vocabulary and Group must match values present in data/vocabulary.csv.
+# Use "all" for no filter.
+#
+# -------------------- DIRECTION -----------------------------
+# ja    = Japanese -> English
+# en    = English -> Japanese
+# mixed = randomly choose Japanese -> English or English -> Japanese
+#
+# -------------------- VOCABULARY ----------------------------
+# "all" = no word-type restriction.
+# Otherwise use an exact value from the CSV type column.
+# Examples: noun, verb, adjective, adverb, pronoun, question_word, phrase
+# The available types are generated dynamically from the CSV.
+#
+# -------------------- GROUP ---------------------------------
+# "all" = no group restriction.
+# Group is optional in data/vocabulary.csv.
+# A word may belong to multiple groups by using / in the CSV:
+#     food/restaurant
+# The Group filter treats each slash-separated value as a separate group.
+# Group choices are generated dynamically from the CSV.
+#
+# -------------------- ASK TYPE ------------------------------
+# Quiz only.
+# on  = ask the word type after the translation answer
+# off = do not ask the word type
+# Changing this during a quiz does NOT advance the current question.
+#
+# -------------------- REVEAL ALL ----------------------------
+# Training only.
+# on  = reveal all configured answers at once
+# off = reveal configured answers one step at a time
+# Changing this during Training does NOT advance the current word.
+#
+# -------------------- WORDS SECTION -------------------------
+# The Words section uses Direction, Vocabulary, and Group too.
+# Direction controls which directional learning/review status is shown:
+# mixed = show both Japanese -> English and English -> Japanese
+# ja    = show only Japanese -> English
+# en    = show only English -> Japanese
+# Vocabulary and Group use the same dynamic filters as Quiz and Training.
+#
+# ============================================================
+# QUIZ DEFAULTS
+# ============================================================
+[quiz]
+ask_type=on
+direction=mixed
+vocabulary=all
+group=all
+
+# ============================================================
+# TRAINING DEFAULTS
+# ============================================================
+[training]
+direction=mixed
+vocabulary=all
+group=all
+reveal_all=off
+
+# ============================================================
+# WORDS DEFAULTS
+# ============================================================
+[words]
+direction=mixed
+vocabulary=all
+group=all
+# Each status filter has its own startup checkbox state.
+# on  = checkbox starts selected
+# off = checkbox starts unselected
+# Multiple filters may be selected at the same time; matching is OR-based.
+# If all four are off, the Words list shows all words.
+# Partially learned is only active when Direction=mixed. Its selection is retained
+# while a directional mode is active and becomes effective again in Mixed mode.
+status_filter_learned=on
+status_filter_not_learned=on
+status_filter_needs_review=on
+status_filter_partially_learned=on
