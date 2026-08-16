@@ -1,14 +1,14 @@
-Japanese Vocabulary Trainer v25
+Japanese Vocabulary Trainer v26
 
 CURRENT VERSION
 ---------------
-Version: 25
+Version: 26
 Status: Current test version
 
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=25
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=26
 
-The ?v=25 ending is a cache-busting version marker. Increase it when uploading a
+The ?v=26 ending is a cache-busting version marker. Increase it when uploading a
 new version so the browser is forced to request the new files.
 
 Normal link:
@@ -79,6 +79,28 @@ and Words popup layouts.
 Vocabulary and learning statistics are separate. Statistics are stored locally in the
 browser and matched by normalized Japanese + reading, not by CSV row number.
 
+ARCHITECTURE / DYNAMIC DATA-DRIVEN TYPES
+----------------------------------------
+The CSV is the source of truth for vocabulary types and subtype/group values. The application
+discovers these values at runtime instead of keeping a fixed list in the HTML or JavaScript.
+
+The top-level Vocabulary and Group filters are therefore automatically expanded when new values
+are introduced in vocabulary.csv. The same principle is used for Quiz Ask Type: verb and adjective
+subtypes are discovered from the corresponding CSV fields (verb_group and adjective_group), and the
+type popup is generated from the values that actually exist in the vocabulary data.
+
+Known subtype codes use the existing friendly labels (for example ru -> ru-verb, na -> na-adjective).
+Unknown subtype codes remain valid and are displayed using a generic label derived from the CSV value.
+Adding a new subtype therefore does not require an application-code change.
+
+Configuration files are used for presentation, defaults, and layout behavior, not to define which
+vocabulary types or subtypes exist.
+
+The layout engine is also data/configuration-driven. It supports arbitrary numbers of logical lines
+and items/columns. Empty items and empty logical lines are removed from the visual grid, so later
+populated rows/columns are compacted automatically. The same engine is reused by Last, Training
+Reveal, and the Word Popup.
+
 FILTERS
 -------
 The type column is open-ended. The app reads all unique non-empty type values from the CSV
@@ -121,16 +143,25 @@ Quiz options:
 - Group: dynamically generated from CSV group values
 - Ask Type: ON/OFF
 
-Ask Type is an optional second step of the same quiz question:
-- Verbs: ru-verb / u-verb / irregular
-- Adjectives: i-adjective / na-adjective
+Ask Type is an optional second step of the same quiz question. The available subtype buttons are
+discovered dynamically from the current vocabulary data:
+- Verbs use the unique values in verb_group.
+- Adjectives use the unique values in adjective_group.
+
+Known current values are ru / u / irr for verbs and i / na for adjectives, but the application does not
+require this fixed set. New subtype values introduced in the CSV automatically become available.
+
+The type popup supports both touch and keyboard input. Typing a subtype code highlights the matching
+button. Prefix matching is supported when it identifies one subtype; Enter confirms the selected subtype.
+Touching a button still confirms the type directly.
 
 If Ask Type is OFF, a correct translation counts as Correct.
 If Ask Type is ON, both translation and type must be correct for the complete question to count as Correct.
 There are no separate type statistics.
 
 Enter handling:
-- while entering an answer, Enter submits the answer
+- while entering a translation answer, Enter submits the answer
+- while the type popup is open, Enter confirms the selected type
 - after a wrong Quiz result, Enter activates Next
 
 Skip does not count as wrong or correct and immediately starts the next question.
@@ -204,8 +235,9 @@ Partially learned is an overall word status:
 - exactly one direction learned = Partially learned
 - neither direction learned = Not learned
 
-In Mixed mode, the word list has an overall Status column followed by the two directional columns.
-The directional columns independently show learned/not-learned and Needs Review.
+In Mixed mode, each word has an overall Status position followed by the two directional columns.
+Each of the three positions is labeled per word for consistent alignment. The directional columns
+independently show learned/not-learned and Needs Review.
 
 Needs Review is shown only when active, but its reserved position remains aligned so the learned
 symbol does not move when review is inactive.
@@ -330,7 +362,16 @@ Recommended workflow:
 2. Upload the CSV and application files to GitHub Pages.
 3. Use the trainer normally; learning data remains in the browser.
 4. Periodically export learning statistics.
-5. On a new browser/device, upload the same vocabulary.csv and import the learning backup.
+5. On a new browser/device, open the deployed trainer and import the learning backup. The current
+   vocabulary.csv is loaded automatically by the application; it does not need to be uploaded manually
+   through the Backup tab.
+
+Backup compatibility with vocabulary changes:
+- A backup does not need to contain every word currently present in vocabulary.csv.
+- Existing matching words receive their saved learning statistics.
+- New vocabulary that was not present when the backup was created simply starts without learning history.
+- Backup records for words that no longer exist in the current vocabulary are ignored.
+- Matching is based on normalized Japanese + reading, not on CSV row position.
 
 LEARNING DATA STORAGE / MIGRATION
 ---------------------------------

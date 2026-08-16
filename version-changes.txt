@@ -1,5 +1,14 @@
 Japanese Vocabulary Trainer — Version Changes
 
+Version 26
+----------
+- Refined the Words status controls: the checkbox square is smaller while the checkmark remains visually prominent.
+- Removed the separate Mixed-mode status header row and added a per-word Status label so the overall status aligns consistently with JP -> EN and EN -> JP.
+- Added keyboard input to the Ask Type popup while preserving direct touch selection. Prefix input highlights a matching subtype and Enter confirms it.
+- Made Quiz Ask Type subtype choices data-driven: verb and adjective subtypes are discovered from the CSV instead of being hardcoded.
+- New CSV subtype values automatically become available in the type popup and type checking; unknown values use a generic label fallback.
+- Updated README documentation to describe the data-driven subtype architecture, keyboard type handling, layout architecture, and backup compatibility with vocabulary changes.
+
 Version 25
 ----------
 - Refined the Words status checkboxes: smaller, less prominent, and no longer rendered as solid-black active controls.
