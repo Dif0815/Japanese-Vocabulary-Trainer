@@ -54,19 +54,19 @@
 # QUIZ DEFAULTS
 # ============================================================
 [quiz]
-ask_type=on
-direction=mixed
-vocabulary=all
+ask_type=off
+direction=ja
+vocabulary=noun
 group=all
 
 # ============================================================
 # TRAINING DEFAULTS
 # ============================================================
 [training]
-direction=mixed
-vocabulary=all
-group=all
-reveal_all=off
+direction=en
+vocabulary=verb
+group=test
+reveal_all=on
 
 # ============================================================
 # WORDS DEFAULTS
