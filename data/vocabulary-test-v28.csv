@@ -1,0 +1,11 @@
+japanese,reading,english,type,verb_group,adjective_group,group,additional_info,verb_stem,verb_masu,verb_te_form,verb_short_negative,verb_short_past,adjective_negative,adjective_past,adjective_te_form,test_column
+テストワード,てすとわーど,test (tesuto),test_word,,,test,new type / ひらがな,,,,,,,,,(alpha) / ひらがな / romaji
+テストする,てすとする,test / test (a thing),verb,test_v,,test,new verb subtype,てすとし,てすとします,てすとして,てすとしない,てすとした,,,,verb / てすと / test
+テストい,てすとい,test-ish (imaginary),adjective,,test_i,test,new i-adjective subtype,,,,,,てすとくない,てすとかった,てすとくて,i / い / test (kana)
+テストな,てすとな,test-like / test-style,adjective,,test_na,test,new na-adjective subtype,,,,,,てすとじゃない,てすとだった,てすとで,na / な / romaji
+試来,てすと,test word,test_word,,,test,kanji + reading test,,,,,,,,,kanji / てすと / 試来
+てすとば,てすとば,test place / test spot,noun,,,test,additional info (test) / ひらがな,,,,,,,,,noun / (parentheses) / test
+てすとフレーズ,てすとふれーず,test phrase / sample phrase (demo),phrase,,,test,slash + parentheses test,,,,,,,,,phrase / テスト / romaji / (demo)
+来る,くる,come,verb,irr,,,,き,きます,きて,こない,きた,,,,
+友達,ともだち,friend,noun,,,,,,,,,,,,,
+いい,いい,good,adjective,,i,,,,,,,,よくない,よかった,よくて,
