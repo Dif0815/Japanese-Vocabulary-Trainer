@@ -1,12 +1,12 @@
-Japanese Vocabulary Trainer v28
+Japanese Vocabulary Trainer v29
 
 CURRENT VERSION
 ---------------
-Version: 28
-Status: Current test version
+Version: 29
+Status: Current development version
 
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=28
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=29
 
 The ?v=xx ending is a cache-busting version marker. Increase it when uploading a
 new version so the browser is forced to request the new files.
@@ -76,8 +76,9 @@ The project separates application code, data, configuration, icons, and document
 - icons/ contains visual assets referenced by the application.
 - docs/ contains version history.
 
-The v28 repository restructuring changes file locations only; it does not change the vocabulary data
-model or learning-data matching rules. All application references were updated to the new paths.
+The v28 repository restructuring changed file locations only; v29 builds the queued filter, Last-result,
+and Word Popup learning-statistics features on that structure without changing the vocabulary data model
+or learning-data matching rules.
 
 VOCABULARY DATABASE
 -------------------
@@ -156,7 +157,11 @@ groups by separating them with /, for example:
 
 The Group filter treats each slash-separated value as a separate group.
 
-The same dynamic Vocabulary and Group filters are available in Quiz, Training, and Words.
+Vocabulary and Group are multi-select filters in Quiz, Training, and Words. Selection is OR within one
+filter and AND between Vocabulary and Group. Both filters dynamically constrain each other from the
+loaded CSV. Each option remains visible; incompatible options are disabled and show (0), while
+compatible options show their calculated count. Group also offers (empty) for words with no Group value.
+The special All entry selects all currently compatible values; no selected values means zero results.
 
 ANSWER CHECKING
 ---------------
@@ -231,6 +236,11 @@ Basic syntax:
 
 Further layout syntax and settings are documented directly in:
     config/last-layout.txt
+
+Last also supports the virtual field type_answer_given. It contains the learner's actual subtype answer,
+using the configured subtype label. For English -> Japanese answers, the Last Correct answer automatically
+shows the CSV reading below the Japanese answer when the reading differs from the displayed Japanese form.
+The rule uses the effective direction of the individual question, including Mixed mode.
 
 TRAINING
 --------
@@ -323,6 +333,14 @@ logical lines are automatically removed from the visual layout.
 
 Detailed syntax, virtual fields, fallback behavior, and styling settings are documented in:
     config/word-popup-layout.txt
+
+The Word Popup can also display all persistent per-word learning fields:
+    ja_asked, ja_correct, ja_wrong, en_asked, en_correct, en_wrong,
+    last_added, last_ja_correct, last_en_correct,
+    ja_wrong_since_correct, en_wrong_since_correct,
+    ja_review_active, ja_review_asked, ja_review_correct,
+    en_review_active, en_review_asked, en_review_correct.
+These are learning data stored separately in the browser and do not become CSV columns.
 
 OPTIONS DEFAULTS
 ----------------
