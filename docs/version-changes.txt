@@ -1,5 +1,14 @@
 Japanese Vocabulary Trainer — Version Changes
 
+Version 29
+----------
+- Added the Last virtual field type_answer_given for the learner's actual verb/adjective subtype answer, with configured subtype labels.
+- Added the agreed dynamic multi-select Vocabulary <-> Group filters to Quiz, Training, and Words, including All, (empty), counts, disabled zero options, OR-within-filter, AND-between-filter behavior, and zero results for an empty selection.
+- Added automatic reading display to Last Correct answer for effective English -> Japanese questions when the Japanese form and reading differ, including Mixed mode.
+- Exposed all persistent per-word learning statistics to the configurable Word Popup layout without changing statistics storage, calculation, or backup behavior.
+- Updated README and configuration documentation for the new dynamic filters, Last fields, and Word Popup learning-statistic fields.
+- No vocabulary/data changes in v29.
+
 Version 28
 ----------
 - Restructured the repository into dedicated data/, config/, icons/, and docs/ directories.
