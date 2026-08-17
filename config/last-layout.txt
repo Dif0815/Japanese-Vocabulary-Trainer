@@ -34,7 +34,10 @@
 # Add new columns to data/vocabulary.csv and they automatically become available here.
 #
 # Virtual fields for the Last result:
-# question, correct_answer, answer_given, result
+# question, correct_answer, answer_given, type_answer_given, result
+# type_answer_given = learner's actual subtype answer, shown using the configured subtype label.
+# In effective English -> Japanese questions, correct_answer also shows the CSV reading when the
+# Japanese answer contains Kanji and the reading differs. Mixed mode uses the effective question direction.
 #
 column_gap=28
 row_gap=16
@@ -43,9 +46,10 @@ label_color=#777777
 
 line=1; label=Question word; db=question; under=true
 line=1; label=Correct answer; db=correct_answer; under=true
+line=1; label=Answer given; db=answer_given; under=true
+line=2; label=Word type; db=type; under=true
 line=2; label=Verb type; db=verb_group; under=true
 line=2; label=Adjective type; db=adjective_group; under=true
-line=2; label=Word type; db=type; under=true
+line=2; label=Type answer given; db=type_answer_given; under=true
 line=3; label=Additional information; db=additional_info; under=true
 line=4; label=Result; db=result; under=true
-line=4; label=Answer given; db=answer_given; under=true

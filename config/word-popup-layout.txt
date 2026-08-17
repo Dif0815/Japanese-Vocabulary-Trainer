@@ -38,6 +38,16 @@
 # verb_type         = verb group as a readable label
 # adjective_type    = adjective group as a readable label
 #
+# Persistent learning-statistic fields are also available to the Word Popup layout:
+# ja_asked, ja_correct, ja_wrong
+# en_asked, en_correct, en_wrong
+# last_added, last_ja_correct, last_en_correct
+# ja_wrong_since_correct, en_wrong_since_correct
+# ja_review_active, ja_review_asked, ja_review_correct
+# en_review_active, en_review_asked, en_review_correct
+# These values are stored in browser learning data, not in data/vocabulary.csv.
+# They can be used with db= exactly like other popup fields.
+#
 # Any field present in the data/vocabulary.csv header can also be used directly.
 # Empty values are ignored, including their labels.
 # If an entire logical line has no visible items, that line consumes no vertical space.

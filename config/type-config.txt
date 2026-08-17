@@ -22,5 +22,3 @@ code=irr; label=irregular; keyboard=i,ir,irr
 [adjective]
 code=i; label=i-adjective; keyboard=i,い
 code=na; label=na-adjective; keyboard=n,na,な
-code=test_i; label=test_i-adjective; keyboard =ti
-code=test_na; label=test_na-adjective; keyboard =tn
