@@ -83,6 +83,6 @@ group=all
 # Partially learned is only active when Direction=mixed. Its selection is retained
 # while a directional mode is active and becomes effective again in Mixed mode.
 status_filter_learned=on
-status_filter_not_learned=on
+status_filter_not_learned=off
 status_filter_needs_review=on
 status_filter_partially_learned=on
