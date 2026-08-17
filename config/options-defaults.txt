@@ -85,4 +85,4 @@ group=all
 status_filter_learned=on
 status_filter_not_learned=off
 status_filter_needs_review=on
-status_filter_partially_learned=on
+status_filter_partially_learned=off
