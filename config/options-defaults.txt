@@ -71,8 +71,8 @@
 # ============================================================
 [quiz]
 ask_type=on
-direction=ja
-vocabulary=multiselect: verb
+direction=mixed
+vocabulary=all
 group=all
 filter_selection_mode=custom
 show_furigana=on
