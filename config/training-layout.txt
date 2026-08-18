@@ -54,13 +54,15 @@ label_font_size=12
 label_color=#777777
 
 # ---------------- VERBS — Japanese → English ----------------
-type=verb; direction=ja-en; line=1; label=English; db=english; under=true
-type=verb; direction=ja-en; line=2; label=Dictionary form; db=japanese; under=true
-type=verb; direction=ja-en; line=2; label=Stem; db=verb_stem; under=true
-type=verb; direction=ja-en; line=2; label=Masu form; db=verb_masu; under=true
-type=verb; direction=ja-en; line=2; label=Te-form; db=verb_te_form; under=true
-type=verb; direction=ja-en; line=3; label=Short-negative; db=verb_short_negative; under=true
-type=verb; direction=ja-en; line=3; label=Short-past; db=verb_short_past; under=true
+type=verb; direction=ja-en; line=1; label=english; db=english; under=true
+type=verb; direction=ja-en; line=1; label=verb type; db=verb_group; under=true
+type=verb; direction=ja-en; line=2; label=dict; db=japanese; under=true
+type=verb; direction=ja-en; line=2; label=stem; db=verb_stem; under=true
+type=verb; direction=ja-en; line=2; label=masu form; db=verb_masu; under=true
+type=verb; direction=ja-en; line=2; label=te-form; db=verb_te_form; under=true
+type=verb; direction=ja-en; line=3; label=short-negative; db=verb_short_negative; under=true
+type=verb; direction=ja-en; line=3; label=short-past; db=verb_short_past; under=true
+type=verb; direction=ja-en; line=4; label=additional info; db=additioonal_info; under=true
 
 # ---------------- VERBS — English → Japanese ----------------
 type=verb; direction=en-ja; line=2; label=Dictionary form; db=japanese; under=true
