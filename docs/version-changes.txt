@@ -1,5 +1,19 @@
 Japanese Vocabulary Trainer — Version Changes
 
+Version 30
+----------
+- Added configurable filter_selection_mode per Quiz, Training, and Words: auto_close preserves v29 behaviour; remains_open keeps filters open for multiple selections.
+- Added structured Vocabulary/Group default filter values: all, none, empty (Group), and multiselect. Invalid filter configuration now uses the central configuration-warning indicator with an explicit fallback.
+- Added the central configuration-warning indicator using icons/warning.svg. Configuration warnings are presented consistently without interrupting normal use.
+- Added Show Furigana as a presentation-only setting/button for Quiz, Training, and Words. Quiz/Training questions can also toggle it by tapping the question; Words controls the Word Popup presentation.
+- Standardized Last question/correct-answer direction handling using the effective direction stored with the Last result.
+- Removed the previous special English -> Japanese Last correct-answer reading display and replaced it with the consistent Show Furigana presentation.
+- Added the furigana virtual field to the configurable Last, Training, and Word Popup layouts.
+- Clarified persistent learning-statistic field documentation in the Word Popup configuration.
+- Removed data/data-changes.txt from the application repository/release package; data-change documentation is independent from application version history.
+- Updated README to describe the current v30 state and complete repository file structure, including all icons.
+- No vocabulary/data changes in v30.
+
 Version 29
 ----------
 - Added the Last virtual field type_answer_given for the learner's actual verb/adjective subtype answer, with configured subtype labels.
