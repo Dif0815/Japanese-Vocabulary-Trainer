@@ -71,11 +71,11 @@
 # ============================================================
 [quiz]
 ask_type=on
-direction=mixed
-vocabulary=all
+direction=ja
+vocabulary=verbs
 group=all
-filter_selection_mode=native
-show_furigana=off
+filter_selection_mode=custom
+show_furigana=on
 
 # ============================================================
 # TRAINING DEFAULTS
@@ -85,8 +85,8 @@ direction=mixed
 vocabulary=all
 group=all
 reveal_all=off
-filter_selection_mode=native
-show_furigana=off
+filter_selection_mode=custom
+show_furigana=on
 
 # ============================================================
 # WORDS DEFAULTS
@@ -95,8 +95,8 @@ show_furigana=off
 direction=mixed
 vocabulary=all
 group=all
-filter_selection_mode=native
-show_furigana=off
+filter_selection_mode=custom
+show_furigana=on
 status_filter_learned=on
 status_filter_not_learned=on
 status_filter_needs_review=on
