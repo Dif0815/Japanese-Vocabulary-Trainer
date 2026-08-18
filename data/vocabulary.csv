@@ -1,11 +1,207 @@
-japanese,reading,english,type,verb_group,adjective_group,group,additional_info,verb_stem,verb_masu,verb_te_form,verb_short_negative,verb_short_past,adjective_negative,adjective_past,adjective_te_form,test_column
-テストワード,てすとわーど,test (tesuto),test_word,,,test,new type / ひらがな,,,,,,,,,(alpha) / ひらがな / romaji
-テストする,てすとする,test / test (a thing),verb,test_v,,test,new verb subtype,てすとし,てすとします,てすとして,てすとしない,てすとした,,,,verb / てすと / test
-テストい,てすとい,test-ish (imaginary),adjective,,test_i,test,new i-adjective subtype,,,,,,てすとくない,てすとかった,てすとくて,i / い / test (kana)
-テストな,てすとな,test-like / test-style,adjective,,test_na,test,new na-adjective subtype,,,,,,てすとじゃない,てすとだった,てすとで,na / な / romaji
-試来,てすと,test word,test_word,,,test,kanji + reading test,,,,,,,,,kanji / てすと / 試来
-てすとば,てすとば,test place / test spot,noun,,,test,additional info (test) / ひらがな,,,,,,,,,noun / (parentheses) / test
-てすとフレーズ,てすとふれーず,test phrase / sample phrase (demo),phrase,,,test,slash + parentheses test,,,,,,,,,phrase / テスト / romaji / (demo)
-来る,くる,come,verb,irr,,,,き,きます,きて,こない,きた,,,,
-友達,ともだち,friend,noun,,,,,,,,,,,,,
-いい,いい,good,adjective,,i,,,,,,,,よくない,よかった,よくて,
+japanese,reading,english,type,verb_group,adjective_group,group,additional_info,verb_stem,verb_masu,verb_te_form,verb_short_negative,verb_short_past,adjective_negative,adjective_past,adjective_te_form
+食べる,たべる,eat,verb,ru,,,,たべ,たべます,たべて,たべない,たべた,,,
+飲む,のむ,drink,verb,u,,,,のみ,のみます,のんで,のまない,のんだ,,,
+見る,みる,see / watch,verb,ru,,,,み,みます,みて,みない,みた,,,
+聞く,きく,hear / listen / ask,verb,u,,,,きき,ききます,きいて,きかない,きいた,,,
+行く,いく,go,verb,u,,,,いき,いきます,いって,いかない,いった,,,
+来る,くる,come,verb,irr,,,,き,きます,きて,こない,きた,,,
+帰る,かえる,return / go home,verb,u,,,,かえり,かえります,かえって,かえらない,かえった,,,
+買う,かう,buy,verb,u,,,,かい,かいます,かって,かわない,かった,,,
+読む,よむ,read,verb,u,,,,よみ,よみます,よんで,よまない,よんだ,,,
+書く,かく,write,verb,u,,,,かき,かきます,かいて,かかない,かいた,,,
+話す,はなす,speak,verb,u,,,,はなし,はなします,はなして,はなさない,はなした,,,
+会う,あう,meet,verb,u,,,,あい,あいます,あって,あわない,あった,,,
+友達,ともだち,friend,noun,,,,,,,,,,,,
+先生,せんせい,teacher,noun,,,,,,,,,,,,
+学生,がくせい,student,noun,,,,,,,,,,,,
+学校,がっこう,school,noun,,,,,,,,,,,,
+電車,でんしゃ,train,noun,,,,,,,,,,,,
+駅,えき,station,noun,,,,,,,,,,,,
+家,いえ,house / home,noun,,,,,,,,,,,,
+会社,かいしゃ,company,noun,,,,,,,,,,,,
+時間,じかん,time / hour,noun,,,,,,,,,,,,
+今日,きょう,today,noun,,,,,,,,,,,,
+明日,あした,tomorrow,noun,,,,,,,,,,,,
+昨日,きのう,yesterday,noun,,,,,,,,,,,,
+大きい,おおきい,big,adjective,,i,,,,,,,,おおきくない,おおきかった,おおきくて
+小さい,ちいさい,small,adjective,,i,,,,,,,,ちいさくない,ちいさかった,ちいさくて
+新しい,あたらしい,new,adjective,,i,,,,,,,,あたらしくない,あたらしかった,あたらしくて
+古い,ふるい,old,adjective,,i,,,,,,,,ふるくない,ふるかった,ふるくて
+高い,たかい,high / expensive,adjective,,i,,,,,,,,たかくない,たかかった,たかくて
+安い,やすい,cheap,adjective,,i,,,,,,,,やすくない,やすかった,やすくて
+おいしい,おいしい,delicious,adjective,,i,,,,,,,,おいしくない,おいしかった,おいしくて
+楽しい,たのしい,fun / enjoyable,adjective,,i,,,,,,,,たのしくない,たのしかった,たのしくて
+水,みず,water,noun,,,,,,,,,,,,
+ご飯,ごはん,meal / rice,noun,,,,,,,,,,,,
+お金,おかね,money,noun,,,,,,,,,,,,
+店,みせ,shop / store,noun,,,,,,,,,,,,
+猫,ねこ,cat,noun,,,,,,,,,,,,
+犬,いぬ,dog,noun,,,,,,,,,,,,
+日本,にほん,Japan,noun,,,,,,,,,,,,
+おきる,おきる,get up,verb,ru,,,,おき,おきます,おきて,おきない,おきた,,,
+みる,みる,see,verb,ru,,,,み,みます,みて,みない,みた,,,
+たべる,たべる,eat,verb,ru,,,,たべ,たべます,たべて,たべない,たべた,,,
+ねる,ねる,sleep,verb,ru,,,,ね,ねます,ねて,ねない,ねた,,,
+でる,でる,exit,verb,ru,,,,で,でます,でて,でない,でた,,,
+はじめる,はじめる,start,verb,ru,,,,はじめ,はじめます,はじめて,はじめない,はじめた,,,
+かえる,かえる,return,verb,u,,,,かえり,かえります,かえって,かえらない,かえった,,,
+かえす,かえす,return (a thing),verb,u,,,,かえし,かえします,かえして,かえさない,かえした,,,
+おしえる,おしえる,teach,verb,ru,,,,おしえ,おしえます,おしえて,おしえない,おしえた,,,
+はいる,はいる,enter,verb,u,,,,はいり,はいります,はいって,はいらない,はいった,,,
+おわる,おわる,end,verb,u,,,,おわり,おわります,おわって,おわらない,おわった,,,
+はなす,はなす,speak / talk,verb,u,,,,はなし,はなします,はなして,はなさない,はなした,,,
+きく,きく,listen,verb,u,,,,きき,ききます,きいて,きかない,きいた,,,
+いく,いく,go,verb,u,,,,いき,いきます,いって,いかない,いった,,,
+でかける,でかける,go out,verb,ru,,,,でかけ,でかけます,でかけて,でかけない,でかけた,,,
+よむ,よむ,read,verb,u,,,,よみ,よみます,よんで,よまない,よんだ,,,
+のむ,のむ,drink,verb,u,,,,のみ,のみます,のんで,のまない,のんだ,,,
+かう,かう,buy,verb,u,,,,かい,かいます,かって,かわない,かった,,,
+かく,かく,write,verb,u,,,,かき,かきます,かいて,かかない,かいた,,,
+とる,とる,take,verb,u,,,,とり,とります,とって,とらない,とった,,,
+あう,あう,meet (に),verb,u,,,,あい,あいます,あって,あわない,あった,,,
+もつ,もつ,hold / carry / have,verb,u,,,,もち,もちます,もって,もたない,もった,,,
+あそぶ,あそぶ,play,verb,u,,,,あそび,あそびます,あそんで,あそばない,あそんだ,,,
+まつ,まつ,wait,verb,u,,,,まち,まちます,まって,またない,まった,,,
+ある,ある,exist / have (things),verb,u,,,,あり,あります,あって,ない,あった,,,
+いる,いる,exist / have (living things),verb,ru,,,,い,います,いて,いない,いた,,,
+しぬ,しぬ,die,verb,u,,,,しに,しにます,しんで,しなない,しんだ,,,
+ころす,ころす,kill,verb,u,,,,ころし,ころします,ころして,ころさない,ころした,,,
+およぐ,およぐ,swim,verb,u,,,,およぎ,およぎます,およいで,およがない,およいだ,,,
+つくる,つくる,make,verb,u,,,,つくり,つくります,つくって,つくらない,つくった,,,
+くる,くる,come,verb,irr,,,,き,きます,きて,こない,きた,,,
+する,する,do,verb,irr,,,,し,します,して,しない,した,,,
+そうじする,そうじする,clean,verb,irr,,,,そうじし,そうじします,そうじして,そうじしない,そうじした,,,
+りょこうする,りょこうする,travel,verb,irr,,,,りょこうし,りょこうします,りょこうして,りょこうしない,りょこうした,,,
+かいものする,かいものする,go shopping,verb,irr,,,,かいものし,かいものします,かいものして,かいものしない,かいものした,,,
+せんたくする,せんたくする,do laundry,verb,irr,,,,せんたくし,せんたくします,せんたくして,せんたくしない,せんたくした,,,
+でんわする,でんわする,call (phone),verb,irr,,,,でんわし,でんわします,でんわして,でんわしない,でんわした,,,
+べんきょうする,べんきょうする,study,verb,irr,,,,べんきょうし,べんきょうします,べんきょうして,べんきょうしない,べんきょうした,,,
+うんどうする,うんどうする,exercise,verb,irr,,,,うんどうし,うんどうします,うんどうして,うんどうしない,うんどうした,,,
+きつえんする,きつえんする,smoke (formal),verb,irr,,,,きつえんし,きつえんします,きつえんして,きつえんしない,きつえんした,,,
+けっこんする,けっこんする,marry / get married,verb,irr,,,,けっこんし,けっこんします,けっこんして,けっこんしない,けっこんした,,,
+さんぽする,さんぽする,take a walk,verb,irr,,,,さんぽし,さんぽします,さんぽして,さんぽしない,さんぽした,,,
+かける,かける,call (phone: でんわを〜) / wear (glasses),verb,ru,,,,かけ,かけます,かけて,かけない,かけた,,,
+あびる,あびる,take a shower,verb,ru,,,,あび,あびます,あびて,あびない,あびた,,,
+ふる,ふる,fall (rain / snow),verb,u,,weather,,ふり,ふります,ふって,ふらない,ふった,,,
+みつける,みつける,find,verb,ru,,,,みつけ,みつけます,みつけて,みつけない,みつけた,,,
+こたえる,こたえる,answer,verb,ru,,,,こたえ,こたえます,こたえて,こたえない,こたえた,,,
+あける,あける,open,verb,ru,,,,あけ,あけます,あけて,あけない,あけた,,,
+しめる,しめる,close,verb,ru,,,,しめ,しめます,しめて,しめない,しめた,,,
+わすれる,わすれる,forget,verb,ru,,,,わすれ,わすれます,わすれて,わすれない,わすれた,,,
+おぼえる,おぼえる,memorize / remember,verb,ru,,,,おぼえ,おぼえます,おぼえて,おぼえない,おぼえた,,,
+おりる,おりる,get off,verb,ru,,,,おり,おります,おりて,おりない,おりた,,,
+かりる,かりる,borrow,verb,ru,,,,かり,かります,かりて,かりない,かりた,,,
+つける,つける,turn on,verb,ru,,,,つけ,つけます,つけて,つけない,つけた,,,
+けす,けす,turn off,verb,u,,,,けし,けします,けして,けさない,けした,,,
+すてる,すてる,throw away,verb,ru,,,,すて,すてます,すてて,すてない,すてた,,,
+すう,すう,smoke (inhale),verb,u,,,,すい,すいます,すって,すわない,すった,,,
+つかう,つかう,use,verb,u,,,,つかい,つかいます,つかって,つかわない,つかった,,,
+てつだう,てつだう,help (tasks),verb,u,,,,てつだい,てつだいます,てつだって,てつだわない,てつだった,,,
+たすける,たすける,help / save (rescue),verb,ru,,,,たすけ,たすけます,たすけて,たすけない,たすけた,,,
+いそぐ,いそぐ,hurry,verb,u,,,,いそぎ,いそぎます,いそいで,いそがない,いそいだ,,,
+たつ,たつ,stand up,verb,u,,,,たち,たちます,たって,たたない,たった,,,
+すわる,すわる,sit down,verb,u,,,,すわり,すわります,すわって,すわらない,すわった,,,
+やすむ,やすむ,be absent / rest,verb,u,,,,やすみ,やすみます,やすんで,やすまない,やすんだ,,,
+わかる,わかる,understand,verb,u,,,,わかり,わかります,わかって,わからない,わかった,,,
+しる,しる,know (a fact),verb,u,,,,しり,しります,しって,しらない,しった,,,
+おもう,おもう,think (と),verb,u,,,,おもい,おもいます,おもって,おもわない,おもった,,,
+のる,のる,ride / get on (vehicle),verb,u,,,,のり,のります,のって,のらない,のった,,,
+やる,やる,do (casual) / give (animal),verb,u,,,,やり,やります,やって,やらない,やった,,,
+いう,いう,say,verb,u,,,,いい,いいます,いって,いわない,いった,,,
+みせる,みせる,show,verb,ru,,,,みせ,みせます,みせて,みせない,みせた,,,
+おくれる,おくれる,be late,verb,ru,,,,おくれ,おくれます,おくれて,おくれない,おくれた,,,
+みがく,みがく,brush (teeth),verb,u,,,,みがき,みがきます,みがいて,みがかない,みがいた,,,
+きる,きる,wear (upper body),verb,ru,,,,き,きます,きて,きない,きた,,,
+かぶる,かぶる,wear (hat),verb,u,,,,かぶり,かぶります,かぶって,かぶらない,かぶった,,,
+はく,はく,wear (lower body),verb,u,,,,はき,はきます,はいて,はかない,はいた,,,
+うたう,うたう,sing,verb,u,,,,うたい,うたいます,うたって,うたわない,うたった,,,
+おどる,おどる,dance,verb,u,,,,おどり,おどります,おどって,おどらない,おどった,,,
+すむ,すむ,live / reside,verb,u,,,,すみ,すみます,すんで,すまない,すんだ,,,
+あるく,あるく,walk,verb,u,,,,あるき,あるきます,あるいて,あるかない,あるいた,,,
+はたらく,はたらく,work,verb,u,,,,はたらき,はたらきます,はたらいて,はたらかない,はたらいた,,,
+やせる,やせる,be thin (て+いる),verb,ru,,,,やせ,やせます,やせて,やせない,やせた,,,
+ふとる,ふとる,be fat (て+いる),verb,u,,,,ふとり,ふとります,ふとって,ふとらない,ふとった,,,
+つかれる,つかれる,become tired,verb,ru,,,,つかれ,つかれます,つかれて,つかれない,つかれた,,,
+あげる,あげる,give (to someone),verb,ru,,,,あげ,あげます,あげて,あげない,あげた,,,
+くれる,くれる,give (to me / my group),verb,ru,,,,くれ,くれます,くれて,くれない,くれた,,,
+もらう,もらう,receive / get,verb,u,,,,もらい,もらいます,もらって,もらわない,もらった,,,
+つれてくる,つれてくる,bring (a person),verb,irr,,,,つれてき,つれてきます,つれてきて,つれてこない,つれてきた,,,
+もってくる,もってくる,bring (a thing),verb,irr,,,,もってき,もってきます,もってきて,もってこない,もってきた,,,
+おおきい,おおきい,big,adjective,,i,,,,,,,,おおきくない,おおきかった,おおきくて
+ちいさい,ちいさい,small,adjective,,i,,,,,,,,ちいさくない,ちいさかった,ちいさくて
+ながい,ながい,long,adjective,,i,,,,,,,,ながくない,ながかった,ながくて
+みじかい,みじかい,short,adjective,,i,,,,,,,,みじかくない,みじかかった,みじかくて
+ひろい,ひろい,wide / spacious,adjective,,i,,,,,,,,ひろくない,ひろかった,ひろくて
+せまい,せまい,narrow,adjective,,i,,,,,,,,せまくない,せまかった,せまくて
+あたらしい,あたらしい,new,adjective,,i,,,,,,,,あたらしくない,あたらしかった,あたらしくて
+ふるい,ふるい,old (thing),adjective,,i,,,,,,,,ふるくない,ふるかった,ふるくて
+いい,いい,good,adjective,,i,,,,,,,,よくない,よかった,よくて
+わるい,わるい,bad,adjective,,i,,,,,,,,わるくない,わるかった,わるくて
+たかい,たかい,expensive,adjective,,i,,,,,,,,たかくない,たかかった,たかくて
+やすい,やすい,cheap,adjective,,i,,,,,,,,やすくない,やすかった,やすくて
+はやい,はやい,fast / early,adjective,,i,,,,,,,,はやくない,はやかった,はやくて
+おそい,おそい,slow / late,adjective,,i,,,,,,,,おそくない,おそかった,おそくて
+つよい,つよい,strong,adjective,,i,,,,,,,,つよくない,つよかった,つよくて
+よわい,よわい,weak,adjective,,i,,,,,,,,よわくない,よわかった,よわくて
+おおい,おおい,many,adjective,,i,,,,,,,,おおくない,おおかった,おおくて
+すくない,すくない,few,adjective,,i,,,,,,,,すくなくない,すくなかった,すくなくて
+むずかしい,むずかしい,difficult,adjective,,i,,,,,,,,むずかしくない,むずかしかった,むずかしくて
+おもしろい,おもしろい,interesting,adjective,,i,,,,,,,,おもしろくない,おもしろかった,おもしろくて
+まずい,まずい,bad tasting,adjective,,i,,,,,,,,まずくない,まずかった,まずくて
+からい,からい,spicy,adjective,,i,,,,,,,,からくない,からかった,からくて
+あまい,あまい,sweet,adjective,,i,,,,,,,,あまくない,あまかった,あまくて
+すっぱい,すっぱい,sour,adjective,,i,,,,,,,,すっぱくない,すっぱかった,すっぱくて
+にがい,にがい,bitter,adjective,,i,,,,,,,,にがくない,にがかった,にがくて
+あつい,あつい,hot (weather),adjective,,i,weather,,,,,,,あつくない,あつかった,あつくて
+さむい,さむい,cold (weather),adjective,,i,weather,,,,,,,さむくない,さむかった,さむくて
+つめたい,つめたい,cold (object / drink),adjective,,i,object description,,,,,,,つめたくない,つめたかった,つめたくて
+あたたかい,あたたかい,warm,adjective,,i,weather/object description,,,,,,,あたたかくない,あたたかかった,あたたかくて
+すずしい,すずしい,cool (weather),adjective,,i,weather,,,,,,,すずしくない,すずしかった,すずしくて
+ちかい,ちかい,near / close,adjective,,i,,,,,,,,ちかくない,ちかかった,ちかくて
+とおい,とおい,far,adjective,,i,,,,,,,,とおくない,とおかった,とおくて
+おもい,おもい,heavy,adjective,,i,,,,,,,,おもくない,おもかった,おもくて
+かるい,かるい,light,adjective,,i,,,,,,,,かるくない,かるかった,かるくて
+ひくい,ひくい,low,adjective,,i,,,,,,,,ひくくない,ひくかった,ひくくて
+あかるい,あかるい,bright,adjective,,i,,,,,,,,あかるくない,あかるかった,あかるくて
+くらい,くらい,dark,adjective,,i,,,,,,,,くらくない,くらかった,くらくて
+こわい,こわい,scary,adjective,,i,,,,,,,,こわくない,こわかった,こわくて
+うれしい,うれしい,happy / glad,adjective,,i,,,,,,,,うれしくない,うれしかった,うれしくて
+かなしい,かなしい,sad,adjective,,i,,,,,,,,かなしくない,かなしかった,かなしくて
+さびしい,さびしい,lonely,adjective,,i,,,,,,,,さびしくない,さびしかった,さびしくて
+はずかしい,はずかしい,embarrassed / shy,adjective,,i,,,,,,,,はずかしくない,はずかしかった,はずかしくて
+やさしい,やさしい,kind / gentle,adjective,,i,,,,,,,,やさしくない,やさしかった,やさしくて
+いたい,いたい,painful,adjective,,i,,,,,,,,いたくない,いたかった,いたくて
+あぶない,あぶない,dangerous / risky,adjective,,i,,,,,,,,あぶなくない,あぶなかった,あぶなくて
+うるさい,うるさい,noisy / annoying,adjective,,i,,,,,,,,うるさくない,うるさかった,うるさくて
+すごい,すごい,amazing / great,adjective,,i,,,,,,,,すごくない,すごかった,すごくて
+かっこいい,かっこいい,cool (looking good),adjective,,i,,,,,,,,かっこよくない,かっこよかった,かっこよくて
+いそがしい,いそがしい,busy,adjective,,i,,,,,,,,いそがしくない,いそがしかった,いそがしくて
+ねむい,ねむい,sleepy,adjective,,i,,,,,,,,ねむくない,ねむかった,ねむくて
+きたない,きたない,dirty,adjective,,i,,,,,,,,きたなくない,きたなかった,きたなくて
+こうきしんがつよい,こうきしんがつよい,curious,phrase,,,,,,,,,,,,
+あたまがいい,あたまがいい,smart,phrase,,,,,,,,,,,,
+きれい,きれい,beautiful / clean,adjective,,na,,,,,,,,きれいじゃない,きれいだった,きれいで
+ゆうめい,ゆうめい,famous,adjective,,na,,,,,,,,ゆうめいじゃない,ゆうめいだった,ゆうめいで
+べんり,べんり,convenient,adjective,,na,,,,,,,,べんりじゃない,べんりだった,べんりで
+きけん,きけん,dangerous,adjective,,na,,,,,,,,きけんじゃない,きけんだった,きけんで
+あんぜん,あんぜん,safe,adjective,,na,,,,,,,,あんぜんじゃない,あんぜんだった,あんぜんで
+しずか,しずか,quiet,adjective,,na,,,,,,,,しずかじゃない,しずかだった,しずかで
+にぎやか,にぎやか,lively,adjective,,na,,,,,,,,にぎやかじゃない,にぎやかだった,にぎやかで
+かんたん,かんたん,easy,adjective,,na,,,,,,,,かんたんじゃない,かんたんだった,かんたんで
+げんき,げんき,healthy / energetic,adjective,,na,,,,,,,,げんきじゃない,げんきだった,げんきで
+しんせつ,しんせつ,kind,adjective,,na,,,,,,,,しんせつじゃない,しんせつだった,しんせつで
+すき,すき,like (だい = love),adjective,,na,,,,,,,,すきじゃない,すきだった,すきで
+きらい,きらい,dislike (だい = hate),adjective,,na,,,,,,,,きらいじゃない,きらいだった,きらいで
+とくい,とくい,good at,adjective,,na,,,,,,,,とくいじゃない,とくいだった,とくいで
+にがて,にがて,bad at,adjective,,na,,,,,,,,にがてじゃない,にがてだった,にがてで
+にんき,にんき,popular,adjective,,na,,,,,,,,にんきじゃない,にんきだった,にんきで
+はれ,はれ,sunny,noun,,,weather,,,,,,,,,
+くもり,くもり,cloudy,noun,,,weather,,,,,,,,,
+ゆき,ゆき,snow / snowy,noun,,,weather,,,,,,,,,
+とまる,とまる,stay,verb,u,,,,とまり,とまります,とまって,とまらない,とまった,,,
+しんぱいする,しんぱいする,worry,verb,irr,,,,しんぱいし,しんぱいします,しんぱいして,しんぱいしない,しんぱいした,,,
+はらう,はらう,pay,verb,u,,,,はらい,はらいます,はらって,はらわない,はらった,,,
+きょうみがある,きょうみがある,to be interested in,phrase,,,,,,,,,,,,
+いびきをかく,いびきをかく,snore,verb,u,,,,いびきをかき,いびきをかきます,いびきをかいて,いびきをかかない,いびきをかいた,,,
+ぬすむ,ぬすむ,steal,verb,u,,,,ぬすみ,ぬすみます,ぬすんで,ぬすまない,ぬすんだ,,,
+かんがえる,かんがえる,think / consider,verb,ru,,,,かんがえ,かんがえます,かんがえて,かんがえない,かんがえた,,,
