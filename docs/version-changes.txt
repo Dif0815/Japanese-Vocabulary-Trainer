@@ -1,5 +1,14 @@
 Japanese Vocabulary Trainer — Version Changes
 
+Version 31
+----------
+- Renamed the configurable filter-selection implementation values from auto_close / remains_open to native / custom. The setting now documents the two technical filter implementations without encoding UI behaviour in the parameter names.
+- Updated config/options-defaults.txt and README.txt so the native/custom filter terminology is consistent and version-neutral documentation does not describe obsolete filter parameter names.
+- Added startup validation for verb/adjective subtype values found in data/vocabulary.csv but missing from config/type-config.txt. Such configuration problems now appear immediately in the central warning indicator; the raw CSV subtype remains usable as the fallback.
+- Moved the Words Show Furigana control into the filter row immediately to the right of Group and changed it to the same ON/OFF button styling used in Quiz and Training.
+- Updated the README to the current v31 state, corrected the complete icon file structure, kept Architecture / Source of Truth version-neutral, and aligned Last/Furigana documentation with the current implementation.
+- No vocabulary/data changes in v31.
+
 Version 30
 ----------
 - Added configurable filter_selection_mode per Quiz, Training, and Words: auto_close preserves v29 behaviour; remains_open keeps filters open for multiple selections.
