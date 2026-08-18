@@ -74,8 +74,8 @@ ask_type=on
 direction=mixed
 vocabulary=all
 group=all
-filter_selection_mode=auto_close
-show_furigana=off
+filter_selection_mode=remains_open
+show_furigana=on
 
 # ============================================================
 # TRAINING DEFAULTS
@@ -96,8 +96,8 @@ direction=mixed
 vocabulary=all
 group=all
 filter_selection_mode=auto_close
-show_furigana=off
+show_furigana=on
 status_filter_learned=on
-status_filter_not_learned=on
+status_filter_not_learned=off
 status_filter_needs_review=on
 status_filter_partially_learned=on
