@@ -1,12 +1,12 @@
-Japanese Vocabulary Trainer v30
+Japanese Vocabulary Trainer v31
 
 CURRENT VERSION
 ---------------
-Version: 30
+Version: 31
 Status: Current release version
 
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=30
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=31
 
 The ?v=xx ending is a cache-busting version marker. Increase it when uploading a
 new version so the browser is forced to request the new files.
@@ -77,7 +77,6 @@ The project separates application code, data, configuration, icons, and document
 - icons/ contains visual assets referenced by the application.
 - docs/ contains version history.
 
-Version 30 builds on the v29 architecture with configurable filter interaction, consistent Japanese/furigana presentation, clearer Word Popup statistics documentation, and repository/data-documentation cleanup. The vocabulary data model and learning-data matching rules remain unchanged.
 
 VOCABULARY DATABASE
 -------------------
@@ -162,11 +161,14 @@ loaded CSV. Each option remains visible; incompatible options are disabled and s
 compatible options show their calculated count. Group also offers (empty) for words with no Group value.
 The special All entry selects all currently compatible values; no selected values means zero results.
 
-FILTER SELECTION MODE / CONFIGURATION WARNINGS
-----------------------------------------------
+FILTER IMPLEMENTATION / CONFIGURATION WARNINGS
+-----------------------------------------------
 Quiz, Training, and Words support the configurable filter_selection_mode:
-- auto_close = selecting a filter value closes the filter immediately.
-- remains_open = selecting values keeps the filter open for multiple selections; Done/outside tap closes it.
+- native = use the native filter implementation.
+- custom = use the custom multi-selection filter implementation.
+
+The setting selects the technical filter implementation. It does not change the
+filter data, selection logic, or filter semantics.
 
 Vocabulary and Group defaults support:
 - all
@@ -177,12 +179,17 @@ Vocabulary and Group defaults support:
 Invalid filter values or unknown filter-selection modes are not silently ignored. They are shown in the
 central configuration-warning indicator, together with the fallback used by the application.
 The same warning presentation is used for configuration problems across the application.
+Subtype values in data/vocabulary.csv that are not defined in config/type-config.txt are validated during
+application startup and are shown through the central warning indicator immediately. The raw CSV subtype
+remains usable as the fallback.
 
 FURIGANA
 --------
 Show Furigana is a presentation-only control available independently in Quiz, Training, and Words.
 It can be toggled with the button and, in Quiz/Training, by tapping the current question. It never
 generates or selects a new question.
+In Words, the button is placed in the filter row immediately to the right of Group and uses the same
+button style as the Quiz and Training Show Furigana controls.
 
 Furigana uses the Japanese vocabulary value together with its CSV reading. If japanese and reading are
 identical, the word is displayed normally. Kana-only values are not treated as Kanji and are not altered.
@@ -263,9 +270,8 @@ Further layout syntax and settings are documented directly in:
     config/last-layout.txt
 
 Last also supports the virtual field type_answer_given. It contains the learner's actual subtype answer,
-using the configured subtype label. For English -> Japanese answers, the Last Correct answer automatically
-shows the CSV reading below the Japanese answer when the reading differs from the displayed Japanese form.
-The rule uses the effective direction of the individual question, including Mixed mode.
+using the configured subtype label. The virtual fields question and correct_answer use the effective direction
+of the individual Last result, including Mixed mode. Show Furigana controls the Japanese presentation in Last.
 
 TRAINING
 --------
@@ -276,6 +282,7 @@ Options:
 - Vocabulary: dynamically generated from CSV type values
 - Group: dynamically generated from CSV group values
 - Reveal All: ON/OFF
+- Show Furigana: ON/OFF
 
 Training uses the same question-selection logic and repetition spacing as Quiz, but does not
 record an answered result.
@@ -329,11 +336,11 @@ Partially learned is hidden from the legend and ignored as a filter while a dire
 mode is selected. Its checkbox selection is retained and becomes active again when Mixed mode
 is selected.
 
-The four status symbols are stored as root-level files:
+The four status symbols are stored in the icons directory:
 - icons/learned.svg
-- not_icons/learned.svg
+- icons/not_learned.svg
 - icons/needs_review.svg
-- partially_icons/learned.svg
+- icons/partially_learned.svg
 
 Clicking a word opens a configurable popup.
 
@@ -354,7 +361,8 @@ Therefore a newly introduced word type can be customized by adding a matching se
 changing the application code.
 
 The popup uses the same dynamic layout engine as Last and Training. Empty fields and empty
-logical lines are automatically removed from the visual layout.
+logical lines are automatically removed from the visual layout. The Word Popup follows the Words
+section Show Furigana state and has no independent Furigana setting.
 
 Detailed syntax, virtual fields, fallback behavior, and styling settings are documented in:
     config/word-popup-layout.txt
