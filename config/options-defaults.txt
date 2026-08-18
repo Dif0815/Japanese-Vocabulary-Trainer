@@ -13,11 +13,11 @@
 # mixed = randomly choose Japanese -> English or English -> Japanese
 #
 # -------------------- FILTER SELECTION MODE -----------------
-# auto_close    = current v29 behaviour: selecting one filter value closes the filter.
-# remains_open  = selecting values keeps the filter open so multiple values can be selected.
-#                 Done/outside tap closes it.
+# native  = use the native filter implementation.
+# custom  = use the custom multi-selection filter implementation.
 #
-# This setting controls presentation only. The underlying filter state and semantics are identical.
+# This setting selects the technical filter implementation. It does not
+# change the filter data, selection logic or filter semantics.
 #
 # -------------------- VOCABULARY ----------------------------
 # all = all currently compatible values selected.
@@ -36,7 +36,7 @@
 # AND applies between Vocabulary and Group.
 # Each option remains visible and shows its current compatible count.
 #
-# Invalid filter values and invalid filter_selection_mode values produce a warning
+# Invalid filter values and unknown filter_selection_mode values produce a warning
 # in the central warning indicator and use the documented fallback.
 #
 # -------------------- SHOW FURIGANA -------------------------
@@ -74,8 +74,8 @@ ask_type=on
 direction=mixed
 vocabulary=all
 group=all
-filter_selection_mode=remains_open
-show_furigana=on
+filter_selection_mode=native
+show_furigana=off
 
 # ============================================================
 # TRAINING DEFAULTS
@@ -85,7 +85,7 @@ direction=mixed
 vocabulary=all
 group=all
 reveal_all=off
-filter_selection_mode=auto_close
+filter_selection_mode=native
 show_furigana=off
 
 # ============================================================
@@ -95,9 +95,9 @@ show_furigana=off
 direction=mixed
 vocabulary=all
 group=all
-filter_selection_mode=auto_close
-show_furigana=on
+filter_selection_mode=native
+show_furigana=off
 status_filter_learned=on
-status_filter_not_learned=off
+status_filter_not_learned=on
 status_filter_needs_review=on
 status_filter_partially_learned=on
