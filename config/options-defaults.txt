@@ -72,7 +72,7 @@
 [quiz]
 ask_type=on
 direction=ja
-vocabulary=verbs
+vocabulary=multiselect: verbs
 group=all
 filter_selection_mode=custom
 show_furigana=on
