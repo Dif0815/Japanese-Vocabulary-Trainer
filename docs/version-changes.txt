@@ -7,7 +7,6 @@ Version 31
 - Added startup validation for verb/adjective subtype values found in data/vocabulary.csv but missing from config/type-config.txt. Such configuration problems now appear immediately in the central warning indicator; the raw CSV subtype remains usable as the fallback.
 - Moved the Words Show Furigana control into the filter row immediately to the right of Group and changed it to the same ON/OFF button styling used in Quiz and Training.
 - Updated the README to the current v31 state, corrected the complete icon file structure, kept Architecture / Source of Truth version-neutral, and aligned Last/Furigana documentation with the current implementation.
-- No vocabulary/data changes in v31.
 
 Version 30
 ----------
