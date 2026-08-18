@@ -30,7 +30,13 @@
 # direction  = ja-en or en-ja
 # line       = visual line number
 # label      = text shown above/beside the database value
-# db         = database/CSV field name (or virtual field: question, correct_answer, direction)
+# db         = database/CSV field name or supported virtual field.
+# Supported virtual fields:
+# question      = the current Training question, according to its effective direction.
+# correct_answer = the correct answer, according to its effective direction.
+# direction     = the effective direction of the current Training question.
+# furigana      = the Japanese value with its CSV reading displayed above it.
+# The Show Furigana button is presentation-only and can also be toggled by tapping the question.
 # under      = true: value below label / false: label and value side-by-side
 #
 # Empty database values are ignored, including their labels.

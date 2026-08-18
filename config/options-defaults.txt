@@ -5,33 +5,47 @@
 # This file defines the settings used when the application starts.
 # It does NOT change data/vocabulary.csv and it does NOT change statistics.
 #
-# The three main sections use the same filter names:
-# Direction / Vocabulary / Group.
-#
-# The values for Vocabulary and Group must match values present in data/vocabulary.csv.
-# Use "all" for all currently compatible values selected.
+# The three main sections use Direction / Vocabulary / Group.
 #
 # -------------------- DIRECTION -----------------------------
 # ja    = Japanese -> English
 # en    = English -> Japanese
 # mixed = randomly choose Japanese -> English or English -> Japanese
 #
+# -------------------- FILTER SELECTION MODE -----------------
+# auto_close    = current v29 behaviour: selecting one filter value closes the filter.
+# remains_open  = selecting values keeps the filter open so multiple values can be selected.
+#                 Done/outside tap closes it.
+#
+# This setting controls presentation only. The underlying filter state and semantics are identical.
+#
 # -------------------- VOCABULARY ----------------------------
-# "all" = all currently compatible values selected.
-# A comma-separated list may select multiple values, for example: verb,adjective
-# The available types are generated dynamically from the CSV.
+# all = all currently compatible values selected.
+# none = no values selected -> zero results.
+# multiselect: value1,value2 = explicitly select several values.
+# The values must exist in data/vocabulary.csv.
 #
 # -------------------- GROUP ---------------------------------
-# "all" = all currently compatible values selected.
-# A comma-separated list may select multiple values, for example: weather,travel
-# Use "(empty)" to select words whose Group field is empty.
-# Group is optional in data/vocabulary.csv.
-# A word may belong to multiple groups by using / in the CSV:
-#     food/restaurant
-# The Group filter treats each slash-separated value as a separate group.
-# Group choices are generated dynamically from the CSV.
-# Word Type and Group are multi-select filters. OR applies within one filter; AND applies between them.
-# Each option shows a calculated count based on the current opposite-filter selection.
+# all = all currently compatible values selected.
+# none = no values selected -> zero results.
+# empty = select only words whose Group field is empty.
+# multiselect: weather,travel = explicitly select several groups.
+# The Group filter also accepts (empty) inside a multiselect.
+#
+# Word Type and Group are multi-select filters. OR applies within one filter;
+# AND applies between Vocabulary and Group.
+# Each option remains visible and shows its current compatible count.
+#
+# Invalid filter values and invalid filter_selection_mode values produce a warning
+# in the central warning indicator and use the documented fallback.
+#
+# -------------------- SHOW FURIGANA -------------------------
+# on  = show Japanese text with its CSV reading above the Japanese text where applicable.
+# off = show the normal Japanese text.
+#
+# Show Furigana is presentation-only. It never selects or generates a new question.
+# Quiz and Training can also toggle it by tapping the question itself.
+# Words controls the Word Popup presentation too.
 #
 # -------------------- ASK TYPE ------------------------------
 # Quiz only.
@@ -46,7 +60,6 @@
 # Changing this during Training does NOT advance the current word.
 #
 # -------------------- WORDS SECTION -------------------------
-# The Words section uses Direction, Vocabulary, and Group too.
 # Direction controls which directional learning/review status is shown:
 # mixed = show both Japanese -> English and English -> Japanese
 # ja    = show only Japanese -> English
@@ -61,6 +74,8 @@ ask_type=on
 direction=mixed
 vocabulary=all
 group=all
+filter_selection_mode=auto_close
+show_furigana=off
 
 # ============================================================
 # TRAINING DEFAULTS
@@ -70,6 +85,8 @@ direction=mixed
 vocabulary=all
 group=all
 reveal_all=off
+filter_selection_mode=auto_close
+show_furigana=off
 
 # ============================================================
 # WORDS DEFAULTS
@@ -78,13 +95,8 @@ reveal_all=off
 direction=mixed
 vocabulary=all
 group=all
-# Each status filter has its own startup checkbox state.
-# on  = checkbox starts selected
-# off = checkbox starts unselected
-# Multiple filters may be selected at the same time; matching is OR-based.
-# If all four are off, the Words list shows all words.
-# Partially learned is only active when Direction=mixed. Its selection is retained
-# while a directional mode is active and becomes effective again in Mixed mode.
+filter_selection_mode=auto_close
+show_furigana=off
 status_filter_learned=on
 status_filter_not_learned=on
 status_filter_needs_review=on

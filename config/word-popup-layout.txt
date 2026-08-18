@@ -32,21 +32,34 @@
 # under = true: value below label / false: label and value side-by-side
 #
 # Supported virtual fields:
-# question          = Japanese dictionary form
+# question          = Japanese dictionary form.
+# furigana          = Japanese dictionary form with its CSV reading displayed above it.
 # english           = English display (including automatic "to" for verbs)
 # type_label        = CSV word type
 # verb_type         = verb group as a readable label
 # adjective_type    = adjective group as a readable label
 #
-# Persistent learning-statistic fields are also available to the Word Popup layout:
-# ja_asked, ja_correct, ja_wrong
-# en_asked, en_correct, en_wrong
-# last_added, last_ja_correct, last_en_correct
-# ja_wrong_since_correct, en_wrong_since_correct
-# ja_review_active, ja_review_asked, ja_review_correct
-# en_review_active, en_review_asked, en_review_correct
+# Persistent learning-statistic fields are also available to the Word Popup layout.
 # These values are stored in browser learning data, not in data/vocabulary.csv.
 # They can be used with db= exactly like other popup fields.
+#
+# ja_asked       = number of Japanese -> English translation questions asked
+# ja_correct     = number of Japanese -> English translation questions answered correctly
+# ja_wrong       = number of Japanese -> English translation questions answered incorrectly
+# en_asked       = number of English -> Japanese translation questions asked
+# en_correct     = number of English -> Japanese translation questions answered correctly
+# en_wrong       = number of English -> Japanese translation questions answered incorrectly
+# last_added     = timestamp when the word was first initialized in learning data
+# last_ja_correct = timestamp of the most recent correct Japanese -> English answer
+# last_en_correct = timestamp of the most recent correct English -> Japanese answer
+# ja_wrong_since_correct = wrong Japanese -> English answers since the last correct answer
+# en_wrong_since_correct = wrong English -> Japanese answers since the last correct answer
+# ja_review_active = whether Japanese -> English is currently in Needs Review
+# ja_review_asked = answers given while recovering Japanese -> English review
+# ja_review_correct = correct answers while recovering Japanese -> English review
+# en_review_active = whether English -> Japanese is currently in Needs Review
+# en_review_asked = answers given while recovering English -> Japanese review
+# en_review_correct = correct answers while recovering English -> Japanese review
 #
 # Any field present in the data/vocabulary.csv header can also be used directly.
 # Empty values are ignored, including their labels.

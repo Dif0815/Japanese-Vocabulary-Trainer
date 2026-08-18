@@ -34,10 +34,14 @@
 # Add new columns to data/vocabulary.csv and they automatically become available here.
 #
 # Virtual fields for the Last result:
-# question, correct_answer, answer_given, type_answer_given, result
+# question = the question shown for that Last result.
+# correct_answer = the correct answer for that Last result, using the same effective direction as question.
+# answer_given = exactly what the learner entered.
+# direction = the effective direction belonging to that Last result.
+# furigana = the Japanese value with its CSV reading displayed above it.
 # type_answer_given = learner's actual subtype answer, shown using the configured subtype label.
-# In effective English -> Japanese questions, correct_answer also shows the CSV reading when the
-# Japanese answer contains Kanji and the reading differs. Mixed mode uses the effective question direction.
+# Mixed mode is resolved to an effective direction for the individual Last result.
+# Show Furigana in Quiz controls the Japanese question/correct-answer presentation in Last.
 #
 column_gap=28
 row_gap=16
