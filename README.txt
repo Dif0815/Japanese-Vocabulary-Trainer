@@ -1,12 +1,12 @@
-Japanese Vocabulary Trainer v29
+Japanese Vocabulary Trainer v30
 
 CURRENT VERSION
 ---------------
-Version: 29
-Status: Current development version
+Version: 30
+Status: Current release version
 
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=29
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=30
 
 The ?v=xx ending is a cache-busting version marker. Increase it when uploading a
 new version so the browser is forced to request the new files.
@@ -19,8 +19,8 @@ VERSION / DATA DOCUMENTATION
 Version history is kept separately in:
     docs/version-changes.txt
 
-Vocabulary additions, corrections, and other intentional CSV data changes are kept in:
-    data/data-changes.txt
+Vocabulary data changes are maintained separately from the application version-history mechanism.
+The old data/data-changes.txt documentation file is no longer part of the repository or release package.
 
 This README describes the current application only.
 
@@ -34,7 +34,6 @@ The repository uses the following structure:
 
     data/
         vocabulary.csv
-        data-changes.txt
 
     config/
         options-defaults.txt
@@ -51,14 +50,16 @@ The repository uses the following structure:
         not_learned.svg
         needs_review.svg
         partially_learned.svg
+        warning.svg
 
     docs/
         version-changes.txt
 
 The root contains the application entry point, PWA manifest, and current README.
-The data directory contains the vocabulary source and its data-change history.
+The data directory contains the vocabulary source. Data-change documentation is maintained separately.
 The config directory contains application customization/defaults and layout definitions.
 The icons directory contains graphical assets. The docs directory contains version history.
+The warning indicator uses icons/warning.svg; the icon can be replaced without changing application code.
 
 The application loads all data and configuration files using these relative paths. Do not move
 individual files without updating the corresponding application references.
@@ -76,9 +77,7 @@ The project separates application code, data, configuration, icons, and document
 - icons/ contains visual assets referenced by the application.
 - docs/ contains version history.
 
-The v28 repository restructuring changed file locations only; v29 builds the queued filter, Last-result,
-and Word Popup learning-statistics features on that structure without changing the vocabulary data model
-or learning-data matching rules.
+Version 30 builds on the v29 architecture with configurable filter interaction, consistent Japanese/furigana presentation, clearer Word Popup statistics documentation, and repository/data-documentation cleanup. The vocabulary data model and learning-data matching rules remain unchanged.
 
 VOCABULARY DATABASE
 -------------------
@@ -162,6 +161,32 @@ filter and AND between Vocabulary and Group. Both filters dynamically constrain 
 loaded CSV. Each option remains visible; incompatible options are disabled and show (0), while
 compatible options show their calculated count. Group also offers (empty) for words with no Group value.
 The special All entry selects all currently compatible values; no selected values means zero results.
+
+FILTER SELECTION MODE / CONFIGURATION WARNINGS
+----------------------------------------------
+Quiz, Training, and Words support the configurable filter_selection_mode:
+- auto_close = selecting a filter value closes the filter immediately.
+- remains_open = selecting values keeps the filter open for multiple selections; Done/outside tap closes it.
+
+Vocabulary and Group defaults support:
+- all
+- none
+- empty (Group only)
+- multiselect: value1,value2
+
+Invalid filter values or unknown filter-selection modes are not silently ignored. They are shown in the
+central configuration-warning indicator, together with the fallback used by the application.
+The same warning presentation is used for configuration problems across the application.
+
+FURIGANA
+--------
+Show Furigana is a presentation-only control available independently in Quiz, Training, and Words.
+It can be toggled with the button and, in Quiz/Training, by tapping the current question. It never
+generates or selects a new question.
+
+Furigana uses the Japanese vocabulary value together with its CSV reading. If japanese and reading are
+identical, the word is displayed normally. Kana-only values are not treated as Kanji and are not altered.
+The Word Popup follows the Words section's Show Furigana state and has no independent setting.
 
 ANSWER CHECKING
 ---------------
