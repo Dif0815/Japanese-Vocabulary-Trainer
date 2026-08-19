@@ -95,6 +95,12 @@ line=3; label=te-form; db=verb_te_form; under=true
 line=3; label=short-negative; db=verb_short_negative; under=true
 line=3; label=Short-past; db=verb_short_past; under=true
 
+line=4; label=correct jp -> eng; db=ja_correct; under=true
+line=4; label=correct eng -> jp; db=en_correct; under=true
+
+line=5; label=correct jp -> eng; db=ja_wrong; under=true
+line=5; label=correct eng -> jp; db=en_wrong; under=true
+
 # ---------------- ADJECTIVE ----------------
 [adjective]
 line=1; label=English; db=english; under=true
