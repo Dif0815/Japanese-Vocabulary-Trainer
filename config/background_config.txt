@@ -48,7 +48,7 @@ surface_opacity=80
 image=kawaii_01.png
 default_hide=off
 size=20%
-position=right top
+position=90% 0%
 background_opacity=60
 surface_opacity=80
 
