@@ -19,12 +19,22 @@
 # default_hide        = on/off. Initial visibility of the background.
 # size                = CSS background-size value, for example cover, contain,
 #                       auto, or a CSS length/percentage expression.
-# position            = CSS background-position value, for example center center,
-#                       right top, or 50% 20%.
+# position            = CSS background-position fallback value, for example
+#                       center center, right top, or 50% 20%.
+# position_portrait   = optional CSS background-position used in portrait
+#                       viewport orientation. Falls back to position.
+# position_landscape  = optional CSS background-position used in landscape
+#                       viewport orientation. Falls back to position.
 # background_opacity  = 1–100. Opacity of the background image itself.
 # surface_opacity    = 1–100. Opacity of translucent application surfaces.
 #                       80 means the surface is 80% opaque, so about 20% of the
 #                       background can show through it.
+#
+# Supported background image formats:
+#   JPEG (.jpg, .jpeg), PNG (.png), and WebP (.webp).
+# The application uses the browser image loader. Unsupported or invalid image
+# files are reported through the central configuration-warning system and use
+# the configured fallback behavior.
 #
 # background_opacity and surface_opacity are independent.
 # The background is a separate visual layer and does not participate in layout,
@@ -34,10 +44,12 @@
 # falls back to [default] when available, otherwise to the normal application
 # background. The existing configuration-warning indicator reports the problem.
 #
-# The background can also be hidden/shown with the 🌸 button in the header.
+# Background visibility is controlled only by default_hide in this file.
+# There is no runtime hide/show button in the application UI.
+# Orientation means the CSS viewport orientation.
 
 [default]
-image=kawaii_01.png
+image=kawaii_04.jpg
 default_hide=off
 size=cover
 position=center center
@@ -45,10 +57,10 @@ background_opacity=60
 surface_opacity=80
 
 [quiz]
-image=kawaii_01.png
+image=kawaii_01.jpg
 default_hide=off
-size=20%
-position=90% 0%
+size=cover
+position=right top
 background_opacity=60
 surface_opacity=80
 
@@ -61,7 +73,7 @@ background_opacity=60
 surface_opacity=82
 
 [words]
-image=kawaii_01.jpg
+image=kawaii_03.jpg
 default_hide=off
 size=cover
 position=right bottom
@@ -69,8 +81,8 @@ background_opacity=60
 surface_opacity=80
 
 [backup]
-image=kawaii_01.jpg
-default_hide=on
+image=kawaii_04.jpg
+default_hide=off
 size=cover
 position=center center
 background_opacity=60
