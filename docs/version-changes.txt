@@ -1,13 +1,22 @@
 Japanese Vocabulary Trainer — Version Changes
 
+Version 34
+----------
+- Restored the configuration-warning indicator to its original v32 position next to the application title/version.
+- Removed the V33 runtime background hide/show button; background visibility is now controlled exclusively by default_hide in config/background_config.txt.
+- Corrected background default_hide handling so each section starts with the configured visibility.
+- Added generic portrait/landscape background-position support with position as the fallback.
+- Documented supported background image formats and updated background configuration documentation to match the actual behavior.
+- Corrected the V33 version-history entry so it contains only evidence-based application changes.
+
+
 Version 33
 ----------
 - Standardized the documented `furigana=on|off` presentation syntax across Training, Last, and Word Popup layout configuration files, including parameter-order behavior and supported DB fields.
 - Added a section-specific decorative background system configured by config/background_config.txt, with generic section handling, configurable image, default visibility, size, position, background opacity, and application surface opacity.
 - Added a backgrounds/ directory with four bundled kawaii background images.
-- Added a header background visibility toggle and integrated missing-background-image fallback into the central configuration-warning system.
+- Integrated missing-background-image fallback into the central configuration-warning system.
 - Kept the background layer independent from vocabulary, quiz/training logic, and layout calculations.
-- No vocabulary/data changes in v33.
 
 
 Version 32
