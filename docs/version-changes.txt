@@ -1,5 +1,25 @@
 Japanese Vocabulary Trainer — Version Changes
 
+Version 33
+----------
+- Standardized the documented `furigana=on|off` presentation syntax across Training, Last, and Word Popup layout configuration files, including parameter-order behavior and supported DB fields.
+- Added a section-specific decorative background system configured by config/background_config.txt, with generic section handling, configurable image, default visibility, size, position, background opacity, and application surface opacity.
+- Added a backgrounds/ directory with four bundled kawaii background images.
+- Added a header background visibility toggle and integrated missing-background-image fallback into the central configuration-warning system.
+- Kept the background layer independent from vocabulary, quiz/training logic, and layout calculations.
+- No vocabulary/data changes in v33.
+
+
+Version 32
+----------
+- Refined custom filter dropdown sizing. The minimum width follows the individual filter control, while the dropdown may expand to fit its content up to the global custom_filter_max_width setting and available viewport width.
+- Added custom_filter_max_width to config/options-defaults.txt as a global safeguard for custom filter dropdown width.
+- Replaced the configurable virtual furigana field with the presentation attribute furigana=on/off. The japanese database field remains raw; only db=japanese currently supports furigana=on. Invalid combinations use the central configuration warning and raw-value fallback.
+- Applied the Furigana presentation model consistently to Training Reveal, Quiz Last, and Words Popup. Question and correct_answer continue to use their effective direction; answer_given remains exactly what was entered.
+- Updated training, Last, Word Popup, options-defaults, and README documentation to describe the new Furigana syntax and supported field.
+- No vocabulary/data changes in v32.
+
+
 Version 31
 ----------
 - Renamed the configurable filter-selection implementation values from auto_close / remains_open to native / custom. The setting now documents the two technical filter implementations without encoding UI behaviour in the parameter names.
