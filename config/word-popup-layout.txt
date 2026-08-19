@@ -85,12 +85,14 @@ label_color=#777777
 
 # ---------------- VERB ----------------
 [verb]
-line=1; label=English; db=english; under=true
-line=2; label=Dictionary form; db=japanese; furigana=on; under=true
-line=2; label=Stem; db=verb_stem; under=true
-line=2; label=Masu form; db=verb_masu; under=true
-line=3; label=Te-form; db=verb_te_form; under=true
-line=3; label=Short-negative; db=verb_short_negative; under=true
+line=1; label=english; db=english; under=true
+
+line=2; label=dict; db=reading; under=true
+line=2; label=stem; db=verb_stem; under=true
+line=2; label=masu; db=verb_masu; under=true
+
+line=3; label=te-form; db=verb_te_form; under=true
+line=3; label=short-negative; db=verb_short_negative; under=true
 line=3; label=Short-past; db=verb_short_past; under=true
 
 # ---------------- ADJECTIVE ----------------
