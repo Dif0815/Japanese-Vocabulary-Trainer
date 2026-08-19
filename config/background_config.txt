@@ -50,7 +50,7 @@
 
 [default]
 image=kawaii_01.png
-default_hide=off
+default_hide=on
 size=cover
 position=center center
 background_opacity=60
@@ -59,7 +59,7 @@ surface_opacity=80
 [quiz]
 image=kawaii_01.png
 default_hide=off
-size=30%
+size=35%
 position=right 95% 0%
 position_portrait=95% 0%
 position_landscape=90% 0%
@@ -69,16 +69,20 @@ surface_opacity=80
 [training]
 image=kawaii_01.png
 default_hide=off
-size=cover
-position=left top
+size=35%
+position=right 95% 95%
+position_portrait=95% 95%
+position_landscape=90% 95%
 background_opacity=60
 surface_opacity=82
 
 [words]
 image=kawaii_01.png
 default_hide=off
-size=cover
-position=right bottom
+size=35%
+position=right 95% 95%
+position_portrait=95% 95%
+position_landscape=90% 95%
 background_opacity=60
 surface_opacity=80
 
