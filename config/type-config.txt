@@ -17,7 +17,7 @@
 [verb]
 code=u; label=u-verb; keyboard=u,う
 code=ru; label=ru-verb; keyboard=r,ru,る
-code=irr; label=irregular; keyboard=i,ir,irr
+code=irr; label=irregular; keyboard=i,ir,irr,い
 
 [adjective]
 code=i; label=i-adjective; keyboard=i,い
