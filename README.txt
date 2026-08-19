@@ -1,12 +1,12 @@
-Japanese Vocabulary Trainer v31
+Japanese Vocabulary Trainer v33
 
 CURRENT VERSION
 ---------------
-Version: 31
+Version: 33
 Status: Current release version
 
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=31
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=33
 
 The ?v=xx ending is a cache-busting version marker. Increase it when uploading a
 new version so the browser is forced to request the new files.
@@ -43,6 +43,13 @@ The repository uses the following structure:
         last-layout.txt
         training-layout.txt
         word-popup-layout.txt
+        background_config.txt
+
+    backgrounds/
+        kawaii_01.jpg
+        kawaii_02.jpg
+        kawaii_03.jpg
+        kawaii_04.jpg
 
     icons/
         icon.svg
@@ -179,6 +186,11 @@ Vocabulary and Group defaults support:
 Invalid filter values or unknown filter-selection modes are not silently ignored. They are shown in the
 central configuration-warning indicator, together with the fallback used by the application.
 The same warning presentation is used for configuration problems across the application.
+
+Custom filter dropdown width is controlled by the global `custom_filter_max_width` setting in
+config/options-defaults.txt. The dropdown's minimum width always follows its own filter control in the
+current section; it may expand to fit its content up to the configured maximum and the available viewport
+width. This setting is in the [global] section and applies to all custom filters.
 Subtype values in data/vocabulary.csv that are not defined in config/type-config.txt are validated during
 application startup and are shown through the central warning indicator immediately. The raw CSV subtype
 remains usable as the fallback.
@@ -191,9 +203,55 @@ generates or selects a new question.
 In Words, the button is placed in the filter row immediately to the right of Group and uses the same
 button style as the Quiz and Training Show Furigana controls.
 
-Furigana uses the Japanese vocabulary value together with its CSV reading. If japanese and reading are
-identical, the word is displayed normally. Kana-only values are not treated as Kanji and are not altered.
+The Japanese database field is always the raw Japanese value. Furigana is a presentation attribute,
+not a database/virtual field. In configurable layout files, `furigana` is an optional presentation parameter for a layout line.
+Examples:
+    line=1; label=Dictionary form; db=japanese; furigana=on; under=true
+    line=1; label=Dictionary form; db=japanese; furigana=off; under=true
+`furigana=on` reacts to the corresponding section's Show Furigana button. `furigana=off` always shows
+the raw database value and does not react to the Show Furigana button. `furigana=on` is currently
+supported only with `db=japanese`. `furigana=off` may be used with any DB field. `furigana` may be
+placed anywhere within the same line definition; the order of parameters within a line definition does
+not matter. Invalid `furigana=on` combinations produce a central configuration warning and fall back
+to the raw database value.
+
 The Word Popup follows the Words section's Show Furigana state and has no independent setting.
+The semantic virtual fields `question` and `correct_answer` use the effective direction of the current
+context and, when their resulting value is Japanese, respond to Show Furigana consistently.
+The `answer_given` field remains exactly what the learner entered.
+
+BACKGROUND SYSTEM
+-----------------
+The application supports an optional decorative background layer configured by
+config/background_config.txt. Backgrounds are section-specific and currently
+apply independently to Quiz, Training, Words, and Backup. A [default] section
+provides the fallback configuration for future sections that do not yet have
+their own background block. Adding a new application section therefore does
+not require new background-related application code.
+
+Background image files are stored in backgrounds/. A bare filename in the
+configuration is resolved relative to that directory. The background layer is
+independent of the application layout and does not affect vocabulary, quiz,
+training, or layout calculations.
+
+Each background configuration supports:
+- image
+- default_hide
+- size
+- position
+- background_opacity (1–100)
+- surface_opacity (1–100)
+
+background_opacity controls the image layer itself. surface_opacity controls
+the opacity of the application's translucent cards/panels so that the
+background can remain visible through them. The two values are independent.
+The header provides a 🌸 button to hide or show the configured background.
+
+If a configured image cannot be loaded, the application remains usable and
+follows the configured fallback chain: section background -> [default]
+background -> normal application background. The existing central
+configuration-warning indicator reports the missing image.
+
 
 ANSWER CHECKING
 ---------------
@@ -271,7 +329,8 @@ Further layout syntax and settings are documented directly in:
 
 Last also supports the virtual field type_answer_given. It contains the learner's actual subtype answer,
 using the configured subtype label. The virtual fields question and correct_answer use the effective direction
-of the individual Last result, including Mixed mode. Show Furigana controls the Japanese presentation in Last.
+of the individual Last result, including Mixed mode. Show Furigana controls their Japanese presentation.
+For configurable db=japanese entries, furigana=on/off controls whether that field participates.
 
 TRAINING
 --------
