@@ -1,0 +1,77 @@
+# Japanese Vocabulary Trainer — Section-specific background configuration
+#
+# This file controls the decorative background shown behind the application.
+# Configuration is section-specific. A new application section can use a
+# background simply by adding a new [section] block; no application-code change
+# is required.
+#
+# Supported sections in the current application:
+#   quiz
+#   training
+#   words
+#   backup
+#
+# [default] is used when a section has no own configuration.
+#
+# Settings:
+# image               = image filename or path. A bare filename is loaded from
+#                       backgrounds/. A path containing / is used as written.
+# default_hide        = on/off. Initial visibility of the background.
+# size                = CSS background-size value, for example cover, contain,
+#                       auto, or a CSS length/percentage expression.
+# position            = CSS background-position value, for example center center,
+#                       right top, or 50% 20%.
+# background_opacity  = 1–100. Opacity of the background image itself.
+# surface_opacity    = 1–100. Opacity of translucent application surfaces.
+#                       80 means the surface is 80% opaque, so about 20% of the
+#                       background can show through it.
+#
+# background_opacity and surface_opacity are independent.
+# The background is a separate visual layer and does not participate in layout,
+# vocabulary, quiz, training, or other application logic.
+#
+# If the configured image cannot be loaded, the application keeps working and
+# falls back to [default] when available, otherwise to the normal application
+# background. The existing configuration-warning indicator reports the problem.
+#
+# The background can also be hidden/shown with the 🌸 button in the header.
+
+[default]
+image=kawaii_04.jpg
+default_hide=off
+size=cover
+position=center center
+background_opacity=60
+surface_opacity=80
+
+[quiz]
+image=kawaii_01.jpg
+default_hide=off
+size=cover
+position=right top
+background_opacity=60
+surface_opacity=80
+
+[training]
+image=kawaii_02.jpg
+default_hide=off
+size=cover
+position=left top
+background_opacity=60
+surface_opacity=82
+
+[words]
+image=kawaii_03.jpg
+default_hide=off
+size=cover
+position=right bottom
+background_opacity=60
+surface_opacity=80
+
+[backup]
+image=kawaii_04.jpg
+default_hide=off
+size=cover
+position=center center
+background_opacity=60
+surface_opacity=80

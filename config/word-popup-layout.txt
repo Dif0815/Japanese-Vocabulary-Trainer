@@ -25,15 +25,27 @@
 #
 # Syntax:
 # line=1; label=English; db=english; under=true
+# `furigana` is an optional presentation parameter for a layout line.
+# Example with Furigana enabled:
+# line=1; label=Dictionary form; db=japanese; furigana=on; under=true
+# Example with Furigana disabled:
+# line=1; label=Dictionary form; db=japanese; furigana=off; under=true
+# furigana=on reacts to the corresponding section's Show Furigana button.
+# furigana=off always displays the raw database value and does not react to the Show Furigana button.
+# furigana=on is currently supported only with db=japanese.
+# furigana=off may be used with any DB field.
+# furigana may be placed anywhere within the same line definition; parameter order does not matter.
 #
 # line  = visual line number
 # label = text shown above/beside the value
-# db    = CSV field name or supported virtual field
+# db        = CSV field name or supported virtual field
+# furigana  = optional presentation attribute: on/off. `on` reacts to the Words
+#             Show Furigana button; `off` stays raw. `furigana=on` is currently
+#             supported only for db=japanese.
 # under = true: value below label / false: label and value side-by-side
 #
 # Supported virtual fields:
 # question          = Japanese dictionary form.
-# furigana          = Japanese dictionary form with its CSV reading displayed above it.
 # english           = English display (including automatic "to" for verbs)
 # type_label        = CSV word type
 # verb_type         = verb group as a readable label
@@ -74,7 +86,7 @@ label_color=#777777
 # ---------------- VERB ----------------
 [verb]
 line=1; label=English; db=english; under=true
-line=2; label=Dictionary form; db=japanese; under=true
+line=2; label=Dictionary form; db=japanese; furigana=on; under=true
 line=2; label=Stem; db=verb_stem; under=true
 line=2; label=Masu form; db=verb_masu; under=true
 line=3; label=Te-form; db=verb_te_form; under=true
@@ -84,7 +96,7 @@ line=3; label=Short-past; db=verb_short_past; under=true
 # ---------------- ADJECTIVE ----------------
 [adjective]
 line=1; label=English; db=english; under=true
-line=2; label=Dictionary form; db=japanese; under=true
+line=2; label=Dictionary form; db=japanese; furigana=on; under=true
 line=2; label=Type; db=adjective_type; under=true
 line=2; label=Negative; db=adjective_negative; under=true
 line=2; label=Past; db=adjective_past; under=true
@@ -94,6 +106,6 @@ line=3; label=Te-form; db=adjective_te_form; under=true
 # Used for any word type without its own section.
 [fallback]
 line=1; label=English; db=english; under=true
-line=2; label=Dictionary form; db=japanese; under=true
+line=2; label=Dictionary form; db=japanese; furigana=on; under=true
 line=2; label=Word type; db=type_label; under=true
 line=3; label=Additional information; db=additional_info; under=true

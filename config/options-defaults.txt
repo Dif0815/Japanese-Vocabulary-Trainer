@@ -39,13 +39,26 @@
 # Invalid filter values and unknown filter_selection_mode values produce a warning
 # in the central warning indicator and use the documented fallback.
 #
+# ---------------- CUSTOM FILTER WIDTH ---------------------
+[global]
+# Maximum width of custom filter dropdown menus, in pixels.
+# The menu minimum width always follows its own filter control. The menu may expand
+# to fit its content up to this global maximum, subject to available viewport width.
+custom_filter_max_width=420
+
 # -------------------- SHOW FURIGANA -------------------------
-# on  = show Japanese text with its CSV reading above the Japanese text where applicable.
-# off = show the normal Japanese text.
+# on  = show supported Japanese text with its CSV reading above it when the
+#       section's Show Furigana control is ON.
+# off = show the raw database value.
 #
 # Show Furigana is presentation-only. It never selects or generates a new question.
 # Quiz and Training can also toggle it by tapping the question itself.
 # Words controls the Word Popup presentation too.
+#
+# In configurable layout files, furigana is an optional presentation attribute:
+#     db=japanese;furigana=on
+#     db=japanese;furigana=off
+# `furigana=on` is currently supported only for db=japanese.
 #
 # -------------------- ASK TYPE ------------------------------
 # Quiz only.
@@ -74,8 +87,8 @@ ask_type=on
 direction=mixed
 vocabulary=all
 group=all
-filter_selection_mode=custom
-show_furigana=on
+filter_selection_mode=native
+show_furigana=off
 
 # ============================================================
 # TRAINING DEFAULTS
@@ -85,8 +98,8 @@ direction=mixed
 vocabulary=all
 group=all
 reveal_all=off
-filter_selection_mode=custom
-show_furigana=on
+filter_selection_mode=native
+show_furigana=off
 
 # ============================================================
 # WORDS DEFAULTS
@@ -95,8 +108,8 @@ show_furigana=on
 direction=mixed
 vocabulary=all
 group=all
-filter_selection_mode=custom
-show_furigana=on
+filter_selection_mode=native
+show_furigana=off
 status_filter_learned=on
 status_filter_not_learned=on
 status_filter_needs_review=on

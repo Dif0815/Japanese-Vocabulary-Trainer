@@ -20,10 +20,23 @@
 #
 # Syntax:
 # line=1; label=Question word; db=question; under=true
+# `furigana` is an optional presentation parameter for a layout line.
+# Example with Furigana enabled:
+# line=1; label=Dictionary form; db=japanese; furigana=on; under=true
+# Example with Furigana disabled:
+# line=1; label=Dictionary form; db=japanese; furigana=off; under=true
+# furigana=on reacts to the corresponding section's Show Furigana button.
+# furigana=off always displays the raw database value and does not react to the Show Furigana button.
+# furigana=on is currently supported only with db=japanese.
+# furigana=off may be used with any DB field.
+# furigana may be placed anywhere within the same line definition; parameter order does not matter.
 #
 # line       = visual line number
 # label      = text shown above/beside the database value
 # db         = database field name OR virtual field
+# furigana   = optional presentation attribute for configurable database fields.
+#              on reacts to the Quiz Show Furigana button; off stays raw.
+#              `furigana=on` is currently supported only for db=japanese.
 # under      = true: value below label / false: label and value side-by-side
 #
 # Empty values are ignored. If db is empty, its label is ignored too.
@@ -38,10 +51,10 @@
 # correct_answer = the correct answer for that Last result, using the same effective direction as question.
 # answer_given = exactly what the learner entered.
 # direction = the effective direction belonging to that Last result.
-# furigana = the Japanese value with its CSV reading displayed above it.
 # type_answer_given = learner's actual subtype answer, shown using the configured subtype label.
 # Mixed mode is resolved to an effective direction for the individual Last result.
 # Show Furigana in Quiz controls the Japanese question/correct-answer presentation in Last.
+# For configurable db=japanese entries, use furigana=on/off to control whether the field participates.
 #
 column_gap=28
 row_gap=16
@@ -50,10 +63,10 @@ label_color=#777777
 
 line=1; label=Question word; db=question; under=true
 line=1; label=Correct answer; db=correct_answer; under=true
+line=1; label=Answer given; db=answer_given; under=true
+line=2; label=Word type; db=type; under=true
 line=2; label=Verb type; db=verb_group; under=true
 line=2; label=Adjective type; db=adjective_group; under=true
-line=2; label=Word type; db=type; under=true
+line=2; label=Type answer given; db=type_answer_given; under=true
 line=3; label=Additional information; db=additional_info; under=true
 line=4; label=Result; db=result; under=true
-line=4; label=Answer given; db=answer_given; under=true
-line=4; label=Type answer given; db=type_answer_given; under=true
