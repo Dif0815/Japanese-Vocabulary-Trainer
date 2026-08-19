@@ -69,9 +69,9 @@ label_color=#777777
 type=verb; direction=ja-en; line=1; label=english; db=english; under=true
 type=verb; direction=ja-en; line=1; label=verb type; db=verb_group; under=true
 
-type=verb; direction=ja-en; line=2; label=dictionary form; db=japanese; furigana=on; under=true
+type=verb; direction=ja-en; line=2; label=dict; db=japanese; furigana=on; under=true
 type=verb; direction=ja-en; line=2; label=stem; db=verb_stem; under=true
-type=verb; direction=ja-en; line=2; label=masu form; db=verb_masu; under=true
+type=verb; direction=ja-en; line=2; label=masu; db=verb_masu; under=true
 
 type=verb; direction=ja-en; line=3; label=te-form; db=verb_te_form; under=true
 type=verb; direction=ja-en; line=3; label=short-negative; db=verb_short_negative; under=true
