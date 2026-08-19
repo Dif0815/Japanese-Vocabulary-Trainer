@@ -37,7 +37,7 @@
 # The background can also be hidden/shown with the 🌸 button in the header.
 
 [default]
-image=kawaii_04.jpg
+image=kawaii_01.png
 default_hide=off
 size=cover
 position=center center
@@ -45,7 +45,7 @@ background_opacity=60
 surface_opacity=80
 
 [quiz]
-image=kawaii_01.jpg
+image=kawaii_01.png
 default_hide=off
 size=cover
 position=right top
@@ -61,7 +61,7 @@ background_opacity=60
 surface_opacity=82
 
 [words]
-image=kawaii_03.jpg
+image=kawaii_01.jpg
 default_hide=off
 size=cover
 position=right bottom
@@ -69,8 +69,8 @@ background_opacity=60
 surface_opacity=80
 
 [backup]
-image=kawaii_04.jpg
-default_hide=off
+image=kawaii_01.jpg
+default_hide=on
 size=cover
 position=center center
 background_opacity=60
