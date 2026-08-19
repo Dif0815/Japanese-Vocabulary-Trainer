@@ -1,12 +1,12 @@
-Japanese Vocabulary Trainer v33
+Japanese Vocabulary Trainer v34
 
 CURRENT VERSION
 ---------------
-Version: 33
+Version: 34
 Status: Current release version
 
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=33
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=34
 
 The ?v=xx ending is a cache-busting version marker. Increase it when uploading a
 new version so the browser is forced to request the new files.
@@ -238,14 +238,23 @@ Each background configuration supports:
 - image
 - default_hide
 - size
-- position
+- position (fallback)
+- position_portrait (optional)
+- position_landscape (optional)
 - background_opacity (1–100)
 - surface_opacity (1–100)
+
+Supported background image formats are JPEG (.jpg, .jpeg), PNG (.png), and
+WebP (.webp). Invalid or unsupported image files are reported through the
+central configuration-warning system and use the configured fallback.
 
 background_opacity controls the image layer itself. surface_opacity controls
 the opacity of the application's translucent cards/panels so that the
 background can remain visible through them. The two values are independent.
-The header provides a 🌸 button to hide or show the configured background.
+Background visibility is controlled exclusively by default_hide in
+config/background_config.txt; there is no runtime hide/show button.
+If position_portrait or position_landscape is defined, that value is used for
+the corresponding CSS viewport orientation; otherwise position is used.
 
 If a configured image cannot be loaded, the application remains usable and
 follows the configured fallback chain: section background -> [default]
