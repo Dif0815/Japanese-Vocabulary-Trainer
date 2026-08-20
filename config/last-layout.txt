@@ -58,7 +58,7 @@
 # Show Furigana in Quiz controls the Japanese question/correct-answer presentation in Last.
 # For configurable db=japanese entries, use furigana=on/off to control whether the field participates.
 #
-column_gap=28
+column_gap=15
 row_gap=16
 label_font_size=11
 label_color=rgb(220, 220, 220)
