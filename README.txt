@@ -1,12 +1,12 @@
-Japanese Vocabulary Trainer v34
+Japanese Vocabulary Trainer v35
 
 CURRENT VERSION
 ---------------
-Version: 34
+Version: 35
 Status: Current release version
 
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=34
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=35
 
 The ?v=xx ending is a cache-busting version marker. Increase it when uploading a
 new version so the browser is forced to request the new files.
@@ -43,13 +43,11 @@ The repository uses the following structure:
         last-layout.txt
         training-layout.txt
         word-popup-layout.txt
+        statistics-popup-layout.txt
         background_config.txt
 
     backgrounds/
-        kawaii_01.jpg
-        kawaii_02.jpg
-        kawaii_03.jpg
-        kawaii_04.jpg
+        (empty in the release; add images individually)
 
     icons/
         icon.svg
@@ -58,6 +56,7 @@ The repository uses the following structure:
         needs_review.svg
         partially_learned.svg
         warning.svg
+        learning_statistics.svg
 
     docs/
         version-changes.txt
@@ -67,6 +66,7 @@ The data directory contains the vocabulary source. Data-change documentation is 
 The config directory contains application customization/defaults and layout definitions.
 The icons directory contains graphical assets. The docs directory contains version history.
 The warning indicator uses icons/warning.svg; the icon can be replaced without changing application code.
+The Words Word Popup learning-statistics control uses icons/learning_statistics.svg; it can be replaced by replacing that file without changing application code.
 
 The application loads all data and configuration files using these relative paths. Do not move
 individual files without updating the corresponding application references.
@@ -261,6 +261,8 @@ follows the configured fallback chain: section background -> [default]
 background -> normal application background. The existing central
 configuration-warning indicator reports the missing image.
 
+The release backgrounds/ folder is intentionally empty. Users who want a decorative background must upload image files individually into backgrounds/ and manually update config/background_config.txt to match the filenames. Supported formats are JPEG (.jpg, .jpeg), PNG (.png), and WebP (.webp).
+
 
 ANSWER CHECKING
 ---------------
@@ -314,6 +316,9 @@ Enter handling:
 - while entering a translation answer, Enter submits the answer
 - while the type popup is open, Enter confirms the selected type
 - after a wrong Quiz result, Enter activates Next
+- when the Quiz answer field is not focused, Right Arrow (→) triggers the existing Skip action; while the answer field is focused, Right Arrow remains normal cursor navigation
+
+After a fully correct Quiz answer, the automatic transition delay is configurable with quiz.correct_answer_delay in config/options-defaults.txt. The value is milliseconds and includes the complete Ask Type flow when Ask Type is enabled.
 
 Skip does not count as wrong or correct and immediately starts the next question.
 
@@ -329,6 +334,8 @@ It is configurable through:
 The layout engine supports an arbitrary number of configured logical lines and items.
 Empty items do not create empty columns, and empty logical lines do not consume vertical space.
 Subsequent populated lines are automatically compacted upward.
+
+The virtual field `reading_if_different` is available in Last and Training Reveal. It returns the CSV reading only when `japanese` and `reading` differ; otherwise it is empty and the normal layout engine omits its field and label.
 
 Basic syntax:
     line=1; label=Question word; db=question; under=true
@@ -442,6 +449,15 @@ The Word Popup can also display all persistent per-word learning fields:
     ja_review_active, ja_review_asked, ja_review_correct,
     en_review_active, en_review_asked, en_review_correct.
 These are learning data stored separately in the browser and do not become CSV columns.
+
+LEARNING STATISTICS POPUP
+-------------------------
+The Words Word Popup contains a small replaceable icon button at its bottom-right. Clicking it opens a separate Learning Statistics popup for the selected word.
+
+The popup uses:
+    config/statistics-popup-layout.txt
+
+This configuration follows the same line-definition syntax and dynamic layout behavior as config/word-popup-layout.txt. It uses the same supported field/virtual-field and learning-statistic mechanisms. The popup has its own Back control to return to the Word Popup. The icon is stored as icons/learning_statistics.svg and can be replaced by replacing that file.
 
 OPTIONS DEFAULTS
 ----------------
