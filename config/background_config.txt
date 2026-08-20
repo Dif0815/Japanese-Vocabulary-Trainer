@@ -49,7 +49,7 @@
 # Orientation means the CSS viewport orientation.
 
 [default]
-image=kawaii_01.png
+image=gudetama_lazy.png
 default_hide=on
 size=cover
 position=center center
@@ -57,39 +57,39 @@ background_opacity=60
 surface_opacity=80
 
 [quiz]
-image=kawaii_01.png
+image=gudetama_lazy.png
 default_hide=off
-size=35%
-position=right 95% 0%
-position_portrait=95% 0%
-position_landscape=90% 0%
+size=30%
+position=95% 5%
+position_portrait=95% 10%
+position_landscape=95% 5%
 background_opacity=60
 surface_opacity=80
 
 [training]
-image=kawaii_01.png
+image=gudetama_bacon.png
 default_hide=off
-size=35%
-position=right 95% 95%
+size=25%
+position=90% 60%
 position_portrait=95% 95%
-position_landscape=90% 95%
+position_landscape=90% 60%
 background_opacity=60
 surface_opacity=82
 
 [words]
-image=kawaii_01.png
+image=gudetama_nani.png
 default_hide=off
-size=35%
-position=right 95% 95%
-position_portrait=95% 95%
-position_landscape=90% 95%
+size=30%
+position=95% 5%
+position_portrait=95% 10%
+position_landscape=95% 5%
 background_opacity=60
 surface_opacity=80
 
 [backup]
-image=kawaii_01.png
+image=gudetama_lazy.png
 default_hide=on
-size=cover
+size=30
 position=center center
 background_opacity=60
 surface_opacity=80
