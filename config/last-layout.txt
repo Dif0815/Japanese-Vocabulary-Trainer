@@ -60,19 +60,19 @@
 #
 column_gap=28
 row_gap=16
-label_font_size=12
+label_font_size=11
 label_color=#777777
 
-line=1; label=Question word; db=question; under=true
-line=1; label=Correct answer; db=correct_answer; under=true
-line=1; label=Reading; db=reading_if_different; under=true
+line=1; label=question; db=question; under=true
+line=1; label=reading; db=reading_if_different; under=true
+line=1; label=correct answer; db=correct_answer; under=true
 
-line=2; label=Verb type; db=verb_group; under=true
-line=2; label=Adjective type; db=adjective_group; under=true
-line=2; label=Word type; db=type; under=true
+line=2; label=verb type; db=verb_group; under=true
+line=2; label=adjective type; db=adjective_group; under=true
+line=2; label=word type; db=type; under=true
 
-line=3; label=Additional information; db=additional_info; under=true
+line=3; label=additional information; db=additional_info; under=true
 
-line=4; label=Result; db=result; under=true
-line=4; label=Answer given; db=answer_given; under=true
-line=4; label=Type answer given; db=type_answer_given; under=true
+line=4; label=result; db=result; under=true
+line=4; label=answer given; db=answer_given; under=true
+line=4; label=type answer given; db=type_answer_given; under=true
