@@ -61,7 +61,7 @@
 column_gap=28
 row_gap=16
 label_font_size=11
-label_color=#777777
+label_color=rgb(225, 225, 225)
 
 line=1; label=question; db=question; under=true
 
