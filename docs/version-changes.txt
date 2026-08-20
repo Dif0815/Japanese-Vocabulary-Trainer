@@ -1,5 +1,18 @@
 Japanese Vocabulary Trainer — Version Changes
 
+Version 35
+----------
+- Applied the locked V35 configuration baseline from the supplied configuration files.
+- Added the V35 Words background fix and automatic portrait/landscape background-position refresh on viewport/orientation changes.
+- Removed the unnecessary Done button from the custom Vocabulary and Group filters.
+- Added Quiz Right Arrow keyboard handling: it triggers Skip when the answer field is not focused, while the focused answer field retains normal cursor navigation.
+- Made the Quiz correct-answer transition delay configurable through quiz.correct_answer_delay in config/options-defaults.txt.
+- Added the conditional virtual field reading_if_different for Last and Training Reveal; it is empty when Japanese and reading are identical so the existing layout engine omits the field.
+- Added the Learning Statistics popup to the Words Word Popup, with a replaceable icon and config/statistics-popup-layout.txt using the existing popup/layout mechanism.
+- Released the backgrounds/ folder empty; background images are user-supplied and background_config.txt must be updated manually to match them.
+- Updated README and detailed configuration documentation to match the V35 implementation.
+- No vocabulary/data changes in v35.
+
 Version 34
 ----------
 - Restored the configuration-warning indicator to its original v32 position next to the application title/version.
