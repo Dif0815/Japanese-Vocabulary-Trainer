@@ -1,0 +1,33 @@
+# Japanese Vocabulary Trainer — Learning Statistics popup layout
+#
+# Uses the same line-definition syntax and dynamic layout behavior as
+# config/word-popup-layout.txt. Sections use the CSV type value; [fallback]
+# is used when no exact type section exists.
+#
+# The same field availability rules as config/word-popup-layout.txt apply here; any field supported by the Word Popup field mechanism is supported here as well.
+# Learning-statistic fields are persistent browser data, not CSV columns.
+# Empty values are ignored by the normal layout engine.
+#
+column_gap=28
+row_gap=16
+label_font_size=12
+label_color=#777777
+
+[fallback]
+line=1; label=JP → EN asked; db=ja_asked; under=true
+line=1; label=JP → EN correct; db=ja_correct; under=true
+line=1; label=JP → EN wrong; db=ja_wrong; under=true
+line=2; label=EN → JP asked; db=en_asked; under=true
+line=2; label=EN → JP correct; db=en_correct; under=true
+line=2; label=EN → JP wrong; db=en_wrong; under=true
+line=3; label=JP → EN review; db=ja_review_active; under=true
+line=3; label=JP → EN review asked; db=ja_review_asked; under=true
+line=3; label=JP → EN review correct; db=ja_review_correct; under=true
+line=4; label=EN → JP review; db=en_review_active; under=true
+line=4; label=EN → JP review asked; db=en_review_asked; under=true
+line=4; label=EN → JP review correct; db=en_review_correct; under=true
+line=5; label=Wrong since JP → EN correct; db=ja_wrong_since_correct; under=true
+line=5; label=Wrong since EN → JP correct; db=en_wrong_since_correct; under=true
+line=6; label=Added; db=last_added; under=true
+line=6; label=Last JP → EN correct; db=last_ja_correct; under=true
+line=6; label=Last EN → JP correct; db=last_en_correct; under=true

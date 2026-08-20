@@ -66,6 +66,10 @@ custom_filter_max_width=420
 # off = do not ask the word type
 # Changing this during a quiz does NOT advance the current question.
 #
+# ---------------- CORRECT ANSWER DELAY ---------------------
+# Quiz only. correct_answer_delay is the delay in milliseconds after the complete correct-answer flow
+# (including Ask Type, when enabled) before the next question is shown.
+#
 # -------------------- REVEAL ALL ----------------------------
 # Training only.
 # on  = reveal all configured answers at once
@@ -89,6 +93,8 @@ vocabulary=all
 group=all
 filter_selection_mode=custom
 show_furigana=on
+# Delay after a fully correct Quiz answer before the next question is shown, in milliseconds.
+correct_answer_delay=1200
 
 # ============================================================
 # TRAINING DEFAULTS

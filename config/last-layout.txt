@@ -52,6 +52,8 @@
 # answer_given = exactly what the learner entered.
 # direction = the effective direction belonging to that Last result.
 # type_answer_given = learner's actual subtype answer, shown using the configured subtype label.
+# reading_if_different = reading only when japanese and reading differ; otherwise empty.
+#                       Available in Last and intended to accompany the correct-answer information.
 # Mixed mode is resolved to an effective direction for the individual Last result.
 # Show Furigana in Quiz controls the Japanese question/correct-answer presentation in Last.
 # For configurable db=japanese entries, use furigana=on/off to control whether the field participates.
@@ -63,6 +65,7 @@ label_color=#777777
 
 line=1; label=Question word; db=question; under=true
 line=1; label=Correct answer; db=correct_answer; under=true
+line=1; label=Reading; db=reading_if_different; under=true
 
 line=2; label=Verb type; db=verb_group; under=true
 line=2; label=Adjective type; db=adjective_group; under=true

@@ -47,6 +47,8 @@
 # Supported virtual fields:
 # question      = the current Training question, according to its effective direction.
 # correct_answer = the correct answer, according to its effective direction.
+# reading_if_different = reading only when japanese and reading differ; otherwise empty.
+#                       Available in Training Reveal and intended to accompany the correct-answer information.
 # direction     = the effective direction of the current Training question.
 # The Show Furigana button is presentation-only and can also be toggled by tapping the question.
 # under      = true: value below label / false: label and value side-by-side
@@ -67,6 +69,7 @@ label_color=#777777
 
 # ---------------- VERBS — Japanese → English ----------------
 type=verb; direction=ja-en; line=1; label=english; db=english; under=true
+type=verb; direction=ja-en; line=1; label=reading; db=reading_if_different; under=true
 type=verb; direction=ja-en; line=1; label=verb type; db=verb_group; under=true
 
 type=verb; direction=ja-en; line=2; label=dict; db=japanese; furigana=on; under=true
@@ -78,6 +81,7 @@ type=verb; direction=ja-en; line=3; label=short-negative; db=verb_short_negative
 type=verb; direction=ja-en; line=3; label=short-past; db=verb_short_past; under=true
 
 # ---------------- VERBS — English → Japanese ----------------
+type=verb; direction=en-ja; line=1; label=Reading; db=reading_if_different; under=true
 type=verb; direction=en-ja; line=2; label=Dictionary form; db=japanese; furigana=on; under=true
 type=verb; direction=en-ja; line=2; label=Stem; db=verb_stem; under=true
 type=verb; direction=en-ja; line=2; label=Masu form; db=verb_masu; under=true
@@ -86,6 +90,7 @@ type=verb; direction=en-ja; line=3; label=Short-negative; db=verb_short_negative
 type=verb; direction=en-ja; line=3; label=Short-past; db=verb_short_past; under=true
 
 # ---------------- ADJECTIVES — Japanese → English ----------------
+type=adjective; direction=ja-en; line=1; label=Reading; db=reading_if_different; under=true
 type=adjective; direction=ja-en; line=1; label=Dictionary form; db=japanese; furigana=on; under=true
 type=adjective; direction=ja-en; line=1; label=Negative; db=adjective_negative; under=true
 type=adjective; direction=ja-en; line=1; label=Past; db=adjective_past; under=true
@@ -93,13 +98,16 @@ type=adjective; direction=ja-en; line=2; label=Te-form; db=adjective_te_form; un
 
 # ---------------- ADJECTIVES — English → Japanese ----------------
 type=adjective; direction=en-ja; line=1; label=English; db=english; under=true
+type=adjective; direction=en-ja; line=1; label=Reading; db=reading_if_different; under=true
 type=adjective; direction=en-ja; line=2; label=Dictionary form; db=japanese; furigana=on; under=true
 type=adjective; direction=en-ja; line=2; label=Negative; db=adjective_negative; under=true
 type=adjective; direction=en-ja; line=2; label=Past; db=adjective_past; under=true
 type=adjective; direction=en-ja; line=3; label=Te-form; db=adjective_te_form; under=true
 
 # ---------------- FALLBACK — all other vocabulary ----------------
+type=all; direction=ja-en; line=1; label=Reading; db=reading_if_different; under=true
 type=all; direction=ja-en; line=1; label=Dictionary form; db=japanese; furigana=on; under=true
 type=all; direction=ja-en; line=1; label=English; db=english; under=true
 type=all; direction=en-ja; line=1; label=English; db=english; under=true
+type=all; direction=en-ja; line=1; label=Reading; db=reading_if_different; under=true
 type=all; direction=en-ja; line=1; label=Dictionary form; db=japanese; furigana=on; under=true
