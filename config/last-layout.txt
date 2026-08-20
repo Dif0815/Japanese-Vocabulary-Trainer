@@ -63,7 +63,7 @@ row_gap=10
 label_font_size=11
 label_color=rgb(215, 215, 215)
 
-line=1; label=question; db=question; under=true
+line=1; label=question; db=question; furigana=off; under=true
 
 line=2; label=correct answer; db=correct_answer; under=true
 line=2; label=reading; db=reading_if_different; under=true
