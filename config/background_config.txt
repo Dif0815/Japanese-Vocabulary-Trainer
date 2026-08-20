@@ -72,7 +72,7 @@ default_hide=off
 size=25%
 position=100% 100%
 position_portrait=95% 95%
-position_landscape=95% 80%
+position_landscape=95% 60%
 background_opacity=60
 surface_opacity=82
 
@@ -80,7 +80,7 @@ surface_opacity=82
 image=gudetama_nani.png
 default_hide=off
 size=20%
-position=0% 0%
+position=100% 0%
 position_portrait=95% 10%
 position_landscape=95% 5%
 background_opacity=60
@@ -89,7 +89,7 @@ surface_opacity=80
 [backup]
 image=gudetama_chopsticks.png
 default_hide=off
-size=cover
-position=center center
+size=30
+position=50% 60%
 background_opacity=60
 surface_opacity=80
