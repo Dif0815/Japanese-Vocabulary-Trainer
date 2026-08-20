@@ -60,8 +60,8 @@ surface_opacity=80
 image=gudetama_lazy.png
 default_hide=off
 size=30%
-position=90% 5%
-position_portrait=100% 0%
+position=85% 3%
+position_portrait=98% 2%
 position_landscape=95% 5%
 background_opacity=60
 surface_opacity=80
@@ -70,19 +70,19 @@ surface_opacity=80
 image=gudetama_bacon.png
 default_hide=off
 size=20%
-position=95% 95%
+position=95% 100%
 position_portrait=95% 95%
-position_landscape=95% 80%
+position_landscape=98% 90%
 background_opacity=60
 surface_opacity=82
 
 [words]
 image=gudetama_nani.png
 default_hide=off
-size=20%
-position=100% 0%
-position_portrait=95% 0%
-position_landscape=95% 0%
+size=15%
+position=98% 3%
+position_portrait=96% 3%
+position_landscape=96% 3%
 background_opacity=60
 surface_opacity=80
 
