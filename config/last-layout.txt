@@ -59,9 +59,9 @@
 # For configurable db=japanese entries, use furigana=on/off to control whether the field participates.
 #
 column_gap=15
-row_gap=16
+row_gap=10
 label_font_size=11
-label_color=rgb(220, 220, 220)
+label_color=rgb(218, 218, 218)
 
 line=1; label=question; db=question; under=true
 
