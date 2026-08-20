@@ -92,4 +92,4 @@ default_hide=off
 size=30
 position=50% 60%
 background_opacity=60
-surface_opacity=80
+surface_opacity=100
