@@ -205,3 +205,5 @@ japanese,reading,english,type,verb_group,adjective_group,group,additional_info,v
 いびきをかく,いびきをかく,snore,verb,u,,,,いびきをかき,いびきをかきます,いびきをかいて,いびきをかかない,いびきをかいた,,,
 ぬすむ,ぬすむ,steal,verb,u,,,,ぬすみ,ぬすみます,ぬすんで,ぬすまない,ぬすんだ,,,
 かんがえる,かんがえる,think / consider,verb,ru,,,,かんがえ,かんがえます,かんがえて,かんがえない,かんがえた,,,
+テスト,てすと,test / verb (bla),verb,irr,,testword / test,extra info,stem,masu,te,nai,ta,,,
+私,わたし,test / adj (bla),adjective,,test,testword/test,extra info,,,,,,じゃない,だった,あどーて
