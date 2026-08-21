@@ -4,6 +4,24 @@
 # config/word-popup-layout.txt. Sections use the CSV type value; [fallback]
 # is used when no exact type section exists.
 #
+# ja_asked       = number of Japanese -> English translation questions asked
+# ja_correct     = number of Japanese -> English translation questions answered correctly
+# ja_wrong       = number of Japanese -> English translation questions answered incorrectly
+# en_asked       = number of English -> Japanese translation questions asked
+# en_correct     = number of English -> Japanese translation questions answered correctly
+# en_wrong       = number of English -> Japanese translation questions answered incorrectly
+# last_added     = timestamp when the word was first initialized in learning data
+# last_ja_correct = timestamp of the most recent correct Japanese -> English answer
+# last_en_correct = timestamp of the most recent correct English -> Japanese answer
+# ja_wrong_since_correct = wrong Japanese -> English answers since the last correct answer
+# en_wrong_since_correct = wrong English -> Japanese answers since the last correct answer
+# ja_review_active = whether Japanese -> English is currently in Needs Review
+# ja_review_asked = answers given while recovering Japanese -> English review
+# ja_review_correct = correct answers while recovering Japanese -> English review
+# en_review_active = whether English -> Japanese is currently in Needs Review
+# en_review_asked = answers given while recovering English -> Japanese review
+# en_review_correct = correct answers while recovering English -> Japanese review
+#
 # The same field availability rules as config/word-popup-layout.txt apply here;
 # any field supported by the Word Popup field mechanism is supported here as well.
 # Learning-statistic fields are persistent browser data, not CSV columns.
@@ -48,20 +66,28 @@ label_font_size=12
 label_color=#777777
 
 [fallback]
+# EN to JP
 line=1; label=JP → EN asked; db=ja_asked; under=true
-line=1; label=JP → EN correct; db=ja_correct; under=true
-line=1; label=JP → EN wrong; db=ja_wrong; under=true
-line=2; label=EN → JP asked; db=en_asked; under=true
-line=2; label=EN → JP correct; db=en_correct; under=true
-line=2; label=EN → JP wrong; db=en_wrong; under=true
-line=3; label=JP → EN review; db=ja_review_active; under=true
-line=3; label=JP → EN review asked; db=ja_review_asked; under=true
-line=3; label=JP → EN review correct; db=ja_review_correct; under=true
-line=4; label=EN → JP review; db=en_review_active; under=true
-line=4; label=EN → JP review asked; db=en_review_asked; under=true
-line=4; label=EN → JP review correct; db=en_review_correct; under=true
-line=5; label=Wrong since JP → EN correct; db=ja_wrong_since_correct; under=true
-line=5; label=Wrong since EN → JP correct; db=en_wrong_since_correct; under=true
-line=6; label=Added; db=last_added; under=true
-line=6; label=Last JP → EN correct; db=last_ja_correct; under=true
-line=6; label=Last EN → JP correct; db=last_en_correct; under=true
+line=1; label=correct answers; db=ja_correct; under=true
+line=1; label=wrong answers; db=ja_wrong; under=true
+
+line=2; label=review active; db=ja_review_active; under=true
+line=2; label=review asked; db=ja_review_asked; under=true
+line=2; label=review correct; db=ja_review_correct; under=true
+
+line=3; label=wrong answers since last correct; db=ja_wrong_since_correct; under=true
+line=4; label=last correct answer; db=last_ja_correct; under=true
+
+# EN to JP
+line=5; label=EN → JP asked; db=en_asked; under=true
+line=5; label=correct answers; db=en_correct; under=true
+line=5; label=wrong answers; db=en_wrong; under=true
+
+line=6; label=review active; db=en_review_active; under=true
+line=6; label=review asked; db=en_review_asked; under=true
+line=6; label=review correct; db=en_review_correct; under=true
+
+line=7; label=wrong answers since last correct; db=en_wrong_since_correct; under=true
+line=8; label=last correct answer; db=last_en_correct; under=true
+
+line=9; label=Added; db=last_added; format=dd.mm.yyyy hh:mm; under=true
