@@ -1,12 +1,12 @@
-Japanese Vocabulary Trainer v35
+Japanese Vocabulary Trainer v36
 
 CURRENT VERSION
 ---------------
-Version: 35
+Version: 36
 Status: Current release version
 
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=35
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=36
 
 The ?v=xx ending is a cache-busting version marker. Increase it when uploading a
 new version so the browser is forced to request the new files.
@@ -57,6 +57,7 @@ The repository uses the following structure:
         partially_learned.svg
         warning.svg
         learning_statistics.svg
+        word_popup.svg
 
     docs/
         version-changes.txt
@@ -168,14 +169,27 @@ loaded CSV. Each option remains visible; incompatible options are disabled and s
 compatible options show their calculated count. Group also offers (empty) for words with no Group value.
 The special All entry selects all currently compatible values; no selected values means zero results.
 
-FILTER IMPLEMENTATION / CONFIGURATION WARNINGS
------------------------------------------------
+FILTER / SELECTION IMPLEMENTATION / CONFIGURATION WARNINGS
+-----------------------------------------------------------
 Quiz, Training, and Words support the configurable filter_selection_mode:
-- native = use the native filter implementation.
-- custom = use the custom multi-selection filter implementation.
+- native = use native browser selection controls where applicable.
+- custom = use the custom selection UI.
 
-The setting selects the technical filter implementation. It does not change the
-filter data, selection logic, or filter semantics.
+The setting applies to the existing Vocabulary/Group filters and to the
+Direction selector in Quiz, Training, and Words. It does not change filter
+data, selection logic, or filter semantics.
+
+Custom selection menus use the global custom_filter_max_width setting. Their
+minimum width follows the control, and they may expand to fit their content
+up to that maximum and the available viewport width.
+
+Each section also supports filter_menu_direction:
+- auto = choose the opening direction from available viewport space
+- up = force the menu upward
+- down = force the menu downward
+
+The setting applies to custom selection menus. Native controls retain their
+browser/OS opening behavior.
 
 Vocabulary and Group defaults support:
 - all
@@ -187,13 +201,65 @@ Invalid filter values or unknown filter-selection modes are not silently ignored
 central configuration-warning indicator, together with the fallback used by the application.
 The same warning presentation is used for configuration problems across the application.
 
-Custom filter dropdown width is controlled by the global `custom_filter_max_width` setting in
-config/options-defaults.txt. The dropdown's minimum width always follows its own filter control in the
-current section; it may expand to fit its content up to the configured maximum and the available viewport
-width. This setting is in the [global] section and applies to all custom filters.
+Custom filter/selection dropdown width is controlled by the global `custom_filter_max_width` setting in
+config/options-defaults.txt. The dropdown's minimum width always follows its own control in the current
+section; it may expand to fit its content up to the configured maximum and the available viewport width.
+This applies to the existing custom filters and the custom Direction selector.
 Subtype values in data/vocabulary.csv that are not defined in config/type-config.txt are validated during
 application startup and are shown through the central warning indicator immediately. The raw CSV subtype
 remains usable as the fallback.
+
+QUIZ KEYBOARD SKIP
+------------------
+Quiz keyboard Skip is controlled by `quiz_skip_key` in
+config/options-defaults.txt:
+- off = no keyboard shortcut triggers Skip
+- ESC = Escape triggers the existing Skip action, including while the answer
+  field is focused
+
+Right Arrow is not used by the Quiz Skip feature. Enter behavior is unchanged.
+
+QUIZ LAST / LEARNING STATISTICS
+-------------------------------
+The Quiz Accuracy field is clickable and opens the existing Learning Statistics
+popup for the current Quiz word. The entire Accuracy field is the touch target.
+
+Quiz Last also has a small replaceable icon in the bottom-right of the Last
+section. It opens the existing Word Popup for the current Last entry without
+advancing or changing the Quiz. The Word Popup's existing Learning Statistics
+button can then open the statistics popup.
+
+LAST LAYOUT
+-----------
+config/last-layout.txt uses the same type + direction + fallback model as the
+Training layout. A matching `type=<CSV type>; direction=ja-en|en-ja` definition
+takes precedence over `type=all` for the same direction.
+
+The Last layout supports the existing layout fields plus the Last virtual fields,
+including `reading_if_different`, and supports `furigana=on|off` for
+`japanese`, `question`, and `correct_answer`.
+
+DATE / TIME FORMATTING
+----------------------
+Layout fields may optionally use:
+- `format=dd.mm.yyyy`
+- `format=hh:mm`
+- `format=dd.mm.yyyy hh:mm`
+
+This is documented with examples in config/statistics-popup-layout.txt.
+Invalid format strings produce a central configuration warning and the raw
+value is displayed.
+
+BACKGROUND DISPLAY SIZES
+------------------------
+config/background_config.txt supports independent background position and size
+for normal, portrait, landscape, small, small portrait, and small landscape
+viewports. Small means the responsive max-width: 600px breakpoint; it is not
+device-model detection.
+
+The more specific small/orientation setting falls back through the corresponding
+orientation setting and then the general setting. Position and size fall back
+independently.
 
 FURIGANA
 --------
