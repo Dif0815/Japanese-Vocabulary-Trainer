@@ -122,7 +122,7 @@ type=adjective; direction=en-ja; line=4; label=additional information; db=additi
 
 # ---------------- Japanese → English ----------------
 type=all; direction=ja-en; line=1; label=english; db=english; under=true
-type=all; direction=ja-en; line=1; label=reading; db=reading_if_different; under=true
+#type=all; direction=ja-en; line=1; label=reading; db=reading_if_different; under=true
 type=all; direction=ja-en; line=1; label=additional information; db=additional_info; under=true
 
 # ---------------- English → Japanese ----------------
