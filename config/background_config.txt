@@ -137,7 +137,7 @@ position_small=98% 2%
 size_small_portrait=20%
 position_small_portrait=98% 2%
 size_small_landscape=20%
-position_small_landscape=95% 6%
+position_small_landscape=95% 2%
 
 background_opacity=60
 surface_opacity=82
