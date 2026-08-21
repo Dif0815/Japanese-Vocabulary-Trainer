@@ -86,6 +86,8 @@ label_color=#777777
 # ---------------- VERB ----------------
 [verb]
 line=1; label=english; db=english; under=true
+line=1; label=type; db=type; under=true
+line=1; label=verb type; db=verb_group; under=true
 
 line=2; label=dict; db=reading; under=true
 line=2; label=stem; db=verb_stem; under=true
@@ -93,13 +95,9 @@ line=2; label=masu; db=verb_masu; under=true
 
 line=3; label=te-form; db=verb_te_form; under=true
 line=3; label=short-negative; db=verb_short_negative; under=true
-line=3; label=Short-past; db=verb_short_past; under=true
+line=3; label=short-past; db=verb_short_past; under=true
 
-line=4; label=correct jp -> eng; db=ja_correct; under=true
-line=4; label=correct eng -> jp; db=en_correct; under=true
-
-line=5; label=correct jp -> eng; db=ja_wrong; under=true
-line=5; label=correct eng -> jp; db=en_wrong; under=true
+line=4; label=additional information; db=additional_info; under=true
 
 # ---------------- ADJECTIVE ----------------
 [adjective]
