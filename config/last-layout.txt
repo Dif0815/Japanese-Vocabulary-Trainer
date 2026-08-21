@@ -104,7 +104,7 @@ type=all; direction=ja-en; line=5; label=type answer given; db=type_answer_given
 type=all; direction=en-ja; line=1; label=question; db=question; furigana=off; under=true
 
 type=all; direction=en-ja; line=2; label=correct answer; db=correct_answer; under=true
-type=all; direction=en-ja; line=1; label=reading; db=reading_if_different; under=true
+type=all; direction=en-ja; line=2; label=reading; db=reading_if_different; under=true
 
 type=all; direction=en-ja; line=3; label=verb type; db=verb_group; under=true
 type=all; direction=en-ja; line=3; label=adjective type; db=adjective_group; under=true
