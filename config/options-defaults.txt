@@ -89,6 +89,33 @@ custom_filter_max_width=420
 # Quiz only. correct_answer_delay is the delay in milliseconds after the complete correct-answer flow
 # (including Ask Type, when enabled) before the next question is shown.
 #
+# ---------------- QUIZ STATISTICS CARDS --------------------
+# Quiz only. These settings control the three Asked / Correct / Accuracy cards.
+#
+# quiz_stats_width
+#   Width of each individual statistics card in pixels.
+#   Default: 105
+#   Valid range: 60–220
+#
+# quiz_stats_height
+#   Height of each individual statistics card in pixels.
+#   Default: 42
+#   Valid range: 30–100
+#
+# quiz_stats_value_font_size
+#   Font size of the displayed statistics value (for example 0, 1, 25%).
+#   The labels "asked", "correct", and "accuracy" are not affected.
+#   Default: 14
+#   Valid range: 8–32
+#
+# quiz_stats_gap
+#   Vertical gap above the statistics row.
+#   Default: 8
+#   Valid range: 0–60
+#
+# Values outside the documented numeric range are clamped to the valid range.
+# Non-numeric values produce a central configuration warning and use the default.
+#
 # -------------------- REVEAL ALL ----------------------------
 # Training only.
 # on  = reveal all configured answers at once
@@ -116,6 +143,10 @@ show_furigana=on
 quiz_skip_key=ESC
 # Delay after a fully correct Quiz answer before the next question is shown, in milliseconds.
 correct_answer_delay=800
+quiz_stats_width=105
+quiz_stats_height=42
+quiz_stats_value_font_size=14
+quiz_stats_gap=8
 
 # ============================================================
 # TRAINING DEFAULTS
