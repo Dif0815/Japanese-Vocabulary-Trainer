@@ -1,5 +1,12 @@
 Japanese Vocabulary Trainer — Version Changes
 
+Version 37
+----------
+- Corrected custom Direction dropdown sizing so the menu follows its own control width, expands only as needed for its content, and respects custom_filter_max_width.
+- Added configurable Quiz Asked/Correct/Accuracy card width, height, value font size, and vertical spacing through config/options-defaults.txt.
+- Added reusable popup navigation context for Word Popup and Learning Statistics. Learning Statistics now shows Close only for direct Quiz calls, and Back + Close for nested calls from Word Popup.
+- No vocabulary/data changes in v37.
+
 Version 36
 ----------
 - Added configurable Quiz Skip key `quiz_skip_key=off|ESC`; Escape replaces the previous Right Arrow shortcut and works while the Quiz answer field is focused.
