@@ -115,7 +115,7 @@ filter_menu_direction=auto
 show_furigana=on
 quiz_skip_key=off
 # Delay after a fully correct Quiz answer before the next question is shown, in milliseconds.
-correct_answer_delay=1200
+correct_answer_delay=800
 
 # ============================================================
 # TRAINING DEFAULTS
