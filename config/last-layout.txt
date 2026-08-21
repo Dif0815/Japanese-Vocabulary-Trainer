@@ -1,79 +1,139 @@
-# Japanese Vocabulary Trainer — Last frame layout
+# Japanese Vocabulary Trainer — Last section layout
 #
-# Global layout settings:
-# column_gap       = horizontal space between shared columns, in pixels
-# row_gap          = vertical space between visual lines, in pixels
-# label_font_size  = label font size, in pixels
-# label_color      = label text color
+# Last uses the same type + direction + fallback selection model as
+# config/training-layout.txt.
 #
-# Color examples:
-# label_color=#777777
-# label_color=#999999
-# label_color=darkslategray
-# label_color=rgb(100,100,100)
-#
-# The column grid is calculated across ALL visual lines together.
-# This means column 1, column 2, etc. stay aligned from one line to the next.
-#
-# One config entry = one item in a display line.
-# Multiple items can share the same line number.
+# One config entry = one displayed field.
 #
 # Syntax:
-# line=1; label=Question word; db=question; under=true
-# `furigana` is an optional presentation parameter for a layout line.
-# Example with Furigana enabled:
-# line=1; label=Dictionary form; db=japanese; furigana=on; under=true
-# Example with Furigana disabled:
-# line=1; label=Dictionary form; db=japanese; furigana=off; under=true
-# furigana=on reacts to the corresponding section's Show Furigana button.
-# furigana=off always displays the raw database value and does not react to the Show Furigana button.
-# furigana=on is currently supported only with db=japanese.
-# furigana=off may be used with any DB field.
-# furigana may be placed anywhere within the same line definition; parameter order does not matter.
+# type=verb; direction=ja-en; line=1; label=English; db=english; under=true
 #
-# line       = visual line number
-# label      = text shown above/beside the database value
-# db         = database field name OR virtual field
-# furigana   = optional presentation attribute for configurable database fields.
-#              on reacts to the Quiz Show Furigana button; off stays raw.
-#              `furigana=on` is currently supported only for db=japanese.
-# under      = true: value below label / false: label and value side-by-side
+# type       = exact CSV vocabulary type, or `all` for the fallback.
+# direction  = ja-en or en-ja.
+# line       = visual line number.
+# label      = text shown above/beside the value.
+# db         = CSV field or supported Last virtual field.
+# under      = true: value below label / false: label and value side-by-side.
 #
-# Empty values are ignored. If db is empty, its label is ignored too.
-# If an entire logical line has no visible items, that line consumes no vertical space.
-# Later populated lines are automatically compacted upward.
+# Selection:
+#   exact type + direction
+#       ↓
+#   type=all + same direction
 #
-# Database fields come from the first row of data/vocabulary.csv.
-# Add new columns to data/vocabulary.csv and they automatically become available here.
+# Mixed mode does not need a separate layout. The actual effective direction
+# of the Last result selects ja-en or en-ja.
 #
-# Virtual fields for the Last result:
-# question = the question shown for that Last result.
-# correct_answer = the correct answer for that Last result, using the same effective direction as question.
-# answer_given = exactly what the learner entered.
-# direction = the effective direction belonging to that Last result.
-# type_answer_given = learner's actual subtype answer, shown using the configured subtype label.
-# reading_if_different = reading only when japanese and reading differ; otherwise empty.
-#                       Available in Last and intended to accompany the correct-answer information.
-# Mixed mode is resolved to an effective direction for the individual Last result.
-# Show Furigana in Quiz controls the Japanese question/correct-answer presentation in Last.
-# For configurable db=japanese entries, use furigana=on/off to control whether the field participates.
+# The column grid is calculated across all visual lines together.
+# Empty values and empty logical lines are omitted automatically.
 #
-column_gap=18
-row_gap=10
-label_font_size=11
-label_color=rgb(215, 215, 215)
+# FURIGANA
+# furigana is an optional presentation parameter and may appear anywhere
+# within a line definition.
+#
+#   furigana=on
+#       responds to the Quiz Show Furigana control.
+#
+#   furigana=off
+#       always displays the raw value and ignores Show Furigana.
+#
+# For Last, furigana=on/off is supported for:
+#   db=japanese
+#   db=question
+#   db=correct_answer
+#
+# If furigana is omitted, the existing Last default behavior is retained.
+#
+# The question and correct_answer virtual fields use the effective direction
+# of the Last result.
+#
+# Supported Last virtual fields:
+#   question
+#       Current Last question according to its effective direction.
+#
+#   correct_answer
+#       Correct answer according to its effective direction.
+#
+#   answer_given
+#       The answer entered by the learner.
+#
+#   direction
+#       Effective question direction.
+#
+#   furigana
+#       Japanese dictionary form for presentation purposes.
+#
+#   reading_if_different
+#       Reading only when Japanese and reading differ; otherwise empty.
+#
+#   result
+#       Correct, Wrong, or Skipped.
+#
+# Persistent learning-statistic fields are also available where supported
+# by the existing learning-data mechanism.
+#
+# Date/time formatting:
+#   format=dd.mm.yyyy
+#   format=hh:mm
+#   format=dd.mm.yyyy hh:mm
+#
+# Invalid format strings produce a central configuration warning and the
+# raw database value is displayed.
+#
+column_gap=28
+row_gap=16
+label_font_size=12
+label_color=#777777
 
-line=1; label=question; db=question; furigana=off; under=true
+# ---------------- VERB — Japanese → English ----------------
+type=verb; direction=ja-en; line=1; label=english; db=english; under=true
+type=verb; direction=ja-en; line=2; label=dict; db=japanese; furigana=off; under=true
+type=verb; direction=ja-en; line=2; label=stem; db=verb_stem; under=true
+type=verb; direction=ja-en; line=2; label=masu; db=verb_masu; under=true
+type=verb; direction=ja-en; line=3; label=te-form; db=verb_te_form; under=true
+type=verb; direction=ja-en; line=3; label=short-negative; db=verb_short_negative; under=true
+type=verb; direction=ja-en; line=3; label=Short-past; db=verb_short_past; under=true
+type=verb; direction=ja-en; line=4; label=correct jp -> eng; db=ja_correct; under=true
+type=verb; direction=ja-en; line=4; label=correct eng -> jp; db=en_correct; under=true
+type=verb; direction=ja-en; line=5; label=correct jp -> eng; db=ja_wrong; under=true
+type=verb; direction=ja-en; line=5; label=correct eng -> jp; db=en_wrong; under=true
 
-line=2; label=correct answer; db=correct_answer; under=true
-line=2; label=reading; db=reading_if_different; under=true
+# ---------------- VERB — English → Japanese ----------------
+type=verb; direction=en-ja; line=1; label=english; db=english; under=true
+type=verb; direction=en-ja; line=2; label=dict; db=japanese; furigana=off; under=true
+type=verb; direction=en-ja; line=2; label=stem; db=verb_stem; under=true
+type=verb; direction=en-ja; line=2; label=masu; db=verb_masu; under=true
+type=verb; direction=en-ja; line=3; label=te-form; db=verb_te_form; under=true
+type=verb; direction=en-ja; line=3; label=short-negative; db=verb_short_negative; under=true
+type=verb; direction=en-ja; line=3; label=Short-past; db=verb_short_past; under=true
+type=verb; direction=en-ja; line=4; label=correct jp -> eng; db=ja_correct; under=true
+type=verb; direction=en-ja; line=4; label=correct eng -> jp; db=en_correct; under=true
+type=verb; direction=en-ja; line=5; label=correct jp -> eng; db=ja_wrong; under=true
+type=verb; direction=en-ja; line=5; label=correct eng -> jp; db=en_wrong; under=true
 
-line=3; label=verb type; db=verb_group; under=true
-line=3; label=adjective type; db=adjective_group; under=true
-line=3; label=word type; db=type; under=true
+# ---------------- ADJECTIVE — Japanese → English ----------------
+type=adjective; direction=ja-en; line=1; label=English; db=english; under=true
+type=adjective; direction=ja-en; line=2; label=Dictionary form; db=japanese; furigana=on; under=true
+type=adjective; direction=ja-en; line=2; label=Type; db=adjective_type; under=true
+type=adjective; direction=ja-en; line=2; label=Negative; db=adjective_negative; under=true
+type=adjective; direction=ja-en; line=2; label=Past; db=adjective_past; under=true
+type=adjective; direction=ja-en; line=3; label=Te-form; db=adjective_te_form; under=true
 
-line=4; label=additional information; db=additional_info; under=true
+# ---------------- ADJECTIVE — English → Japanese ----------------
+type=adjective; direction=en-ja; line=1; label=English; db=english; under=true
+type=adjective; direction=en-ja; line=2; label=Dictionary form; db=japanese; furigana=on; under=true
+type=adjective; direction=en-ja; line=2; label=Type; db=adjective_type; under=true
+type=adjective; direction=en-ja; line=2; label=Negative; db=adjective_negative; under=true
+type=adjective; direction=en-ja; line=2; label=Past; db=adjective_past; under=true
+type=adjective; direction=en-ja; line=3; label=Te-form; db=adjective_te_form; under=true
 
-line=5; label=result; db=result; under=true
-line=5; label=answer given; db=answer_given; under=true
-line=5; label=type answer given; db=type_answer_given; under=true
+# ---------------- FALLBACK — Japanese → English ----------------
+type=all; direction=ja-en; line=1; label=English; db=english; under=true
+type=all; direction=ja-en; line=2; label=Dictionary form; db=japanese; furigana=on; under=true
+type=all; direction=ja-en; line=2; label=Word type; db=type_label; under=true
+type=all; direction=ja-en; line=3; label=Additional information; db=additional_info; under=true
+
+# ---------------- FALLBACK — English → Japanese ----------------
+type=all; direction=en-ja; line=1; label=English; db=english; under=true
+type=all; direction=en-ja; line=2; label=Dictionary form; db=japanese; furigana=on; under=true
+type=all; direction=en-ja; line=2; label=Word type; db=type_label; under=true
+type=all; direction=en-ja; line=3; label=Additional information; db=additional_info; under=true

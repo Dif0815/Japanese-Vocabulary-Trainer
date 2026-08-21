@@ -4,9 +4,43 @@
 # config/word-popup-layout.txt. Sections use the CSV type value; [fallback]
 # is used when no exact type section exists.
 #
-# The same field availability rules as config/word-popup-layout.txt apply here; any field supported by the Word Popup field mechanism is supported here as well.
+# The same field availability rules as config/word-popup-layout.txt apply here;
+# any field supported by the Word Popup field mechanism is supported here as well.
 # Learning-statistic fields are persistent browser data, not CSV columns.
 # Empty values are ignored by the normal layout engine.
+#
+# ------------------------------------------------------------
+# DATE / TIME FORMATTING
+# ------------------------------------------------------------
+# The optional `format` parameter can be added to a date/time field:
+#
+#   format=dd.mm.yyyy
+#       date only, for example 21.08.2026
+#
+#   format=hh:mm
+#       time only, for example 14:35
+#
+#   format=dd.mm.yyyy hh:mm
+#       date and time, for example 21.08.2026 14:35
+#
+# Examples:
+#
+#   line=6; label=Added; db=last_added; format=dd.mm.yyyy; under=true
+#   line=6; label=Added time; db=last_added; format=hh:mm; under=true
+#   line=6; label=Last correct; db=last_ja_correct; format=dd.mm.yyyy hh:mm; under=true
+#
+# `format` is optional. If it is omitted, the raw stored value is displayed.
+#
+# Supported format strings are exactly:
+#   dd.mm.yyyy
+#   hh:mm
+#   dd.mm.yyyy hh:mm
+#
+# An invalid/unsupported format string produces a warning in the central
+# configuration-warning system. The application continues to work and the
+# raw database value is displayed as the fallback.
+#
+# ------------------------------------------------------------
 #
 column_gap=28
 row_gap=16

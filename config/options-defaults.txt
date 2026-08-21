@@ -12,12 +12,23 @@
 # en    = English -> Japanese
 # mixed = randomly choose Japanese -> English or English -> Japanese
 #
-# -------------------- FILTER SELECTION MODE -----------------
-# native  = use the native filter implementation.
-# custom  = use the custom multi-selection filter implementation.
+# -------------------- FILTER / SELECTION MODE --------------
+# native  = use native browser selection controls where applicable.
+# custom  = use the custom selection UI.
 #
-# This setting selects the technical filter implementation. It does not
-# change the filter data, selection logic or filter semantics.
+# This setting applies to the Words/Group custom filters and also to
+# the Direction selector in Quiz, Training, and Words.
+# It does not change the filter data, selection logic or semantics.
+#
+# ---------------- MENU OPENING DIRECTION -------------------
+# filter_menu_direction controls the opening direction of custom selection
+# menus in each section:
+#   auto = choose based on available viewport space
+#   up   = force the menu to open upward
+#   down = force the menu to open downward
+#
+# In native mode the browser/OS controls the native selector's opening
+# behavior. filter_menu_direction applies to custom selection menus.
 #
 # -------------------- VOCABULARY ----------------------------
 # all = all currently compatible values selected.
@@ -41,9 +52,10 @@
 #
 # ---------------- CUSTOM FILTER WIDTH ---------------------
 [global]
-# Maximum width of custom filter dropdown menus, in pixels.
-# The menu minimum width always follows its own filter control. The menu may expand
+# Maximum width of custom filter/selection dropdown menus, in pixels.
+# The menu minimum width always follows its own control. The menu may expand
 # to fit its content up to this global maximum, subject to available viewport width.
+# This applies to the existing Words/Group filters and the custom Direction selector.
 custom_filter_max_width=420
 
 # -------------------- SHOW FURIGANA -------------------------
@@ -65,6 +77,13 @@ custom_filter_max_width=420
 # on  = ask the word type after the translation answer
 # off = do not ask the word type
 # Changing this during a quiz does NOT advance the current question.
+#
+# ---------------- QUIZ SKIP KEY ----------------------------
+# Quiz only.
+# off = no keyboard shortcut triggers Skip.
+# ESC = Escape triggers the existing Skip action, including while the
+#       Quiz answer field is focused.
+# Right Arrow is not used by this feature.
 #
 # ---------------- CORRECT ANSWER DELAY ---------------------
 # Quiz only. correct_answer_delay is the delay in milliseconds after the complete correct-answer flow
@@ -92,9 +111,11 @@ direction=mixed
 vocabulary=all
 group=all
 filter_selection_mode=custom
+filter_menu_direction=auto
 show_furigana=on
+quiz_skip_key=off
 # Delay after a fully correct Quiz answer before the next question is shown, in milliseconds.
-correct_answer_delay=800
+correct_answer_delay=1200
 
 # ============================================================
 # TRAINING DEFAULTS
@@ -105,6 +126,7 @@ vocabulary=all
 group=all
 reveal_all=off
 filter_selection_mode=custom
+filter_menu_direction=auto
 show_furigana=on
 
 # ============================================================
@@ -115,6 +137,7 @@ direction=mixed
 vocabulary=all
 group=all
 filter_selection_mode=custom
+filter_menu_direction=auto
 show_furigana=on
 status_filter_learned=on
 status_filter_not_learned=on
