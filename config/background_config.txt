@@ -101,17 +101,17 @@ size=30%
 position=90% 2%
 
 # TABLET - normal
-size_portrait=30%
-position_portrait=98% 1%
+size_portrait=28%
+position_portrait=98% 2%
 size_landscape=30%
 position_landscape=95% 5%
 
 # PHONE - small display
-size_small=30%
+size_small=27%
 position_small=98% 1%
-size_small_portrait=30%
+size_small_portrait=27%
 position_small_portrait=98% 1%
-size_small_landscape=30%
+size_small_landscape=25%
 position_small_landscape=95% 5%
 
 background_opacity=60
