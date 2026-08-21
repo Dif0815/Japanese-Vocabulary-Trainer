@@ -101,9 +101,9 @@ type=all; direction=ja-en; line=5; label=answer given; db=answer_given; under=tr
 type=all; direction=ja-en; line=5; label=type answer given; db=type_answer_given; under=true
 
 # ---------------- FALLBACK — English → Japanese ----------------
-type=all; direction=en-ja; line=1; label=question; db=question; furigana=off; under=true
+type=all; direction=en-ja; line=1; label=question; db=question; under=true
 
-type=all; direction=en-ja; line=2; label=correct answer; db=correct_answer; under=true
+type=all; direction=en-ja; line=2; label=correct answer; db=correct_answer; furigana=off; under=true
 type=all; direction=en-ja; line=2; label=reading; db=reading_if_different; under=true
 
 type=all; direction=en-ja; line=3; label=verb type; db=verb_group; under=true
