@@ -1,12 +1,12 @@
-Japanese Vocabulary Trainer v36
+Japanese Vocabulary Trainer v37
 
 CURRENT VERSION
 ---------------
-Version: 36
+Version: 37
 Status: Current release version
 
 Versioned test link:
-https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=36
+https://dif0815.github.io/Japanese-Vocabulary-Trainer/?v=37
 
 The ?v=xx ending is a cache-busting version marker. Increase it when uploading a
 new version so the browser is forced to request the new files.
@@ -47,7 +47,10 @@ The repository uses the following structure:
         background_config.txt
 
     backgrounds/
-        (empty in the release; add images individually)
+        gudetama_chopsticks.png
+        gudetama_lazy.png
+        gudetama_nani.png
+        gudetama_bacon.png
 
     icons/
         icon.svg
@@ -219,6 +222,19 @@ config/options-defaults.txt:
 
 Right Arrow is not used by the Quiz Skip feature. Enter behavior is unchanged.
 
+QUIZ STATISTICS CARDS
+---------------------
+The Asked, Correct, and Accuracy cards below the Quiz controls can be customized
+through config/options-defaults.txt:
+    quiz_stats_width
+    quiz_stats_height
+    quiz_stats_value_font_size
+    quiz_stats_gap
+
+The width and height apply to each card. quiz_stats_value_font_size controls only
+the displayed numeric value; the labels remain unchanged. quiz_stats_gap controls
+the vertical gap above the statistics row.
+
 QUIZ LAST / LEARNING STATISTICS
 -------------------------------
 The Quiz Accuracy field is clickable and opens the existing Learning Statistics
@@ -327,7 +343,9 @@ follows the configured fallback chain: section background -> [default]
 background -> normal application background. The existing central
 configuration-warning indicator reports the missing image.
 
-The release backgrounds/ folder is intentionally empty. Users who want a decorative background must upload image files individually into backgrounds/ and manually update config/background_config.txt to match the filenames. Supported formats are JPEG (.jpg, .jpeg), PNG (.png), and WebP (.webp).
+The current backgrounds/ directory contains the four configured PNG background assets.
+Additional background images may be added and referenced through config/background_config.txt.
+Supported formats are JPEG (.jpg, .jpeg), PNG (.png), and WebP (.webp).
 
 
 ANSWER CHECKING
@@ -523,7 +541,20 @@ The Words Word Popup contains a small replaceable icon button at its bottom-righ
 The popup uses:
     config/statistics-popup-layout.txt
 
-This configuration follows the same line-definition syntax and dynamic layout behavior as config/word-popup-layout.txt. It uses the same supported field/virtual-field and learning-statistic mechanisms. The popup has its own Back control to return to the Word Popup. The icon is stored as icons/learning_statistics.svg and can be replaced by replacing that file.
+This configuration follows the same line-definition syntax and dynamic layout behavior as config/word-popup-layout.txt. It uses the same supported field/virtual-field and learning-statistic mechanisms.
+
+Learning Statistics uses reusable popup navigation context:
+- When opened directly from Quiz Accuracy, it shows Close only. Close returns to Quiz.
+- When opened from the Word Popup, it shows Back and Close. Back returns to the Word Popup;
+  Close closes the popup chain and returns to the underlying Words section.
+- The navigation context is not hard-coded to a specific section, so future popup entry points
+  can reuse the same mechanism.
+
+The Word Popup uses the same reusable navigation-context mechanism. A directly opened Word Popup
+shows Close; if it is opened as a nested popup in a future workflow, the same Back + Close model
+is available.
+
+The icon is stored as icons/learning_statistics.svg and can be replaced by replacing that file.
 
 OPTIONS DEFAULTS
 ----------------
