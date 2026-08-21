@@ -120,10 +120,25 @@ surface_opacity=80
 [training]
 image=gudetama_bacon.png
 default_hide=off
-size=20%
-position=95% 100%
+
+# PC - general fallback
+size=17%
+position=99% 98%
+
+# TABLET - normal
+size_portrait=20%
 position_portrait=95% 98%
+size_landscape=17%
 position_landscape=99% 98%
+
+# PHONE - small display
+size_small=20%
+position_small=98% 2%
+size_small_portrait=20%
+position_small_portrait=98% 2%
+size_small_landscape=20%
+position_small_landscape=95% 6%
+
 background_opacity=60
 surface_opacity=82
 
