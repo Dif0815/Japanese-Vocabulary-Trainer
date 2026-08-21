@@ -98,20 +98,27 @@ line=3; label=short-negative; db=verb_short_negative; under=true
 line=3; label=short-past; db=verb_short_past; under=true
 
 line=4; label=additional information; db=additional_info; under=true
+line=5; label=group; db=group; under=true
 
 # ---------------- ADJECTIVE ----------------
 [adjective]
-line=1; label=English; db=english; under=true
-line=2; label=Dictionary form; db=japanese; furigana=on; under=true
-line=2; label=Type; db=adjective_type; under=true
-line=2; label=Negative; db=adjective_negative; under=true
-line=2; label=Past; db=adjective_past; under=true
-line=3; label=Te-form; db=adjective_te_form; under=true
+line=1; label=english; db=english; under=true
+line=1; label=type; db=type; under=true
+line=1; label=adjective type; db=adjective_group; under=true
+
+line=2; label=dict; db=reading; under=true
+line=2; label=negative; db=adjective_negative; under=true
+line=2; label=past; db=adjective_past; under=true
+line=2; label=te-form; db=adjective_te_form; under=true
+
+line=3; label=additional information; db=additional_info; under=true
+line=4; label=group; db=group; under=true
 
 # ---------------- FALLBACK ----------------
 # Used for any word type without its own section.
 [fallback]
-line=1; label=English; db=english; under=true
-line=2; label=Dictionary form; db=japanese; furigana=on; under=true
-line=2; label=Word type; db=type_label; under=true
-line=3; label=Additional information; db=additional_info; under=true
+line=1; label=english; db=english; under=true
+line=1; label=type; db=type; under=true
+
+line=2; label=additional information; db=additional_info; under=true
+line=3; label=group; db=group; under=true
