@@ -69,10 +69,10 @@ label_color=#777777
 
 # ---------------- VERBS — Japanese → English ----------------
 type=verb; direction=ja-en; line=1; label=english; db=english; under=true
-type=verb; direction=ja-en; line=1; label=reading; db=reading_if_different; under=true
+#type=verb; direction=ja-en; line=1; label=reading; db=reading_if_different; under=true
 type=verb; direction=ja-en; line=1; label=verb type; db=verb_group; under=true
 
-type=verb; direction=ja-en; line=2; label=dict; db=japanese; furigana=on; under=true
+type=verb; direction=ja-en; line=2; label=dict; db=reading; under=true
 type=verb; direction=ja-en; line=2; label=stem; db=verb_stem; under=true
 type=verb; direction=ja-en; line=2; label=masu; db=verb_masu; under=true
 
