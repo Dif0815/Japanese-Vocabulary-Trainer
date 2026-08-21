@@ -102,15 +102,15 @@ position=90% 2%
 
 # TABLET - normal
 size_portrait=26%
-position_portrait=98% 1%
+position_portrait=98% 2%
 size_landscape=30%
 position_landscape=95% 5%
 
 # PHONE - small display
 size_small=27%
-position_small=98% 2%
+position_small=97% 2%
 size_small_portrait=27%
-position_small_portrait=98% 2%
+position_small_portrait=97% 2%
 size_small_landscape=25%
 position_small_landscape=95% 6%
 
@@ -128,7 +128,7 @@ position=99% 98%
 # TABLET - normal
 size_portrait=20%
 position_portrait=95% 98%
-size_landscape=17%
+size_landscape=13%
 position_landscape=99% 98%
 
 # PHONE - small display
