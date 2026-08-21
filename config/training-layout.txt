@@ -121,11 +121,10 @@ type=adjective; direction=en-ja; line=4; label=additional information; db=additi
 # ---------------- FALLBACK — all other vocabulary ----------------
 
 # ---------------- Japanese → English ----------------
-type=all; direction=ja-en; line=1; label=Reading; db=reading_if_different; under=true
-type=all; direction=ja-en; line=1; label=Dictionary form; db=japanese; furigana=on; under=true
-type=all; direction=ja-en; line=1; label=English; db=english; under=true
+type=all; direction=ja-en; line=1; label=english; db=english; under=true
+type=all; direction=ja-en; line=1; label=reading; db=reading_if_different; under=true
+type=all; direction=ja-en; line=1; label=additional information; db=additional_info; under=true
 
 # ---------------- English → Japanese ----------------
-type=all; direction=en-ja; line=1; label=English; db=english; under=true
-type=all; direction=en-ja; line=1; label=Reading; db=reading_if_different; under=true
-type=all; direction=en-ja; line=1; label=Dictionary form; db=japanese; furigana=on; under=true
+type=all; direction=en-ja; line=1; label=japanese; db=japanese; furigana=on; under=true
+type=all; direction=en-ja; line=1; label=additional information; db=additional_info; under=true
