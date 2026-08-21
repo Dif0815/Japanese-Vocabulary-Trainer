@@ -1,5 +1,19 @@
 Japanese Vocabulary Trainer — Version Changes
 
+Version 36
+----------
+- Added configurable Quiz Skip key `quiz_skip_key=off|ESC`; Escape replaces the previous Right Arrow shortcut and works while the Quiz answer field is focused.
+- Added configurable date/time formatting for layout fields with `dd.mm.yyyy`, `hh:mm`, and `dd.mm.yyyy hh:mm`; invalid formats use the central warning system and raw-value fallback.
+- Fixed Last `furigana=on|off` handling for the virtual `question` and `correct_answer` fields.
+- Extended Last layout selection to the same type + direction + `type=all` fallback model used by Training.
+- Added small-display, portrait, and landscape-specific background position and size settings with independent fallback chains.
+- Extended the existing `filter_selection_mode` custom selection UI to the Direction selectors and added per-section `filter_menu_direction=auto|up|down`, reusing `custom_filter_max_width`.
+- Reduced the Quiz asked/correct/accuracy statistics fields for a more compact layout.
+- Made the entire Quiz Accuracy field open the existing Learning Statistics popup for the current Quiz word.
+- Added a small replaceable icon to Quiz Last that opens the existing Word Popup without advancing or changing the Quiz.
+- Updated README and detailed configuration documentation for the current v36 behavior.
+- No vocabulary/data changes in v36.
+
 Version 35
 ----------
 - Applied the locked V35 configuration baseline from the supplied configuration files.
